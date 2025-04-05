@@ -1,0 +1,269 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --primary: 120 39% 45%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 38 92% 50%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --accent: 142 71% 45%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --ring: 120 39% 45%;
+    --radius: 0.5rem;
+  }
+  
+  .light {
+    --background-image: url("/images/white-background.png");
+  }
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 120 39% 45%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 38 92% 50%;
+    --secondary-foreground: 24 9.8% 10%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 142 71% 45%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 120 39% 45%;
+    --background-image: url("/images/black-background.png");
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: var(--background-image);
+    background-repeat: repeat;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-pixel;
+  }
+}
+
+.minecraft-btn {
+  @apply relative inline-block px-4 py-2 font-pixel text-white bg-green-600 border-b-4 border-green-800 hover:bg-green-700 active:border-b-0 active:translate-y-1 transition-all duration-100 shadow-md;
+}
+
+.minecraft-btn::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-full border-2 border-black opacity-0 transition-opacity duration-100;
+}
+
+.minecraft-btn:hover::before {
+  @apply opacity-100;
+}
+
+.minecraft-card {
+  @apply relative border-2 shadow-md overflow-hidden;
+  image-rendering: pixelated;
+}
+
+.dark .minecraft-card {
+  @apply bg-gray-800 border-gray-900;
+}
+
+.light .minecraft-card {
+  @apply bg-gray-100 border-gray-300;
+}
+
+.minecraft-card::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-1;
+}
+
+.dark .minecraft-card::before {
+  @apply bg-gray-700;
+}
+
+.light .minecraft-card::before {
+  @apply bg-gray-200;
+}
+
+.minecraft-card::after {
+  content: "";
+  @apply absolute bottom-0 left-0 w-full h-1;
+}
+
+.dark .minecraft-card::after {
+  @apply bg-gray-900;
+}
+
+.light .minecraft-card::after {
+  @apply bg-gray-300;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+}
+
+.tag-pill {
+  @apply inline-flex items-center px-3 py-1 rounded-full text-xs font-medium;
+}
+
+.dark .tag-pill {
+  @apply bg-green-700 text-white;
+}
+
+.light .tag-pill {
+  @apply bg-green-600 text-white;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Add new styles for the enhanced cards */
+.aspect-video {
+  aspect-ratio: 16 / 9;
+}
+
+/* Rating stars styling */
+.rating-stars {
+  display: inline-flex;
+  position: relative;
+}
+
+.rating-stars-bg {
+  color: #4b5563;
+}
+
+.rating-stars-fg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-track {
+  background: #2d3748;
+  border-radius: 4px;
+}
+
+.light .custom-scrollbar::-webkit-scrollbar-track {
+  background: #e2e8f0;
+  border-radius: 4px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #4a5568;
+  border-radius: 4px;
+}
+
+.light .custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #a0aec0;
+  border-radius: 4px;
+}
+
+.dark .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #718096;
+}
+
+.light .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #718096;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-delay-100 {
+  animation-delay: 0.1s;
+}
+
+.animate-delay-200 {
+  animation-delay: 0.2s;
+}
+
+.animate-delay-300 {
+  animation-delay: 0.3s;
+}
+
+.animate-delay-400 {
+  animation-delay: 0.4s;
+}
+
+.animate-delay-500 {
+  animation-delay: 0.5s;
+}
+
+.animate-delay-600 {
+  animation-delay: 0.6s;
+}
+
+.animate-delay-700 {
+  animation-delay: 0.7s;
+}
+
+.animate-delay-800 {
+  animation-delay: 0.8s;
+}
+
