@@ -25,7 +25,7 @@ export default function Home() {
         <div className="container relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-8">
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-pixel tracking-tight">
-              <span className="text-primary">Minecraft</span><br/>像素语匠<br/>PixelLingual
+              <span className="text-primary">Minecraft</span> PixelLingual
               <br /><br />
               <span className="text-secondary">一个MC汉化工作室</span>
             </h1>

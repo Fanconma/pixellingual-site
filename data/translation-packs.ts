@@ -41,17 +41,17 @@ export const STUDIOS = [
   {
     id: "mojang",
     name: "Mojang Studios",
-    logo: "",
+    logo: "/images/studios/mojang.png",
   },
   {
     id: "everbloom",
     name: "Everbloom Games",
-    logo: "/placeholder.svg?height=200&width=200&text=Everbloom",
+    logo: "/images/studios/everbloom.webp",
   },
   {
     id: "gamemode-one",
     name: "Gamemode One",
-    logo: "/placeholder.svg?height=200&width=200&text=Gamemode One",
+    logo: "/images/studios/gamemodeone.avif",
   },
   {
     id: "noxcrew",
@@ -61,7 +61,7 @@ export const STUDIOS = [
   {
     id: "shapescapre",
     name: "Shapescape",
-    logo: "/placeholder.svg?height=200&width=200&text=Blockworks",
+    logo: "/images/studios/shapescape.png",
   },
   {
     id: "spark-universe",
@@ -82,6 +82,11 @@ export const STUDIOS = [
     id: "blockception",
     name: "Block ception",
     logo: "/images/studios/blockception.png",
+  },
+  {
+    id: "oreville",
+    name: "Oreville Studios",
+    logo: "/"
   }
 ]
 

@@ -266,5 +266,205 @@
           "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/ca042b53-8758-459d-89d2-e1b500b67334/screenshot_3.jpg",
           "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/ca042b53-8758-459d-89d2-e1b500b67334/screenshot_4.jpg"
         ]
+      },
+      {
+        "id": "LcKFIXD6V5",
+        "title": "机甲大战恐龙",
+        "description": "DestructoBots 回来了，准备保卫世界，抵抗恐龙大军。有了可定制的机甲、强化道具和 3 种爆炸性游戏模式，是时候准备与恐龙大王战斗了！",
+        "image": "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/e9ebc9e9-f328-4d90-b8cf-50eef9e03614/DestructoBot_vs_Dinosaurs_Thumbnail_0.jpg",
+        "tags": [
+          "冒险",
+          "解密"
+        ],
+        "updatedAt": "20221217",
+        "createdAt": "20221217",
+        "author": "Fanconma",
+        "studio": "noxcrew",
+        "sectionIds": [],
+        "rating": 4.5,
+        "price": 1170,
+        "downloadLink": "https://www.ilanzou.com/s/uAC0ajRA",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": false,
+        "isDLC": false,
+        "features": [],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/7b69e2a1-9c36-465c-9a8e-abdc6117cf7d/DestructoBot_vs_Dinosaurs_screenshot_0.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/7b69e2a1-9c36-465c-9a8e-abdc6117cf7d/DestructoBot_vs_Dinosaurs_screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/7b69e2a1-9c36-465c-9a8e-abdc6117cf7d/DestructoBot_vs_Dinosaurs_screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/7b69e2a1-9c36-465c-9a8e-abdc6117cf7d/DestructoBot_vs_Dinosaurs_screenshot_3.jpg"
+        ]
+      },
+      {
+        "id": "551J4ASYM2",
+        "title": "降世神通",
+        "description": "您是降世神通，光明与和平的化身，现在就在 Minecraft 中！掌握所有四种元素，并从降世神通小队和科拉小队学习新技能。在完成任务的同时与卡塔拉、祖寇和其他人会面，探索热门节目中的所有四个国家，并通过您最喜欢的角色的皮肤引导您内心的扭曲。",
+        "image": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/61c0b395-081c-4592-82ac-0a6b26689fbb/Avatar_Thumbnail_0.jpg",
+        "tags": [
+          "冒险",
+          "RPG",
+          "剧情"
+        ],
+        "updatedAt": "20221211",
+        "createdAt": "20221211",
+        "author": "Fanconma",
+        "studio": "gamemode-one",
+        "sectionIds": [
+          "dlc-content",
+          "popular-translations"
+        ],
+        "rating": 4.7,
+        "price": 1340,
+        "downloadLink": "https://www.ilanzou.com/s/eLm0a8Y4",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": true,
+        "isDLC": true,
+        "features": [
+          "注：翻译版本较老，可能部分内容未翻译。如有翻译需求请联系翻译作者。"
+        ],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/bb5554ac-c6eb-455f-91ad-38f0ecbbd305/Avatar_Screenshot_0.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/bb5554ac-c6eb-455f-91ad-38f0ecbbd305/Avatar_Screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/bb5554ac-c6eb-455f-91ad-38f0ecbbd305/Avatar_Screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/bb5554ac-c6eb-455f-91ad-38f0ecbbd305/Avatar_Screenshot_3.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/bb5554ac-c6eb-455f-91ad-38f0ecbbd305/Avatar_Screenshot_4.jpg"
+        ]
+      },
+      {
+        "id": "HbUmBTxfMo",
+        "title": "海滨故事",
+        "description": "体验属于您自己的平静海洋冒险！去钓鱼，在全新海洋生物群系中发现神奇生物。定制您的船，升级岛屿，用您捕获的鱼填满水族馆。充满秘密等着您去发现，朋友等着您去结交，生态系统等着您去清理，是时候开始您的海滨故事了！",
+        "image": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/1716ba77-42f5-4fbf-a0bb-7b725951791e/SeasideStory_Thumbnail_0.jpg",
+        "tags": [
+          "冒险",
+          "休闲"
+        ],
+        "updatedAt": "20221128",
+        "createdAt": "20221128",
+        "author": "Fanconma",
+        "studio": "gamemode-one",
+        "sectionIds": [
+          "popular-translations",
+          "free-maps",
+          "leisure"
+        ],
+        "rating": 4.5,
+        "price": 0,
+        "downloadLink": "https://www.ilanzou.com/s/GXw0a81e",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": true,
+        "isDLC": false,
+        "features": [],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2b6cf6-623a-4029-a9df-33d704767f4a/SeasideStory_screenshot_0.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2b6cf6-623a-4029-a9df-33d704767f4a/SeasideStory_screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2b6cf6-623a-4029-a9df-33d704767f4a/SeasideStory_screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2b6cf6-623a-4029-a9df-33d704767f4a/SeasideStory_screenshot_3.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2b6cf6-623a-4029-a9df-33d704767f4a/SeasideStory_screenshot_4.jpg"
+        ]
+      },
+      {
+        "id": "GtEvi7LmLb",
+        "title": "洞穴与山崖探险",
+        "description": "Minecraft Marketplace 的创建者 Spark Universe 为您带来了 Caves & Cliffs Explorers 地图。通过有趣的任务和轻松的游戏方式重建和升级倒塌的村庄，了解更新！",
+        "image": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/46f4bb93-3080-4bc7-888e-652459ac4331/Caves__Cliffs_Explorers_Thumbnail_0.jpg",
+        "tags": [
+          "冒险"
+        ],
+        "updatedAt": "20221116",
+        "createdAt": "20221116",
+        "author": "Fanconma",
+        "studio": "spark-universe",
+        "sectionIds": [
+          "popular-translations",
+          "free-maps",
+          "new-version-mc-explore"
+        ],
+        "rating": 4.5,
+        "price": 0,
+        "downloadLink": "https://www.ilanzou.com/s/5hB0a8KI",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": true,
+        "isDLC": false,
+        "features": [],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2c04d1-a8ae-4bab-b235-465898ed4b25/Caves__Cliffs_Explorers_screenshot_0.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2c04d1-a8ae-4bab-b235-465898ed4b25/Caves__Cliffs_Explorers_screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2c04d1-a8ae-4bab-b235-465898ed4b25/Caves__Cliffs_Explorers_screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/6a2c04d1-a8ae-4bab-b235-465898ed4b25/Caves__Cliffs_Explorers_screenshot_3.jpg"
+        ]
+      },
+      {
+        "id": "W2pQcUft0S",
+        "title": "寒冰怪物",
+        "description": "一个科学实验室被冰封并被废弃；在冰冷的深处，巨大的危险正在等待着。另一场惊心动魄的 Geo Descent Labs 探险即将开始！",
+        "image": "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/93ffa4e9-3936-4b29-a76c-efd696057be1/MonstersfromtheIce_Thumbnail_0.jpg",
+        "tags": [
+          "冒险",
+          "剧情"
+        ],
+        "updatedAt": "20221225",
+        "createdAt": "20221225",
+        "author": "Fanconma",
+        "studio": "noxcrew",
+        "sectionIds": [
+          "popular-translations"
+        ],
+        "rating": 4.6,
+        "price": 1170,
+        "downloadLink": "https://www.ilanzou.com/s/tke0a88e",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": true,
+        "isDLC": false,
+        "features": [],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/40ec85b0-4dfe-422b-b3ce-d4f63178efe9/MonstersfromtheIce_screenshot_3.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/40ec85b0-4dfe-422b-b3ce-d4f63178efe9/MonstersfromtheIce_screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/40ec85b0-4dfe-422b-b3ce-d4f63178efe9/MonstersfromtheIce_screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-title-b63a0803d3653643-20ca2/40ec85b0-4dfe-422b-b3ce-d4f63178efe9/MonstersfromtheIce_screenshot_0.jpg"
+        ]
+      },
+      {
+        "id": "5XvTZLn1AZ",
+        "title": "愤怒的小鸟",
+        "description": "猪又故伎重演，你必须阻止他们！扮演 Red、Chuck、Bomb 和 The Flock 的其他成员，你的任务是拯救你的朋友、拯救蛋并阻止讨厌的猪的宏伟计划。每救出一只鸟，你就会解锁一个拥有独特技能的新可玩角色，帮助你击倒更多猪并推倒更多塔！",
+        "image": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/203ff9c0-97e4-4c61-9518-54bf6c53208f/angrybirds_Thumbnail_0.jpg",
+        "tags": [
+          "冒险",
+          "剧情"
+        ],
+        "updatedAt": "20221114",
+        "createdAt": "20221114",
+        "author": "Fanconma",
+        "studio": "oreville",
+        "sectionIds": [
+          "dlc-content",
+          "popular-translations"
+        ],
+        "rating": 4.6,
+        "price": 1340,
+        "downloadLink": "https://www.ilanzou.com/s/Ftx0a83W",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": true,
+        "isDLC": true,
+        "features": [],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/046f7514-c4e8-4f0d-9955-c634b8580d76/angrybirds_screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/046f7514-c4e8-4f0d-9955-c634b8580d76/angrybirds_screenshot_0.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/046f7514-c4e8-4f0d-9955-c634b8580d76/angrybirds_screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/046f7514-c4e8-4f0d-9955-c634b8580d76/angrybirds_screenshot_3.jpg"
+        ]
       }
 ]

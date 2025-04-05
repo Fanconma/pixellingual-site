@@ -10,8 +10,7 @@ export default function ContactPage() {
         <div>
           <h1 className="text-3xl font-pixel mb-6">联系我们</h1>
           <p className="text-muted-foreground mb-8">
-            Have questions about our translations? Want to contribute to our project? Or just want to say hello? We'd
-            love to hear from you!
+          对我们的翻译有疑问？想为我们的项目做贡献？还是只想打个招呼？我们很乐意听到您的声音！
           </p>
 
           <div className="space-y-6">
@@ -20,8 +19,8 @@ export default function ContactPage() {
                 <Mail className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <h3 className="font-pixel text-lg">Email</h3>
-                <p className="text-muted-foreground">contact@pixellingual.com</p>
+                <h3 className="font-pixel text-lg">邮箱</h3>
+                <p className="text-muted-foreground">Fanconma@gmail.com</p>
               </div>
             </div>
 
@@ -30,8 +29,8 @@ export default function ContactPage() {
                 <MapPin className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <h3 className="font-pixel text-lg">Location</h3>
-                <p className="text-muted-foreground">Shanghai, China</p>
+                <h3 className="font-pixel text-lg">地址</h3>
+                <p className="text-muted-foreground">五湖四海，没有位置:)</p>
               </div>
             </div>
 
@@ -41,37 +40,34 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-pixel text-lg">Discord</h3>
-                <p className="text-muted-foreground">Join our Discord server: PixelLingual</p>
+                <p className="text-muted-foreground">加入我们的Discord服务器: PixelLingual</p>
               </div>
             </div>
           </div>
 
           <div className="mt-12">
-            <h2 className="text-2xl font-pixel mb-4">Frequently Asked Questions</h2>
+            <h2 className="text-2xl font-pixel mb-4">常见问题</h2>
             <div className="space-y-6">
               <div>
-                <h3 className="font-pixel text-lg">How can I contribute to translations?</h3>
+                <h3 className="font-pixel text-lg">我该怎么加入 PixelLingual？</h3>
                 <p className="text-muted-foreground">
-                  We welcome contributions from bilingual speakers! Please contact us with your experience and we'll
-                  guide you through our contributor onboarding process.
+                我们欢迎更多玩家的贡献！你可以和我发个邮件、加个好友(1139083856)随便聊一聊:)
                 </p>
               </div>
 
               <div>
                 <h3 className="font-pixel text-lg">
-                  Are your translations compatible with the latest Minecraft version?
+                  你提供的蓝奏云下载链接进去找不到下载按钮啊？
                 </h3>
                 <p className="text-muted-foreground">
-                  We strive to keep our translations up-to-date with the latest Minecraft Bedrock Edition. Each
-                  translation pack page indicates the compatible versions.
+                  手机端进入蓝奏云分享页面后，你需要点开对应的.mcpack文件，下方就会显示下载按钮。无需注册蓝奏云账号。
                 </p>
               </div>
 
               <div>
-                <h3 className="font-pixel text-lg">Can I request a specific map or mod to be translated?</h3>
+                <h3 className="font-pixel text-lg">我可以请求翻译特定的地图或Add-on吗？</h3>
                 <p className="text-muted-foreground">
-                  Yes! We take translation requests and prioritize them based on community interest. Please use the
-                  contact form to submit your request.
+                是的！我们接受翻译请求，并根据社区兴趣确定其优先顺序。请使用联系表提交您的请求。
                 </p>
               </div>
             </div>
@@ -80,7 +76,7 @@ export default function ContactPage() {
 
         <div>
           <div className="minecraft-card p-8">
-            <h2 className="text-2xl font-pixel mb-6">Send Us a Message</h2>
+            <h2 className="text-2xl font-pixel mb-6">给我们发送消息(暂时不可用)</h2>
             <form className="space-y-6">
               <div className="space-y-2">
                 <label htmlFor="name" className="font-pixel text-sm">
@@ -117,9 +113,9 @@ export default function ContactPage() {
           </div>
 
           <div className="mt-8 minecraft-card p-8">
-            <h2 className="text-2xl font-pixel mb-4">Join Our Community</h2>
+            <h2 className="text-2xl font-pixel mb-4">加入我们的社区</h2>
             <p className="text-muted-foreground mb-6">
-              Connect with other Minecraft enthusiasts and translators in our community platforms.
+              在我们的社区平台上与其他 Minecraft 爱好者和翻译者联系。
             </p>
 
             <div className="grid grid-cols-2 gap-4">
@@ -130,10 +126,10 @@ export default function ContactPage() {
                 GitHub
               </Button>
               <Button variant="outline" className="w-full">
-                Twitter
+                Bilibili
               </Button>
               <Button variant="outline" className="w-full">
-                Reddit
+                X (AKA Twitter)
               </Button>
             </div>
           </div>

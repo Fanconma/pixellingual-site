@@ -213,7 +213,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
                 </Button>
                 <Button variant="outline" size="icon" onClick={handleShare}>
                   <Share2 className="h-5 w-5" />
-                  <span className="sr-only">分享(暂不可用)</span>
+                  <span className="sr-only">分享</span>
                 </Button>
               </div>
 
@@ -296,7 +296,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
               <div className="minecraft-card p-6">
                 <h2 className="text-xl font-pixel mb-4">截图</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  截图功能待完善！尽情期待。
+                  截图功能正在测试中！敬请期待。
                   {/* {[1, 2, 3].map((index) => (
                     <div key={index} className="minecraft-card overflow-hidden">
                       

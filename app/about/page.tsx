@@ -23,8 +23,7 @@ export default function AboutPage() {
               About <span className="text-primary">PixelLingual</span>
             </h1>
             <p className="text-xl text-muted-foreground">
-              We're passionate about making Minecraft accessible to Chinese-speaking players through high-quality
-              translations of Bedrock Edition content.
+              我们希望通过我们的翻译包能让更多玩家领略到 Minecraft 地图的魅力。我们致力于为 Minecraft 基岩版市场地图提供高质量的中文翻译，让每个玩家都能享受无障碍的游戏体验。
             </p>
           </div>
         </div>
@@ -35,23 +34,18 @@ export default function AboutPage() {
         <div className="container">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="text-3xl font-pixel mb-6">Our Story</h2>
+              <h2 className="text-3xl font-pixel mb-6">背后的故事</h2>
               <div className="space-y-4">
                 <p>
-                  PixelLingual began in 2020 when a group of bilingual Minecraft enthusiasts noticed that many amazing
-                  Bedrock Edition maps, mods, and content were only available in English, creating a barrier for
-                  Chinese-speaking players.
+                  最初（2020年左右），我(Fanconma)偶然下想到一个“用日语打开Simburbia地图”的想法(我也忘了为什么了hhh)，结果进入地图后发现地图居然成为了日语。这使我产生了兴趣：这是否意味着我们可以通过类似的方法得到一个自己的中文翻译呢？经过一系列测试，如把中文内容放到ja_JP.lang，把语言文件单独成一个资源包，最终成功得到了我的第一个中文翻译包。
                 </p>
                 <p>
-                  What started as a small passion project quickly grew into a dedicated community effort. Our team of
-                  translators, developers, and Minecraft experts work together to ensure that language is never a
-                  barrier to enjoying the full Minecraft experience.
+                  自从那时开始，我开始翻译地图并和朋友一起游玩。朋友能够通过看“我敲的文字”来理解地图意思，这让我有一种很难说的成就感。再到后来，2022年4月左右，我和一个朋友(炎黄)尝试一起翻译了第一个地图，这让我开始对此产生浓厚的兴趣。
                 </p>
                 <p>
-                  Today, PixelLingual is proud to offer hundreds of high-quality translations, all completely free for
-                  the community. Our mission is to bridge cultures through gaming and make Minecraft truly accessible to
-                  everyone.
+                  现在，我已经翻译了很多张地图。虽然高中学业紧张，很久没有发过翻译包了，但我还会尽量坚持下去，这也就是创建这个新网站的原因:)
                 </p>
+                <p>由于篇幅限制没办法说太详细的内容，如果你真的感兴趣，可以点<a href="https://docs.qq.com/aio/DS2tVeUd3dkFaUEJ2" className="text-green-700">这里</a>查看详细的故事:)谢谢你</p>
               </div>
             </div>
             <div className="minecraft-card overflow-hidden">
@@ -120,7 +114,7 @@ export default function AboutPage() {
       {/* Our Process Section */}
       <section className="py-20 bg-muted/50">
         <div className="container">
-          <h2 className="text-3xl font-pixel mb-12 text-center">Our Translation Process</h2>
+          <h2 className="text-3xl font-pixel mb-12 text-center">翻译包の制作过程</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             <div className="relative">
@@ -128,10 +122,9 @@ export default function AboutPage() {
                 <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center font-pixel text-xl text-white">
                   1
                 </div>
-                <h3 className="font-pixel text-xl">Selection</h3>
+                <h3 className="font-pixel text-xl">选择地图</h3>
                 <p className="text-muted-foreground">
-                  We carefully select popular and high-quality Minecraft content that would benefit from Chinese
-                  translation.
+                  首先从 Minecraft 基岩版市场挑一张看起来比较好玩的地图:D
                 </p>
               </div>
               <div className="hidden md:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 text-4xl text-muted-foreground">
@@ -144,9 +137,9 @@ export default function AboutPage() {
                 <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center font-pixel text-xl text-white">
                   2
                 </div>
-                <h3 className="font-pixel text-xl">Translation</h3>
+                <h3 className="font-pixel text-xl">翻译</h3>
                 <p className="text-muted-foreground">
-                  Our team of bilingual translators works to create accurate and natural-sounding Chinese translations.
+                  翻译作者将地图中的英文文本导出并且结合互联网信息进行翻译。翻译作者会尽量保留原作者的意图和风格。
                 </p>
               </div>
               <div className="hidden md:block absolute top-1/2 right-0 transform translate-x-1/2 -translate-y-1/2 text-4xl text-muted-foreground">
@@ -159,10 +152,9 @@ export default function AboutPage() {
                 <div className="h-12 w-12 rounded-full bg-primary flex items-center justify-center font-pixel text-xl text-white">
                   3
                 </div>
-                <h3 className="font-pixel text-xl">Quality Assurance</h3>
+                <h3 className="font-pixel text-xl">翻译后的校对</h3>
                 <p className="text-muted-foreground">
-                  Each translation undergoes rigorous testing and review before being released to ensure quality and
-                  accuracy.
+                  大多数汉化包经过了翻译作者的校对。但由于团队人员不太够，还是很可能出现一些翻译错误的，尽情见谅:(
                 </p>
               </div>
             </div>
@@ -173,30 +165,21 @@ export default function AboutPage() {
       {/* Team Section */}
       <section className="py-20">
         <div className="container">
-          <h2 className="text-3xl font-pixel mb-12 text-center">Meet Our Team</h2>
+          <h2 className="text-3xl font-pixel mb-12 text-center">认识我们的团队</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             {[
               {
-                name: "Li Wei",
-                role: "Founder & Lead Translator",
+                name: "Fanconma",
+                role: "创建人",
                 image: "/placeholder.svg?height=400&width=400&text=Li Wei",
               },
               {
-                name: "Zhang Min",
-                role: "Senior Translator",
+                name: "没人拉！你来吗？",
+                role: "PixelLingual刚刚创建，所以暂时没什么人qwq",
                 image: "/placeholder.svg?height=400&width=400&text=Zhang Min",
               },
-              {
-                name: "Wang Chen",
-                role: "Technical Director",
-                image: "/placeholder.svg?height=400&width=400&text=Wang Chen",
-              },
-              {
-                name: "Liu Jia",
-                role: "Community Manager",
-                image: "/placeholder.svg?height=400&width=400&text=Liu Jia",
-              },
+              
             ].map((member, i) => (
               <div key={i} className="minecraft-card overflow-hidden">
                 <div className="relative h-64">
@@ -216,20 +199,19 @@ export default function AboutPage() {
       <section className="py-20 bg-primary/10">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-pixel">Join Our Community</h2>
+            <h2 className="text-3xl font-pixel">加入我们的社区</h2>
             <p className="text-muted-foreground">
-              Whether you're a player looking for translations or a translator wanting to contribute, we welcome you to
-              join our growing community.
+            无论您是寻求翻译的玩家还是想要做出贡献的翻译者，我们都欢迎您加入我们不断壮大的社区。
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="minecraft-btn">
                 <Link href="/market">
-                  Browse Translations
+                  浏览翻译包
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="/contact">Contact Us</Link>
+                <Link href="/contact">联系我们</Link>
               </Button>
             </div>
           </div>

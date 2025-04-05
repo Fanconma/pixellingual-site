@@ -117,7 +117,7 @@ export default function StudioPage({ params }: PageProps) {
 
           {studioPacks.length === 0 && (
             <div className="text-center py-12">
-              <h3 className="text-xl font-pixel mb-2">未找到翻译包</h3>
+              <h3 className="text-xl font-pixel mb-2">未找到工作室（工作室详情页仍未完工，敬请期待）</h3>
               <p className="text-muted-foreground">我们无法找到任何为 "{formattedStudio}" 工作室所创作的翻译包，也许工作室已改名或不存在？</p>
               <Button asChild className="minecraft-btn mt-4">
                 <Link href="/market">返回市场</Link>
