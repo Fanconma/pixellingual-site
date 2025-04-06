@@ -31,8 +31,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="text-muted-foreground hover:text-primary transition-colors">
-                  关于
+                <Link href="/join-us" className="text-muted-foreground hover:text-primary transition-colors">
+                  加入我们
                 </Link>
               </li>
               <li>

@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowLeft, Calendar, Star, Share2, Globe } from "lucide-react"
+import { ArrowLeft, Calendar, Star, Share2, Globe, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import DisclaimerPopup from "@/components/disclaimer-popup"
@@ -29,6 +29,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
   const [studioPacks, setStudioPacks] = useState([])
   const [similarPacks, setSimilarPacks] = useState([])
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false)
+  const [currentScreenshot, setCurrentScreenshot] = useState(0)
 
   // Scroll to top on page load
   useEffect(() => {
@@ -97,7 +98,18 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
         })
     }
   }
+  // 处理截图导航
+  const nextScreenshot = () => {
+    if (pack && pack.screenshots && pack.screenshots.length > 0) {
+      setCurrentScreenshot((prev) => (prev + 1) % pack.screenshots.length)
+    }
+  }
 
+  const prevScreenshot = () => {
+    if (pack && pack.screenshots && pack.screenshots.length > 0) {
+      setCurrentScreenshot((prev) => (prev - 1 + pack.screenshots.length) % pack.screenshots.length)
+    }
+  }
   if (!pack) {
     return (
       <div className="container py-20 text-center">
@@ -117,6 +129,8 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
   const hasHalfStar = pack.rating % 1 >= 0.5
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0)
   const ratingPercentage = (pack.rating / 5) * 100
+
+  const screenshots = pack.screenshots || []
 
   return (
     <div className="min-h-screen pb-20">
@@ -295,21 +309,88 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
             <TabsContent value="screenshots" className="mt-6">
               <div className="minecraft-card p-6">
                 <h2 className="text-xl font-pixel mb-4">截图</h2>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  截图功能正在测试中！敬请期待。
-                  {/* {[1, 2, 3].map((index) => (
-                    <div key={index} className="minecraft-card overflow-hidden">
+                
+                {screenshots.length > 0 ? (
+                  <div className="space-y-6">
+                    {/* 主要截图展示 */}
+                    <div className="relative minecraft-card overflow-hidden">
+                      <div className="aspect-video relative">
+                        <Image
+                          src={screenshots[currentScreenshot] || `/placeholder.svg?height=400&width=600&text=${pack.title} Screenshot`}
+                          alt={`Screenshot ${currentScreenshot + 1}`}
+                          fill
+                          className="object-cover"
+                        />
+                      </div>
                       
-                      <Image
-                        src={`${pack.screenshots[index]} Screenshot ${index}`}
-                        alt={`Screenshot ${index}`}
-                        width={600}
-                        height={400}
-                        className="w-full h-auto object-cover"
-                      /> 
+                      {/* 导航按钮 */}
+                      {screenshots.length > 1 && (
+                        <>
+                          <Button 
+                            variant="outline" 
+                            size="icon" 
+                            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm rounded-full"
+                            onClick={prevScreenshot}
+                          >
+                            <ChevronLeft className="h-4 w-4" />
+                            <span className="sr-only">前一张截图</span>
+                          </Button>
+                          
+                          <Button 
+                            variant="outline" 
+                            size="icon" 
+                            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 bg-background/80 backdrop-blur-sm rounded-full"
+                            onClick={nextScreenshot}
+                          >
+                            <ChevronRight className="h-4 w-4" />
+                            <span className="sr-only">下一张截图</span>
+                          </Button>
+                        </>
+                      )}
+                      
+                      {/* 截图计数器 */}
+                      <div className="absolute bottom-2 right-2 bg-background/80 backdrop-blur-sm px-2 py-1 rounded text-xs">
+                        {currentScreenshot + 1} / {screenshots.length}
+                      </div>
                     </div>
-                  ))} */}
-                </div>
+                    
+                    {/* 缩略图导航 */}
+                    {screenshots.length > 1 && (
+                      <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
+                        {screenshots.map((screenshot, index) => (
+                          <button
+                            key={index}
+                            className={`minecraft-card overflow-hidden ${index === currentScreenshot ? 'ring-2 ring-primary' : ''}`}
+                            onClick={() => setCurrentScreenshot(index)}
+                          >
+                            <div className="aspect-video relative">
+                              <Image
+                                src={screenshot || `/placeholder.svg?height=100&width=150&text=Thumb ${index + 1}`}
+                                alt={`Thumbnail ${index + 1}`}
+                                fill
+                                className="object-cover"
+                              />
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {[1, 2, 3].map((index) => (
+                      <div key={index} className="minecraft-card overflow-hidden">
+                        <Image
+                          src={`/placeholder.svg?height=400&width=600&text=${pack.title} Screenshot ${index}`}
+                          alt={`Screenshot ${index}`}
+                          width={600}
+                          height={400}
+                          className="w-full h-auto object-cover"
+                        />
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </TabsContent>
 
@@ -418,4 +499,3 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
     </div>
   )
 }
-

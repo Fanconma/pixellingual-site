@@ -1,14 +1,36 @@
 import Image from "next/image"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, Download, Globe, Users } from "lucide-react"
+import { ArrowRight, Download, Globe, Users, Heart } from "lucide-react"
 import { getMostRecentPacks } from "@/data/translation-packs"
 import TranslationPackCard from "@/components/translation-pack-card"
+import { ALL_DONORS } from "@/data/donors" // Deprecated
+import { fetchDonors } from "@/lib/afdian"
+import { Donor } from "@/types/donor"
+import type { Metadata } from "next"
 
-export default function Home() {
+export const metadata: Metadata = {
+  title: "PixelLingual - Minecraft中文翻译社区",
+  description: "PixelLingual专注于将Minecraft基岩版内容从英文翻译成中文。免费下载高质量的翻译文件，提升您的游戏体验。",
+  keywords: "Minecraft翻译, 中文翻译, 基岩版翻译, 免费Minecraft资源, 游戏本地化",
+}
+
+export default async function Home() {
   // Get the three most recent translation packs
   const recentPacks = getMostRecentPacks(3)
+  // 获取顶级支持者（钻石和黄金等级）
+    let donors: Donor[] = []
+  try {
+    donors = await fetchDonors()
+  } catch (e) {
+    console.error("获取爱发电数据失败:", e)
+  }
+  donors.sort((a, b) => b.amount - a.amount);
+  // 获取前3名赞助者（金额最高）
+  const topDonors = donors.slice(0, 3)
 
+  // 获取其他赞助者
+  const otherDonors = donors.slice(3)
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
@@ -35,11 +57,11 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="minecraft-btn">
                 <Link href="/market" className="flex items-center">
-                  <span>浏览翻译包<ArrowRight className="ml-2 h-4 w-4" /></span>
+                  <span className="flex items-center"><span>浏览翻译包</span><ArrowRight className="ml-2 h-4 w-4" /></span>
                 </Link>
               </Button>
               <Button asChild variant="outline" size="lg">
-                <Link href="/about">了解更多</Link>
+                <Link href="/join-us">了解更多</Link>
               </Button>
             </div>
           </div>
@@ -97,8 +119,10 @@ export default function Home() {
             <h2 className="text-3xl font-pixel">浏览汉化包</h2>
             <Button asChild variant="link" className="font-pixel">
               <Link href="/market">
-                查看全部
-                <ArrowRight className="ml-2 h-4 w-4" />
+              <span className="flex items-center">
+                  <span>查看全部</span>
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </span>
               </Link>
             </Button>
           </div>
@@ -107,6 +131,65 @@ export default function Home() {
             {recentPacks.map((pack) => (
               <TranslationPackCard key={pack.id} pack={pack} />
             ))}
+          </div>
+        </div>
+      </section>
+      {/* Our Supporters Section */}
+      <section className="py-20 bg-muted/50">
+        <div className="container">
+          <h2 className="text-3xl font-pixel mb-8 text-center">我们的支持者</h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            非常感谢这些出色的支持者，他们向为爱发电的翻译者们提供了无限的动力！情谊如灯，照亮彼此前行的路，这正是支持的真谛所在。感谢你们！！！
+            </p>
+<br />
+          {/* Top Supporters */}
+          <div className="mb-10">
+            <h3 className="text-xl font-pixel mb-4 flex items-center justify-center">
+            <Heart className="h-5 w-5 text-primary mr-2" /> Community Supporters
+            </h3>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+            {topDonors.map((donor) => (
+                <div key={donor.id} className="minecraft-card p-4 flex gap-4 border-primary/50">
+                  <div className="flex-shrink-0">
+                    <div className="relative w-16 h-16 rounded-full overflow-hidden">
+                      <Image src={donor.avatar || "/placeholder.svg"} alt={donor.name} fill className="object-cover" />
+                    </div>
+                  </div>
+                  <div className="flex-grow">
+                  <div className="flex items-center gap-2">
+                    <h4 className="font-pixel text-lg">{donor.name}</h4>
+                    <span className="text-xs bg-primary/20 text-primary px-2 py-0.5 rounded-full">
+                        ￥{donor.amount}
+                      </span>
+                    </div>
+                    <p className="text-sm text-muted-foreground mt-1">{donor.message}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Other Supporters - Only show names */}
+          <div>
+            <div className="minecraft-card p-6 max-w-4xl mx-auto">
+              <div className="flex flex-wrap justify-center gap-4">
+              {otherDonors.map((donor) => (
+                  <div key={donor.id} className="px-3 py-1 bg-primary/10 rounded-full flex items-center">
+                    <span className="font-pixel text-sm">{donor.name}</span>
+                    <span className="text-xs text-primary ml-2">${donor.amount}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center mt-10">
+            <Button asChild className="minecraft-btn">
+              <Link href="/donate">
+                成为支持者
+                <Heart className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -121,8 +204,10 @@ export default function Home() {
             </p>
             <Button asChild size="lg" className="minecraft-btn">
               <Link href="/market">
-                立刻探索全部汉化包
-                <ArrowRight className="ml-2 h-4 w-4" />
+              <span className="flex items-center">
+                  <span>立即探索全部汉化包</span>
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </span>
               </Link>
             </Button>
           </div>
