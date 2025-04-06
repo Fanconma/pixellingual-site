@@ -29,7 +29,7 @@ export default function StudioPage({ params }: PageProps) {
       setStudioInfo(foundStudio)
 
       // Filter packs by studio
-      const filtered = ALL_PACKS.filter((pack) => pack.studio === foundStudio.name)
+      const filtered = ALL_PACKS.filter((pack) => pack.studio.toLowerCase() === foundStudio.name.toLowerCase())
 
       setStudioPacks(filtered)
     }

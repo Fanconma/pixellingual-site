@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
+import Link from "next/link"
 import {
   Dialog,
   DialogContent,
@@ -21,11 +22,13 @@ interface DisclaimerPopupProps {
 
 export default function DisclaimerPopup({ isOpen, onClose, onAccept, packTitle }: DisclaimerPopupProps) {
   const [accepted, setAccepted] = useState(false)
+  const [termsAccepted, setTermsAccepted] = useState(false)
   const [dontShowAgain, setDontShowAgain] = useState(false)
 
   useEffect(() => {
     if (isOpen) {
       setAccepted(false)
+      setTermsAccepted(false)
     }
   }, [isOpen])
 
@@ -106,7 +109,7 @@ export default function DisclaimerPopup({ isOpen, onClose, onAccept, packTitle }
           </div>
         </div>
 
-        <div className="flex items-center space-x-2 mt-2">
+        <div className="flex items-start space-x-2 mt-2">
           <Checkbox id="accept" checked={accepted} onCheckedChange={(checked) => setAccepted(checked as boolean)} />
           <label
             htmlFor="accept"
@@ -116,7 +119,26 @@ export default function DisclaimerPopup({ isOpen, onClose, onAccept, packTitle }
           </label>
         </div>
 
-        <div className="flex items-center space-x-2 mt-2">
+        <div className="flex items-start space-x-2 mt-2">
+        <Checkbox
+            id="termsAccept"
+            checked={termsAccepted}
+            onCheckedChange={(checked) => setTermsAccepted(checked as boolean)}
+          />
+          <div className="grid gap-1.5 leading-none">
+            <label
+              htmlFor="termsAccept"
+              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+            >
+              我同意 PixelLingual 的
+              <Link href="/terms" className="text-primary hover:underline ml-1" target="_blank">
+                服务条款
+              </Link>
+            </label>
+          </div>
+        </div>
+
+        <div className="flex items-start space-x-2 mt-2">
           <Checkbox
             id="dontShowAgain"
             checked={dontShowAgain}
@@ -134,7 +156,7 @@ export default function DisclaimerPopup({ isOpen, onClose, onAccept, packTitle }
           <Button variant="outline" onClick={onClose}>
             取消
           </Button>
-          <Button className="minecraft-btn" disabled={!accepted} onClick={handleAccept}>
+          <Button className="minecraft-btn" disabled={!accepted || !termsAccepted} onClick={handleAccept}>
             接受 & 下载
           </Button>
         </DialogFooter>

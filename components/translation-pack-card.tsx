@@ -36,13 +36,13 @@ export default function TranslationPackCard({ pack, className, size = "default" 
 
           {isNew && (
             <div className="absolute top-2 right-2">
-              <span className="tag-pill">New</span>
+              <span className="tag-pill">新</span>
             </div>
           )}
 
           {!isNew && isUpdated && (
             <div className="absolute top-2 right-2">
-              <span className="tag-pill bg-blue-600">Updated</span>
+              <span className="tag-pill bg-blue-600">更新</span>
             </div>
           )}
         </div>
@@ -75,7 +75,7 @@ export default function TranslationPackCard({ pack, className, size = "default" 
                 ))}
               </div>
               <span className="text-xs font-medium text-gray-400">
-                {pack.price === 0 ? "FREE" : `${pack.price} MC`}
+                {pack.price === 0 ? "免费" : `${pack.price} MC`}
               </span>
             </div>
           </div>

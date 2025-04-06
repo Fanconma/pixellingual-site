@@ -66,7 +66,7 @@ export const STUDIOS = [
   {
     id: "spark-universe",
     name: "Spark Universe",
-    logo: "/placeholder.svg?height=200&width=200&text=PixelHeads",
+    logo: "/images/studios/sparkuniverse.webp",
   },
   {
     id: "cyclone",
@@ -76,7 +76,7 @@ export const STUDIOS = [
   {
     id: "jigarbov",
     name: "Jigarbov",
-    logo: "/placeholder.svg"
+    logo: "/images/studios/jigarbov.png"
   },
   {
     id: "blockception",
@@ -86,7 +86,7 @@ export const STUDIOS = [
   {
     id: "oreville",
     name: "Oreville Studios",
-    logo: "/"
+    logo: "/images/studios/oreville.png",
   }
 ]
 

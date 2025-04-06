@@ -57,8 +57,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/support" className="text-muted-foreground hover:text-primary transition-colors">
-                  支持
+                <Link href="/donate" className="text-muted-foreground hover:text-primary transition-colors">
+                  捐赠
                 </Link>
               </li>
               <li>
@@ -72,13 +72,21 @@ export default function Footer() {
           <div>
             <h3 className="font-pixel text-sm mb-4">Connect</h3>
             <div className="flex space-x-4">
-              <Link href="https://github.com/PixelLingual" className="text-muted-foreground hover:text-primary transition-colors">
-                <Github className="h-5 w-5" />
+              <Link href="https://github.com" className="text-muted-foreground hover:text-primary transition-colors">
+                <i className="fab fa-github h-5 w-5"></i>
                 <span className="sr-only">GitHub</span>
               </Link>
               <Link href="https://twitter.com" className="text-muted-foreground hover:text-primary transition-colors">
-                <Twitter className="h-5 w-5" />
-                <span className="sr-only">X</span>
+                <i className="fab fa-twitter h-5 w-5"></i>
+                <span className="sr-only">Twitter</span>
+              </Link>
+              <Link href="https://discord.com" className="text-muted-foreground hover:text-primary transition-colors">
+                <i className="fab fa-discord h-5 w-5"></i>
+                <span className="sr-only">Discord</span>
+              </Link>
+              <Link href="https://reddit.com" className="text-muted-foreground hover:text-primary transition-colors">
+                <i className="fab fa-reddit h-5 w-5"></i>
+                <span className="sr-only">Reddit</span>
               </Link>
             </div>
           </div>

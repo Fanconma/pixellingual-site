@@ -1,6 +1,6 @@
 "use client"
 
-import type React from "react"
+import React from "react"
 
 import { useRef } from "react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
@@ -67,7 +67,12 @@ export default function HorizontalScrollSection({
 
         <div ref={scrollContainerRef} className="overflow-x-auto scrollbar-hide pb-4 scroll-smooth">
           <div className="flex space-x-4" style={{ minWidth: "max-content" }}>
-            {children}
+            {/* 修复：将children包装在独立的div中，以防止悬停效果传播 */}
+            {React.Children.map(children, (child, index) => (
+              <div key={index} className="isolate">
+                {child}
+              </div>
+            ))}
           </div>
         </div>
 
