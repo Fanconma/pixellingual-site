@@ -43,7 +43,7 @@ export default function JoinPage() {
             </div>
             <h3 className="font-pixel text-xl">提升翻译技能</h3>
             <p className="text-muted-foreground">
-              通过实践提升你的翻译技能，学习游戏本地化的专业知识，获得宝贵的经验。
+              通过实践提升你的翻译技能，在翻译的过程中能有效学习英语语法、巩固词汇。
             </p>
           </div>
 
@@ -53,7 +53,7 @@ export default function JoinPage() {
             </div>
             <h3 className="font-pixel text-xl">抢先体验</h3>
             <p className="text-muted-foreground">
-              参与翻译项目的社区成员可以抢先体验最新的Minecraft内容和我们的翻译成果。
+              参与翻译项目的社区成员可以通过加入PLG服务器访问待翻译市场地图和我们的翻译成果。
             </p>
           </div>
         </div>
@@ -90,7 +90,7 @@ export default function JoinPage() {
                   <span>参与翻译术语表的维护</span>
                 </li>
               </ul>
-              <div className="text-sm text-muted-foreground">需要：中英文流利，热爱Minecraft，有责任心</div>
+              <div className="text-sm text-muted-foreground">需要：至少在中英文间有一种作为母语，热爱Minecraft，有责任心</div>
             </div>
           </div>
 
@@ -117,10 +117,10 @@ export default function JoinPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-secondary mr-2">•</span>
-                  <span>帮助创建和测试资源包</span>
+                  <span>创建和维护PLG服务器</span>
                 </li>
               </ul>
-              <div className="text-sm text-muted-foreground">需要：编程知识，了解Minecraft技术，解决问题的能力</div>
+              <div className="text-sm text-muted-foreground">需要：了解Javascript、React和NextJS框架基础；对Minecraft基岩版资源包有较深入了解；会开设BDS；有ScriptAPI(MCBE)的基础。满足四者之一即可。</div>
             </div>
           </div>
 
@@ -180,7 +180,7 @@ export default function JoinPage() {
                   <span>通过捐赠支持我们的工作</span>
                 </li>
               </ul>
-              <div className="text-sm text-muted-foreground">需要：热爱Minecraft，愿意支持社区发展</div>
+              <div className="text-sm text-muted-foreground">需要：一颗充满热情的心:) 谢谢你们！</div>
             </div>
           </div>
         </div>
@@ -196,7 +196,7 @@ export default function JoinPage() {
               <Sparkles className="h-8 w-8 text-primary" />
             </div>
             <h3 className="font-pixel text-lg mb-2">专属徽章</h3>
-            <p className="text-muted-foreground">活跃的社区成员可以获得专属的Discord徽章和网站标识。</p>
+            <p className="text-muted-foreground">活跃的社区成员可以获得专属的Discord徽章和网站相关标识。</p>
           </div>
 
           <div className="minecraft-card p-6 text-center">
@@ -204,7 +204,7 @@ export default function JoinPage() {
               <Gamepad2 className="h-8 w-8 text-secondary" />
             </div>
             <h3 className="font-pixel text-lg mb-2">抢先体验</h3>
-            <p className="text-muted-foreground">参与翻译的成员可以抢先体验最新的翻译内容和特别活动。</p>
+            <p className="text-muted-foreground">参与翻译的成员可以抢先体验最新的翻译内容和市场地图。</p>
           </div>
 
           <div className="minecraft-card p-6 text-center">
@@ -247,7 +247,7 @@ export default function JoinPage() {
           <div className="minecraft-card p-6">
             <h3 className="font-pixel text-lg mb-2">我需要有翻译经验吗？</h3>
             <p className="text-muted-foreground">
-              不需要！我们欢迎所有热爱Minecraft的人加入。我们有完整的培训和指导，帮助你开始翻译之旅。
+              不需要！我们欢迎所有热爱Minecraft的人加入。只需有初中英语水平和对翻译的热情即可。
             </p>
           </div>
 

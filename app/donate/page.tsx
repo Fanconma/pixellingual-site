@@ -57,7 +57,7 @@ donors.sort((a, b) => b.amount - a.amount);
             <p className="text-center text-muted-foreground mb-6">想要捐赠其他金额？在下方选择您的捐赠金额。</p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              {[1, 2, 10, 25, 100].map((amount) => (
+              {[1, 5, 10, 25, 100].map((amount) => (
                 <Link
                   key={amount}
                   href={`https://afdian.tv/order/create?user_id=fa5ea3824a1b11ec9f7052540025c377&custom_price=${amount}`}
@@ -145,21 +145,21 @@ donors.sort((a, b) => b.amount - a.amount);
               <div className="minecraft-card p-6">
                 <h3 className="font-pixel text-lg mb-2">赞助可以抵税吗？</h3>
                 <p className="text-muted-foreground">
-                  目前，PixelLingual不是注册的非营利组织，因此赞助不能抵税。我们正在努力在未来改变这一点。
+                  PixelLingual不是注册的非营利组织，因此赞助不能抵税。
                 </p>
               </div>
 
               <div className="minecraft-card p-6">
-                <h3 className="font-pixel text-lg mb-2">我不在美国，可以赞助吗？</h3>
+                <h3 className="font-pixel text-lg mb-2">我不在中国内地，可以赞助吗？</h3>
                 <p className="text-muted-foreground">
-                  是的！我们接受来自世界各地的赞助。支付处理器将自动转换您的货币。
+                  当然可以！感谢您的善心{"<"}3。爱发电支持的支付方式有：支付宝、微信支付、Paypal和Stripe。目前暂时没有使用 Patreon 的计划。
                 </p>
               </div>
 
               <div className="minecraft-card p-6">
                 <h3 className="font-pixel text-lg mb-2">如何让我的名字出现在支持者列表中？</h3>
                 <p className="text-muted-foreground">
-                  任何10美元或以上的赞助都会将您的名字添加到我们的支持者列表中。您可以在赞助过程中添加您的名字和可选的留言。
+                  任何金额的赞助都可以出现在支持者列表中，我们通过 API 自动拉取您的信息。您可以在赞助过程中添加一个可选的留言。
                 </p>
               </div>
             </div>
