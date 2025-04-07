@@ -195,7 +195,7 @@
           "tw"
         ],
         "isFeatured": true,
-        "isDLC": true,
+        "isDLC": false,
         "features": [],
         "screenshots": [
           "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/fa70e1ea-3a74-4cae-8464-c49cb0cf2c3a/GridRunnersPro_screenshot_1.jpg",
@@ -242,8 +242,8 @@
         "tags": [
           "小游戏"
         ],
-        "updatedAt": "20250405",
-        "createdAt": "20250405",
+        "updatedAt": "20220405",
+        "createdAt": "20220405",
         "author": "Fanconma",
         "studio": "mojang",
         "sectionIds": [
@@ -465,6 +465,77 @@
           "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/046f7514-c4e8-4f0d-9955-c634b8580d76/angrybirds_screenshot_0.jpg",
           "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/046f7514-c4e8-4f0d-9955-c634b8580d76/angrybirds_screenshot_2.jpg",
           "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/046f7514-c4e8-4f0d-9955-c634b8580d76/angrybirds_screenshot_3.jpg"
+        ]
+      },
+      {
+        "id": "1ceBfr7Aq5",
+        "title": "海绵宝宝",
+        "description": "孩子们，你们准备好了吗？是时候和你最喜欢的海底伙伴一起在 Minecraft 中冒险了！访问 Bikini Bottom，帮助让海绵宝宝、派大星、桑迪和朋友们今天成为有史以来最美好的一天。包含 40 种皮肤。\n由 Spark Universe 创建",
+        "image": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/5cc9b7c5-8891-43c2-87a4-f37109ae111e/SpongeBob_SquarePants_Thumbnail_0.jpg",
+        "tags": [
+          "冒险",
+          "休闲"
+        ],
+        "updatedAt": "20230105",
+        "createdAt": "20230105",
+        "author": "Fanconma",
+        "studio": "spark-universe",
+        "sectionIds": [
+          "dlc-content"
+        ],
+        "rating": 4.7,
+        "price": 1340,
+        "downloadLink": "https://www.ilanzou.com/s/EmI0CtDH",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": true,
+        "isDLC": true,
+        "features": [
+          "注：更新版本暂未翻译，可能出现部分英语内容，如有需求联系Fanconma~"
+        ],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/12af81d1-385f-4ff5-ad78-660ea7d9b15b/SpongeBob_SquarePants_screenshot_0.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/37932e37-adfb-4065-b07a-92b81d8f83c4/SpongeBob_SquarePants_screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/397f3fdc-b984-4dfa-92c6-b34af25e62fe/SpongeBob_SquarePants_screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/c9806184-400d-429e-ad99-7dd6aa516b56/SpongeBob_SquarePants_screenshot_3.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/f304767f-3caa-41e6-85db-f8932090db0c/SpongeBob_SquarePants_screenshot_4.jpg"
+        ]
+      },
+      {
+        "id": "aIeIKKoW3g",
+        "title": "维度传奇",
+        "description": "深入令人叹为观止的多维度宇宙，发现新的奇异动物，击败史诗级头目，最终战胜邪恶，拯救世界！\n\n- 身临其境的广阔维度\n- 新的生物、坐骑、纹理和音乐\n- 众多史诗级头目战斗\n- 令人着迷的故事情节、任务和谜语\n- 传奇武器和盔甲\n- 两个免费皮肤",
+        "image": "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/4c022dcb-25ad-4940-82d9-8a5b14248f10/LegendsOfDimensions_Thumbnail_0.jpg",
+        "tags": [
+          "冒险",
+          "解密"
+        ],
+        "updatedAt": "20230512",
+        "createdAt": "20230512",
+        "author": "Fanconma",
+        "studio": "mojang",
+        "sectionIds": [
+          "popular-translations"
+        ],
+        "rating": 4,
+        "price": 1170,
+        "downloadLink": "https://www.ilanzou.com/s/lD00CtOa",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": true,
+        "isDLC": false,
+        "features": [
+          "注：工作室作者为PANASCAIS，由于缺少资料暂时使用mojang替位；"
+        ],
+        "screenshots": [
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/ae7e026e-6a10-446f-8e81-902ed2693076/LegendsOfDimensions_screenshot_1.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/976e0223-f123-4120-bff2-a873b412db68/LegendsOfDimensions_screenshot_2.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/8167a75d-ab90-4633-88fd-a51c6a2f6886/LegendsOfDimensions_screenshot_3.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/7db779ee-a457-4ee7-bdaa-eee7c7d74fb4/LegendsOfDimensions_screenshot_4.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/4667c86c-1e6e-495f-9722-ab0e1180f4b6/LegendsOfDimensions_screenshot_5.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/11f95cd8-3ea4-4e94-91be-6a80b75c1e2c/LegendsOfDimensions_screenshot_6.jpg"
         ]
       }
 ]
