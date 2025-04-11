@@ -4,6 +4,7 @@ import { cn } from "@/lib/utils"
 import { Star } from "lucide-react"
 import type { TranslationPack } from "@/data/translation-packs"
 import { getPackStatus } from "@/data/translation-packs"
+import { STUDIOS } from "@/data/translation-packs"
 
 interface TranslationPackCardProps {
   pack: TranslationPack
@@ -13,7 +14,7 @@ interface TranslationPackCardProps {
 
 export default function TranslationPackCard({ pack, className, size = "default" }: TranslationPackCardProps) {
   const { isNew, isUpdated } = getPackStatus(pack)
-
+  const studio = STUDIOS.find((studio) => studio.id === pack.studio);
   return (
     <Link href={`/market/${pack.id}`} className={cn("group block", className)}>
       <div
@@ -50,7 +51,7 @@ export default function TranslationPackCard({ pack, className, size = "default" 
         <div className="p-3 bg-gray-900">
           <h3 className="font-pixel text-lg text-white break-words">{pack.title}</h3>
           <div className="flex justify-between items-center mt-1">
-            <span className="text-xs text-gray-400">{pack.studio}</span>
+            <span className="text-xs text-gray-400">{studio.name}</span>
             <div className="flex items-center">
               <div className="flex mr-2">
                 {[1, 2, 3, 4, 5].map((star) => (

@@ -11,7 +11,6 @@ import StudioCard from "@/components/studio-card"
 import HorizontalScrollSection from "@/components/horizontal-scroll-section"
 import SearchBar from "@/components/search-bar"
 import BackToTop from "@/components/back-to-top"
-import ThemeToggle from "@/components/theme-toggle"
 import {
   ALL_PACKS,
   FEATURED_PACKS,
@@ -122,9 +121,6 @@ export default function MarketPage() {
           />
         </div>
         <div className="container relative z-10">
-          <div className="absolute top-0 right-0 p-4">
-            <ThemeToggle />
-          </div>
 
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-pixel tracking-tight animate-fade-in">
@@ -150,7 +146,9 @@ export default function MarketPage() {
 
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
-                {FEATURED_PACKS.map((pack) => { if (pack.isFeatured) return(
+                {FEATURED_PACKS.map((pack) => { if (pack.isFeatured){
+                  const studio = STUDIOS.find((studio) => studio.id === pack.studio);
+                  return(
                   <div key={pack.id} className="flex-[0_0_100%] min-w-0 pl-4 md:flex-[0_0_50%] lg:flex-[0_0_50%]">
                     <Link href={`/market/${pack.id}`} className="block">
                       <div className="relative aspect-video overflow-hidden rounded-lg group">
@@ -166,7 +164,7 @@ export default function MarketPage() {
                           <h3 className="font-pixel text-xl text-white mb-2">{pack.title}</h3>
                           <p className="text-sm text-gray-300 line-clamp-2">{pack.description}</p>
                           <div className="flex items-center mt-2">
-                            <span className="text-xs text-gray-400 mr-4">{pack.studio}</span>
+                            <span className="text-xs text-gray-400 mr-4">{studio.name}</span>
                             <span className="text-xs text-primary flex items-center">
                               <span className="mr-1">价格:</span>
                               {pack.price === 0 ? "免费" : `${pack.price} MC`}
@@ -218,7 +216,7 @@ export default function MarketPage() {
                       </div>
                     </Link>
                   </div>
-                )})}
+                )}})}
               </div>
             </div>
           </div>
