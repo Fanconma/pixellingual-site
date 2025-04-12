@@ -177,7 +177,7 @@ export default function JoinPage() {
                 </li>
                 <li className="flex items-start">
                   <span className="text-primary mr-2">•</span>
-                  <span>通过捐赠支持我们的工作</span>
+                  <span>通过捐赠支持我们的翻译~</span>
                 </li>
               </ul>
               <div className="text-sm text-muted-foreground">需要：一颗充满热情的心:) 谢谢你们！</div>
@@ -226,10 +226,8 @@ export default function JoinPage() {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild size="lg" className="minecraft-btn">
-            <a href="https://discord.gg/pixellingual" target="_blank" rel="noopener noreferrer">
-              <svg className="h-5 w-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-.0196.0452-.0392.0851-.0588.1197-.0166.0296-.0359.0444-.0621.0516-2.0134.8383-4.0157.8383-4.0157.8383s-2.0023 0-4.0157-.8383c-.0262-.0072-.0455-.022-.0621-.0516-.0196-.0346-.0392-.0745-.0588-.1197-.1636-.3847-.3972-.8742-.6083-1.2495a.077.077 0 00-.0785-.0371 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0796 1.5322 4.0997 2.4593 6.0291 3.0582a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0105c.1202.099.246.1971.3728.2914a.077.077 0 01-.0066.1277c-.598.3428-1.2195.6447-1.8732.8923a.076.076 0 00-.0407.1057c.3574.698.7689 1.3628 1.225 1.9942a.076.076 0 00.0842.0276c1.9369-.6004 3.9575-1.5275 6.0372-3.0582a.077.077 0 00.0303-.0561c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286z" />
-              </svg>
+            <a href="https://discord.gg/m2mQScdxed" target="_blank" rel="noopener noreferrer">
+            <i className="fab fa-discord h-5 w-5"></i>
               加入Discord
             </a>
           </Button>
@@ -247,7 +245,7 @@ export default function JoinPage() {
           <div className="minecraft-card p-6">
             <h3 className="font-pixel text-lg mb-2">我需要有翻译经验吗？</h3>
             <p className="text-muted-foreground">
-              不需要！我们欢迎所有热爱Minecraft的人加入。只需有初中英语水平和对翻译的热情即可。
+              不需要！我们欢迎所有热爱Minecraft的人加入。只需有基础得英语水平和对翻译的热情即可。
             </p>
           </div>
 

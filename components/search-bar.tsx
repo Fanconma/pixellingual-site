@@ -34,7 +34,7 @@ export default function SearchBar({ onSearch, className }: SearchBarProps) {
     <div className={`relative ${className}`} data-search-input>
       <Input
         type="text"
-        placeholder="Search translations..."
+        placeholder="搜索翻译包..."
         className="pl-10 pr-10"
         value={query}
         onChange={(e) => setQuery(e.target.value)}

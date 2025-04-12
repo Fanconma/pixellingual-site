@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 import { useTheme } from "next-themes"
-import { Sun, Moon, Monitor } from "lucide-react"
+import { Sun, Moon, SunMoon } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 
@@ -53,7 +53,7 @@ export default function ThemeToggle() {
           ) : theme === "dark" ? (
             <Moon className="h-5 w-5" />
           ) : (
-            <Monitor className="h-5 w-5" />
+            <SunMoon className="h-5 w-5" />
           )}
           <span className="sr-only">Toggle theme</span>
         </Button>
@@ -68,7 +68,7 @@ export default function ThemeToggle() {
           <span>夜间</span>
         </DropdownMenuItem>
         <DropdownMenuItem onClick={() => handleThemeChange("system")}>
-          <Monitor className="mr-2 h-4 w-4" />
+          <SunMoon className="mr-2 h-4 w-4" />
           <span>系统</span>
         </DropdownMenuItem>
       </DropdownMenuContent>

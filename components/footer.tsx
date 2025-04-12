@@ -1,6 +1,5 @@
 import Link from "next/link"
 import Image from "next/image"
-import { Github, Twitter } from "lucide-react"
 
 export default function Footer() {
   return (
@@ -72,21 +71,21 @@ export default function Footer() {
           <div>
             <h3 className="font-pixel text-sm mb-4">Connect</h3>
             <div className="flex space-x-4">
-              <Link href="https://github.com" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://github.com/Fanconma/pixellingual-site" className="text-muted-foreground hover:text-primary transition-colors">
                 <i className="fab fa-github h-5 w-5"></i>
                 <span className="sr-only">GitHub</span>
               </Link>
-              <Link href="https://twitter.com" className="text-muted-foreground hover:text-primary transition-colors">
-                <i className="fab fa-twitter h-5 w-5"></i>
-                <span className="sr-only">Twitter</span>
+              <Link href="https://x.com/plg_project" className="text-muted-foreground hover:text-primary transition-colors">
+                <i className="fab fa-x-twitter h-5 w-5"></i>
+                <span className="sr-only">X</span>
               </Link>
-              <Link href="https://discord.com" className="text-muted-foreground hover:text-primary transition-colors">
+              <Link href="https://discord.gg/m2mQScdxed" className="text-muted-foreground hover:text-primary transition-colors">
                 <i className="fab fa-discord h-5 w-5"></i>
                 <span className="sr-only">Discord</span>
               </Link>
-              <Link href="https://reddit.com" className="text-muted-foreground hover:text-primary transition-colors">
-                <i className="fab fa-reddit h-5 w-5"></i>
-                <span className="sr-only">Reddit</span>
+              <Link href="https://space.bilibili.com/647647625" className="text-muted-foreground hover:text-primary transition-colors">
+                <i className="fab fa-bilibili h-5 w-5"></i>
+                <span className="sr-only">Bilibili</span>
               </Link>
             </div>
           </div>
@@ -94,6 +93,7 @@ export default function Footer() {
 
         <div className="mt-8 pt-8 border-t text-center text-sm text-muted-foreground">
           <p>© {new Date().getFullYear()} PixelLingual. All rights reserved.</p>
+          <p>"Minecraft" is a trademark of Mojang AB. PixelLingual is not affiliated in any way with Microsoft or Mojang AB.</p>
         </div>
       </div>
     </footer>

@@ -1,15 +1,16 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Press_Start_2P } from "next/font/google"
+import { Inter } from "next/font/google"
+import localFont from "next/font/local"
 import "./globals.css"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
-const pixelFont = Press_Start_2P({
-  weight: "400",
-  subsets: ["latin"],
+const pixelFont = localFont({
+  src: "./fonts/unifont-16.0.02.otf", // 相对于该文件的位置
+  weight: "500",           // 根据实际字体权重设置
   variable: "--font-pixel",
 })
 export const metadata: Metadata = {
@@ -50,13 +51,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
                 {/* 添加FontAwesome */}
-                <link
-          rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        />
+        <script src="https://kit.fontawesome.com/6fef774fe5.js" crossOrigin="anonymous"></script>
         {/* 添加结构化数据 */}
         <script
           type="application/ld+json"

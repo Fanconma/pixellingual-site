@@ -65,7 +65,7 @@ export default function TagPage({ params }: PageProps) {
 
           <div className="max-w-3xl mx-auto text-center space-y-4">
             <h1 className="text-3xl md:text-4xl font-pixel tracking-tight">
-              <span className="text-primary">{formattedTag}</span> Translations
+              <span className="text-primary">{formattedTag}</span> 翻译包
             </h1>
             <p className="text-muted-foreground">浏览我们所有{formattedTag.toLowerCase()}的翻译包</p>
           </div>

@@ -186,8 +186,8 @@ export default async function Home() {
           <div className="text-center mt-10">
             <Button asChild className="minecraft-btn">
               <Link href="/donate">
-                成为支持者
-                <Heart className="ml-2 h-4 w-4" />
+              <span className="flex items-center">成为支持者
+                <Heart className="ml-2 h-4 w-4" /></span>
               </Link>
             </Button>
           </div>

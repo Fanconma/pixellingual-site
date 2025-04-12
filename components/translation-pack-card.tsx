@@ -1,7 +1,7 @@
 import Image from "next/image"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
-import { Star } from "lucide-react"
+import StarRating from "./star-rating"
 import type { TranslationPack } from "@/data/translation-packs"
 import { getPackStatus } from "@/data/translation-packs"
 import { STUDIOS } from "@/data/translation-packs"
@@ -52,29 +52,8 @@ export default function TranslationPackCard({ pack, className, size = "default" 
           <h3 className="font-pixel text-lg text-white break-words">{pack.title}</h3>
           <div className="flex justify-between items-center mt-1">
             <span className="text-xs text-gray-400">{studio.name}</span>
-            <div className="flex items-center">
-              <div className="flex mr-2">
-                {[1, 2, 3, 4, 5].map((star) => (
-                  <Star
-                    key={star}
-                    className={cn(
-                      "h-3 w-3",
-                      star <= Math.floor(pack.rating)
-                        ? "text-yellow-500"
-                        : star - 0.5 <= pack.rating
-                          ? "text-yellow-500/50"
-                          : "text-gray-600",
-                    )}
-                    fill={
-                      star <= Math.floor(pack.rating)
-                        ? "currentColor"
-                        : star - 0.5 <= pack.rating
-                          ? "currentColor"
-                          : "none"
-                    }
-                  />
-                ))}
-              </div>
+            <div className="flex items-center ">
+              <StarRating rate={pack.rating}  />
               <span className="text-xs font-medium text-gray-400">
                 {pack.price === 0 ? "免费" : `${pack.price} MC`}
               </span>

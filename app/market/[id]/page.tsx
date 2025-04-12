@@ -16,6 +16,8 @@ import {
   getLanguageDisplayName,
 } from "@/data/translation-packs"
 import TranslationPackCard from "@/components/translation-pack-card"
+import StarRating from "@/components/star-rating"
+import { STUDIOS } from "@/data/translation-packs"
 
 interface PageProps {
   params: {
@@ -129,7 +131,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
   const hasHalfStar = pack.rating % 1 >= 0.5
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0)
   const ratingPercentage = (pack.rating / 5) * 100
-
+  const studio = STUDIOS.find((studio) => studio.id === pack.studio);
   const screenshots = pack.screenshots || []
 
   return (
@@ -178,15 +180,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
                     <span className="text-sm">评分</span>
                   </div>
                   <div className="flex items-center">
-                    <div className="flex">
-                      {[...Array(fullStars)].map((_, i) => (
-                        <Star key={`full-${i}`} className="h-4 w-4 text-yellow-500" fill="currentColor" />
-                      ))}
-                      {hasHalfStar && <Star className="h-4 w-4 text-yellow-500/50" fill="currentColor" />}
-                      {[...Array(emptyStars)].map((_, i) => (
-                        <Star key={`empty-${i}`} className="h-4 w-4 text-gray-600" />
-                      ))}
-                    </div>
+                    <StarRating rate={pack.rating} />
                     <span className="ml-2 font-pixel text-lg">{pack.rating.toFixed(1)}</span>
                   </div>
                 </div>
@@ -242,7 +236,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
                     href={`/market/studio/${pack.studio.toLowerCase().replace(/\s+/g, "-")}`}
                     className="hover:text-primary"
                   >
-                    {pack.studio}
+                    {studio.name}
                   </Link>
                 </div>
                 <div className="flex justify-between">
@@ -460,7 +454,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
       {studioPacks.length > 0 && (
         <section className="py-8 animate-fade-in animate-delay-200">
           <div className="container">
-            <h2 className="text-2xl font-pixel mb-6">更多来自 {pack.studio} 的地图翻译包</h2>
+            <h2 className="text-2xl font-pixel mb-6">更多来自 {studio.name} 的地图翻译包</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {studioPacks.map((studioPack) => (
