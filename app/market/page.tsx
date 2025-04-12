@@ -1,16 +1,38 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, useCallback } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Filter } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import TranslationPackCard from "@/components/translation-pack-card"
-import TagCard from "@/components/tag-card"
-import StudioCard from "@/components/studio-card"
-import HorizontalScrollSection from "@/components/horizontal-scroll-section"
 import SearchBar from "@/components/search-bar"
 import BackToTop from "@/components/back-to-top"
+import { useSearchParams } from "next/navigation"
+import useEmblaCarousel from "embla-carousel-react"
+import Autoplay from "embla-carousel-autoplay"
+import { throttle, debounce } from "@/lib/performance"
+import dynamic from "next/dynamic"
+
+// Dynamically import heavy components
+const TranslationPackCard = dynamic(() => import("@/components/translation-pack-card"), {
+  ssr: false,
+  loading: () => <div className="minecraft-card animate-pulse h-64"></div>,
+})
+
+const TagCard = dynamic(() => import("@/components/tag-card"), {
+  ssr: false,
+  loading: () => <div className="minecraft-card animate-pulse h-12"></div>,
+})
+
+const StudioCard = dynamic(() => import("@/components/studio-card"), {
+  ssr: false,
+  loading: () => <div className="minecraft-card animate-pulse h-24"></div>,
+})
+
+const HorizontalScrollSection = dynamic(() => import("@/components/horizontal-scroll-section"), {
+  ssr: false,
+})
+
 import {
   ALL_PACKS,
   FEATURED_PACKS,
@@ -20,9 +42,6 @@ import {
   getPacksBySectionId,
   getMostRecentPacks,
 } from "@/data/translation-packs"
-import { useSearchParams } from "next/navigation"
-import useEmblaCarousel from "embla-carousel-react"
-import Autoplay from "embla-carousel-autoplay"
 
 export default function MarketPage() {
   const searchParams = useSearchParams()
@@ -76,24 +95,26 @@ export default function MarketPage() {
   }, [selectedTag, searchQuery])
 
   // Handle infinite scroll
-  const handleScroll = () => {
+  const handleScroll = useCallback(
+    throttle(() => {
     if (!packListRef.current) return
 
     const { scrollTop, scrollHeight, clientHeight } = document.documentElement
     if (scrollTop + clientHeight >= scrollHeight - 300 && visiblePacks < filteredPacks.length) {
       setVisiblePacks((prev) => Math.min(prev + 6, filteredPacks.length))
     }
-  }
+  },200), [filteredPacks, visiblePacks],)
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
     return () => window.removeEventListener("scroll", handleScroll)
-  }, [filteredPacks, visiblePacks])
+  }, [filteredPacks, visiblePacks, handleScroll])
 
   // Handle search
-  const handleSearch = (query: string) => {
+  const handleSearch = useCallback(
+    debounce((query: string) => {
     setSearchQuery(query)
-  }
+  },300),[],)
 
   // Scroll to search input
   const scrollToSearch = () => {

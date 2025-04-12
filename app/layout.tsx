@@ -6,6 +6,7 @@ import "./globals.css"
 import Header from "@/components/header"
 import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
+import Preload from "./preload"
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const pixelFont = localFont({
@@ -73,6 +74,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.variable} ${pixelFont.variable} font-sans`}>
+      <Preload />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="flex min-h-screen flex-col">
             <Header />
