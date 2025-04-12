@@ -537,5 +537,71 @@
           "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/4667c86c-1e6e-495f-9722-ab0e1180f4b6/LegendsOfDimensions_screenshot_5.jpg",
           "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/11f95cd8-3ea4-4e94-91be-6a80b75c1e2c/LegendsOfDimensions_screenshot_6.jpg"
         ]
+      },
+      {
+        "id": "ZxAuELhyia",
+        "title": "《我的世界：山峰》",
+        "description": "这张惊险刺激的冒险地图灵感源自畅销书《我的世界：岛屿》作者马克斯·布鲁克斯的全新小说《我的世界：山峰》！探索书中的世界，以及盖伊和萨默留下的山脉基地。击败怪物，完成迷你游戏，并完成寻宝游戏，解锁奖励，将他们的基地据为己有！",
+        "image": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/dd0506de-161b-4449-97a3-e29bdb8e1406/TheMountain_thumbnail_0.jpg",
+        "tags": [
+          "生存",
+          "小游戏",
+          "剧情"
+        ],
+        "updatedAt": "20220918",
+        "createdAt": "20220918",
+        "author": "Fanconma",
+        "studio": "blockception",
+        "sectionIds": [
+          "free-maps"
+        ],
+        "rating": 4.5,
+        "price": 0,
+        "downloadLink": "https://www.ilanzou.com/s/fXk0B4eR",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": false,
+        "isDLC": false,
+        "features": [],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/326c5bea-4db4-4620-8e1f-a2f17ba5db3b/TheMountain_Screenshot_0.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/1bc59e02-3e4c-4e02-ada7-b5e85d5bee30/TheMountain_Screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/798e6377-44a7-4a88-94eb-4c25d5d5cd2a/TheMountain_Screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/a229bdf7-c6d7-42ae-b98c-3449d9e49a95/TheMountain_Screenshot_3.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/a2bf5efb-4552-4b8b-8276-95f3d232a539/TheMountain_Screenshot_4.jpg"
+        ]
+      },
+      {
+        "id": "3P21BjSKPM",
+        "title": "ZOMBIES",
+        "description": "体验前所未有的 Minecraft 体验。砍杀成群的亡灵僵尸。踏上史诗般的开放世界冒险之旅，成为世界上最知名的僵尸杀手。 - 观看预告片！ -\n\n+ 35 种不同的僵尸\n+ 13 种自定义武器\n+ 全新 3D 武器\n+ 史诗级僵尸 Boss 战\n+ 动画过场动画",
+        "image": "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/c6f9a412-0ca2-46a8-9b51-f50b7d3ddda1/ZOMBIES_Thumbnail_0.jpg",
+        "tags": [
+          "小游戏"
+        ],
+        "updatedAt": "20221023",
+        "createdAt": "20221023",
+        "author": "Fanconma",
+        "studio": "spark-universe",
+        "sectionIds": [],
+        "rating": 4.5,
+        "price": 1690,
+        "downloadLink": "https://www.ilanzou.com/s/Cal0B4o6",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": false,
+        "isDLC": false,
+        "features": [
+          "注：由于地图发行较早，本地化工作较难制作，游玩过程可能会因翻译包原因或版本更新导致出现BUG，敬请见谅。"
+        ],
+        "screenshots": [
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/c321cada-392b-45e1-9e08-ea57344ab7fe/ZOMBIES_screenshot_0.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/8a106457-3118-426d-82d2-73f832992d99/ZOMBIES_screenshot_1.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/e2b0c6e1-385d-43a7-8d76-ef5df360c00b/ZOMBIES_screenshot_2.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/ad9eb688-ecac-404e-9361-b6c0c16830ef/ZOMBIES_screenshot_3.jpg",
+          "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/e5e3ce58-4682-4fb4-ab9d-7d9c04954435/ZOMBIES_screenshot_4.jpg"
+        ]
       }
 ]
