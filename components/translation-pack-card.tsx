@@ -24,7 +24,7 @@ const TranslationPackCard = memo(function TranslationPackCard({
     <Link href={`/market/${pack.id}`} className={cn("group block", className)}>
       <div
         className={cn(
-          "minecraft-card overflow-hidden"
+          "minecraft-card overflow-hidden",
           pack.isFeatured ? "border-secondary border-2" : "",
           size === "large" ? "w-80" : "w-full",
         )}
