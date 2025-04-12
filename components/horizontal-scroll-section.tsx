@@ -1,12 +1,11 @@
 "use client"
 
-import React from "react"
-
-import { useRef } from "react"
+import React, { useRef, useCallback } from "react"
 import { ArrowLeft, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { throttle } from "@/lib/performance"
 
 interface HorizontalScrollSectionProps {
   title?: string
@@ -25,18 +24,22 @@ export default function HorizontalScrollSection({
 }: HorizontalScrollSectionProps) {
   const scrollContainerRef = useRef<HTMLDivElement>(null)
 
-  const scroll = (direction: "left" | "right") => {
-    if (!scrollContainerRef.current) return
+  // Throttle scroll function to improve performance
+  const scroll = useCallback(
+    throttle((direction: "left" | "right") => {
+      if (!scrollContainerRef.current) return
 
-    const container = scrollContainerRef.current
-    const scrollAmount = container.clientWidth * 0.8
+      const container = scrollContainerRef.current
+      const scrollAmount = container.clientWidth * 0.8
 
-    if (direction === "left") {
-      container.scrollBy({ left: -scrollAmount, behavior: "smooth" })
-    } else {
-      container.scrollBy({ left: scrollAmount, behavior: "smooth" })
-    }
-  }
+      if (direction === "left") {
+        container.scrollBy({ left: -scrollAmount, behavior: "smooth" })
+      } else {
+        container.scrollBy({ left: scrollAmount, behavior: "smooth" })
+      }
+    }, 300),
+    [],
+  )
 
   return (
     <div className={cn("relative", className)}>
@@ -65,9 +68,12 @@ export default function HorizontalScrollSection({
           <span className="sr-only">Scroll left</span>
         </Button>
 
-        <div ref={scrollContainerRef} className="overflow-x-auto scrollbar-hide pb-4 scroll-smooth">
+        <div
+          ref={scrollContainerRef}
+          className="overflow-x-auto scrollbar-hide pb-4 scroll-smooth"
+          style={{ willChange: "transform" }} // Optimize for GPU acceleration
+        >
           <div className="flex space-x-4" style={{ minWidth: "max-content" }}>
-            {/* 修复：将children包装在独立的div中，以防止悬停效果传播 */}
             {React.Children.map(children, (child, index) => (
               <div key={index} className="isolate">
                 {child}
@@ -89,4 +95,3 @@ export default function HorizontalScrollSection({
     </div>
   )
 }
-
