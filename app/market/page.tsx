@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef, useCallback } from "react"
+import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { Filter } from "lucide-react"
@@ -47,9 +47,32 @@ import {
 export default function MarketPage() {
   const searchParams = useSearchParams()
   const selectedTag = searchParams.get("tag")
-  const [visiblePacks, setVisiblePacks] = useState(12) // Initial number of packs to show
-  const [filteredPacks, setFilteredPacks] = useState(ALL_PACKS)
   const [searchQuery, setSearchQuery] = useState("")
+  const INITIAL_VISIBLE_PACKS = typeof window !== "undefined" && window.innerWidth < 768 ? 6 : 12; // Configurable constant
+  const [visiblePacks, setVisiblePacks] = useState(INITIAL_VISIBLE_PACKS) // Initial number of packs to show
+  const filteredPacks = useMemo(() => {
+    let filtered = ALL_PACKS;
+
+    // Apply tag filter if selected
+    if (selectedTag) {
+      filtered = filtered.filter((pack) => pack.tags.some((tag) => tag.toLowerCase() === selectedTag.toLowerCase()));
+    }
+
+    // Apply search filter if query exists
+    if (searchQuery) {
+      const query = searchQuery.toLowerCase();
+      filtered = filtered.filter(
+        (pack) =>
+          pack.title.toLowerCase().includes(query) ||
+          pack.description.toLowerCase().includes(query) ||
+          pack.tags.some((tag) => tag.toLowerCase().includes(query)) ||
+          pack.author.toLowerCase().includes(query) ||
+          pack.studio.toLowerCase().includes(query),
+      );
+    }
+
+    return filtered;
+  }, [ALL_PACKS, selectedTag, searchQuery]);
   const [isSearching, setIsSearching] = useState(false)
   const packListRef = useRef<HTMLDivElement>(null)
   const searchInputRef = useRef<HTMLDivElement>(null)
@@ -91,7 +114,7 @@ export default function MarketPage() {
       setIsSearching(false)
     }
 
-    setFilteredPacks(filtered)
+    // No need to set state for filteredPacks as it's now memoized
     setVisiblePacks(12) // Reset visible packs when filter changes
   }, [selectedTag, searchQuery])
 
