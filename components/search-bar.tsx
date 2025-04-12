@@ -1,9 +1,12 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import type React from "react"
+import { useState, useCallback } from "react"
 import { Search, X } from "lucide-react"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
+import { debounce } from "@/lib/performance"
+
 
 interface SearchBarProps {
   onSearch: (query: string) => void
@@ -13,22 +16,27 @@ interface SearchBarProps {
 export default function SearchBar({ onSearch, className }: SearchBarProps) {
   const [query, setQuery] = useState("")
 
-  const handleSearch = () => {
-    onSearch(query)
-  }
+  // Debounce search to prevent excessive re-renders
+  const debouncedSearch = useCallback(
+    debounce((value: string) => {
+      onSearch(value)
+    }, 300),
+    [onSearch],
+  )
 
-  const handleClear = () => {
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const value = e.target.value
+      setQuery(value)
+      debouncedSearch(value)
+    },
+    [debouncedSearch],
+  )
+
+  const handleClear = useCallback(() => {
     setQuery("")
     onSearch("")
-  }
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      onSearch(query)
-    }, 300)
-
-    return () => clearTimeout(timer)
-  }, [query, onSearch])
+  }, [onSearch])
 
   return (
     <div className={`relative ${className}`} data-search-input>
@@ -37,8 +45,8 @@ export default function SearchBar({ onSearch, className }: SearchBarProps) {
         placeholder="搜索翻译包..."
         className="pl-10 pr-10"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+        onChange={handleChange}
+        onKeyDown={(e) => e.key === "Enter" && onSearch(query)}
         autoFocus
       />
       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />

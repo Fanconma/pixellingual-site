@@ -1,32 +1,37 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { ArrowUp } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
+import { throttle } from "@/lib/performance"
 
 export default function BackToTop() {
   const [isVisible, setIsVisible] = useState(false)
 
-  useEffect(() => {
-    const toggleVisibility = () => {
+  // Throttle scroll event to improve performance
+  const toggleVisibility = useCallback(
+    throttle(() => {
       if (window.pageYOffset > 300) {
         setIsVisible(true)
       } else {
         setIsVisible(false)
       }
-    }
+    }, 200),
+    [],
+  )
 
+  useEffect(() => {
     window.addEventListener("scroll", toggleVisibility)
     return () => window.removeEventListener("scroll", toggleVisibility)
-  }, [])
+  }, [toggleVisibility])
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     })
-  }
+  }, [])
 
   return (
     <Button
@@ -43,4 +48,3 @@ export default function BackToTop() {
     </Button>
   )
 }
-
