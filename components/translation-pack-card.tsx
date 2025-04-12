@@ -24,11 +24,12 @@ const TranslationPackCard = memo(function TranslationPackCard({
     <Link href={`/market/${pack.id}`} className={cn("group block", className)}>
       <div
         className={cn(
-          "minecraft-card overflow-hidden transition-all duration-300 group-hover:shadow-xl transform group-hover:scale-[1.02]",
+          "minecraft-card overflow-hidden"
           pack.isFeatured ? "border-secondary border-2" : "",
           size === "large" ? "w-80" : "w-full",
         )}
-      >
+      >        {/* 使用内部容器进行缩放，而不是整个卡片 */}
+        <div className="transform transition-transform duration-300 group-hover:scale-[1.02]">
         <div className="relative aspect-video">
           <Image
             src={pack.image || "/placeholder.svg"}
@@ -39,17 +40,22 @@ const TranslationPackCard = memo(function TranslationPackCard({
             sizes={size === "large" ? "320px" : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"}
           />
 
-          {/* DLC Label */}
-          {pack.isDLC && <div className="absolute top-0 left-0 bg-yellow-500 text-black font-pixel px-4 py-1">DLC</div>}
+            {/* DLC Label - 现在不会随着卡片缩放而变形 */}
+            {pack.isDLC && (
+              <div className="absolute top-0 left-0 bg-yellow-500 text-black font-pixel px-4 py-1 z-10 transform-none">
+                DLC
+              </div>
+            )}
+      
 
           {isNew && (
-            <div className="absolute top-2 right-2">
+            <div className="absolute top-2 right-2 z-10 transform-none">
               <span className="tag-pill">新</span>
             </div>
           )}
 
           {!isNew && isUpdated && (
-            <div className="absolute top-2 right-2">
+            <div className="absolute top-2 right-2 z-10 transform-none">
               <span className="tag-pill bg-blue-600">更新</span>
             </div>
           )}
@@ -59,11 +65,12 @@ const TranslationPackCard = memo(function TranslationPackCard({
           <h3 className="font-pixel text-lg text-white break-words">{pack.title}</h3>
           <div className="flex justify-between items-center mt-1">
             <span className="text-xs text-gray-400">{studio.name}</span>
-            <div className="flex items-center ">
+            <div className="flex items-center transform-none">
               <StarRating rate={pack.rating}  />
               <span className="text-xs font-medium text-gray-400">
                 {pack.price === 0 ? "免费" : `${pack.price} MC`}
               </span>
+              </div>
             </div>
           </div>
         </div>
