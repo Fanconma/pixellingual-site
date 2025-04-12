@@ -134,7 +134,7 @@ export default function MarketPage() {
       <section className="relative py-12 md:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
-            src="/images/market.png"
+            src="/images/market.jpeg"
             alt="Minecraft marketplace"
             fill
             className="object-cover opacity-20"
