@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   title: "PixelLingual - Minecraft中文翻译工作室",
   description: "PixelLingual专注于将Minecraft基岩版内容从英文翻译成中文。免费下载高质量的翻译文件，提升您的游戏体验。",
   keywords: "Minecraft翻译, 中文翻译, 基岩版翻译, 免费Minecraft资源, 游戏本地化",
-  authors: [{ name: "PixelLingual Team" }],
+  authors: [{ name: "Fanconma" }],
   creator: "PixelLingual",
   publisher: "PixelLingual",
   openGraph: {
@@ -65,7 +65,7 @@ export default function RootLayout({
               logo: "https://pling.top/logo.png",
               description: "PixelLingual专注于将Minecraft基岩版内容从英文翻译成中文。",
               sameAs: [
-                "https://twitter.com/pixellingual",
+                "https://x.com/pixellingual",
                 "https://github.com/pixellingual",
                 "https://discord.gg/pixellingual",
               ],

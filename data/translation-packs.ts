@@ -1,7 +1,7 @@
 import featuredPacksData from './packs.json';
 
 export interface TranslationPack {
-  id: number
+  id: string
   title: string
   description: string
   image: string
@@ -237,22 +237,22 @@ export const getStudioById = (studioId: string) => {
 }
 
 // Get pack by ID
-export const getPackById = (packId: number): TranslationPack | undefined => {
+export const getPackById = (packId: string): TranslationPack | undefined => {
   return ALL_PACKS.find((pack) => pack.id === packId)
 }
 
 // Get packs by author
-export const getPacksByAuthor = (author: string, excludeId?: number): TranslationPack[] => {
+export const getPacksByAuthor = (author: string, excludeId?: string): TranslationPack[] => {
   return ALL_PACKS.filter((pack) => pack.author === author && (excludeId === undefined || pack.id !== excludeId))
 }
 
 // Get packs by studio
-export const getPacksByStudio = (studio: string, excludeId?: number): TranslationPack[] => {
+export const getPacksByStudio = (studio: string, excludeId?: string): TranslationPack[] => {
   return ALL_PACKS.filter((pack) => pack.studio === studio && (excludeId === undefined || pack.id !== excludeId))
 }
 
 // Get packs by tag
-export const getPacksByTag = (tag: string, excludeId?: number): TranslationPack[] => {
+export const getPacksByTag = (tag: string, excludeId?: string): TranslationPack[] => {
   return ALL_PACKS.filter((pack) => pack.tags.includes(tag) && (excludeId === undefined || pack.id !== excludeId))
 }
 

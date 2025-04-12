@@ -12,6 +12,7 @@ import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
 import { throttle, debounce } from "@/lib/performance"
 import dynamic from "next/dynamic"
+import Head from "next/head"
 
 // Dynamically import heavy components
 const TranslationPackCard = dynamic(() => import("@/components/translation-pack-card"), {
@@ -129,6 +130,11 @@ export default function MarketPage() {
   }
 
   return (
+    <>
+    <Head>
+      <title>翻译包市场 | PixelLingual像素语匠</title>
+      <meta name="description" content="浏览 PixelLingual 的翻译包市场！从市场中选择一个翻译包并下载。" />
+    </Head>
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
       <section className="relative py-12 md:py-20 overflow-hidden">
@@ -364,7 +370,7 @@ export default function MarketPage() {
 
       {/* Back to Top Button */}
       <BackToTop />
-    </div>
+    </div></>
   )
 }
 

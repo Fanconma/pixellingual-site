@@ -14,6 +14,7 @@ import {
   getPacksByTag,
   formatDate,
   getLanguageDisplayName,
+  TranslationPack,
 } from "@/data/translation-packs"
 import TranslationPackCard from "@/components/translation-pack-card"
 import StarRating from "@/components/star-rating"
@@ -27,9 +28,9 @@ interface PageProps {
 
 export default function TranslationPackDetailPage({ params }: PageProps) {
   const { id } = params
-  const [pack, setPack] = useState(null)
-  const [studioPacks, setStudioPacks] = useState([])
-  const [similarPacks, setSimilarPacks] = useState([])
+  const [pack, setPack] = useState<TranslationPack | null>(null)
+  const [studioPacks, setStudioPacks] = useState<TranslationPack[] | []>([])
+  const [similarPacks, setSimilarPacks] = useState<TranslationPack[] | []>([])
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false)
   const [currentScreenshot, setCurrentScreenshot] = useState(0)
 
@@ -66,7 +67,8 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
 
     if (disclaimerAccepted) {
       // Proceed directly to download
-      window.open(pack.downloadLink, "_blank")
+      if (pack)
+        window.open(pack.downloadLink, "_blank")
     } else {
       // Show disclaimer popup
       setIsDisclaimerOpen(true)
@@ -76,11 +78,13 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
   const handleDisclaimerAccept = () => {
     setIsDisclaimerOpen(false)
     // Proceed to download
-    window.open(pack.downloadLink, "_blank")
+    if (pack)
+      window.open(pack.downloadLink, "_blank")
   }
 
   const handleShare = () => {
     if (navigator.share) {
+      if (pack){
       navigator
         .share({
           title: pack.title,
@@ -88,12 +92,13 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
           url: window.location.href,
         })
         .catch((error) => console.log("Error sharing", error))
+      }
     } else {
       // Fallback for browsers that don't support the Web Share API
       navigator.clipboard
         .writeText(window.location.href)
         .then(() => {
-          alert("Link copied to clipboard!")
+          alert("链接已复制至剪贴板!")
         })
         .catch((err) => {
           console.error("Could not copy text: ", err)
@@ -236,7 +241,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
                     href={`/market/studio/${pack.studio.toLowerCase().replace(/\s+/g, "-")}`}
                     className="hover:text-primary"
                   >
-                    {studio.name}
+                    {studio ? studio.name : "无名氏"}
                   </Link>
                 </div>
                 <div className="flex justify-between">
@@ -354,6 +359,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
                         {screenshots.map((screenshot, index) => (
                           <button
                             key={index}
+                            title="继续"
                             className={`minecraft-card overflow-hidden ${index === currentScreenshot ? 'ring-2 ring-primary' : ''}`}
                             onClick={() => setCurrentScreenshot(index)}
                           >
@@ -454,7 +460,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
       {studioPacks.length > 0 && (
         <section className="py-8 animate-fade-in animate-delay-200">
           <div className="container">
-            <h2 className="text-2xl font-pixel mb-6">更多来自 {studio.name} 的地图翻译包</h2>
+            <h2 className="text-2xl font-pixel mb-6">更多来自 {studio ? studio.name : "无名氏"} 的地图翻译包</h2>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {studioPacks.map((studioPack) => (

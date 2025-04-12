@@ -4,16 +4,8 @@ import { Button } from "@/components/ui/button"
 import { ArrowRight, Download, Globe, Users, Heart } from "lucide-react"
 import { getMostRecentPacks } from "@/data/translation-packs"
 import TranslationPackCard from "@/components/translation-pack-card"
-import { ALL_DONORS } from "@/data/donors" // Deprecated
 import { fetchDonors } from "@/lib/afdian"
 import { Donor } from "@/types/donor"
-import type { Metadata } from "next"
-
-export const metadata: Metadata = {
-  title: "PixelLingual - Minecraft中文翻译社区",
-  description: "PixelLingual专注于将Minecraft基岩版内容从英文翻译成中文。免费下载高质量的翻译文件，提升您的游戏体验。",
-  keywords: "Minecraft翻译, 中文翻译, 基岩版翻译, 免费Minecraft资源, 游戏本地化",
-}
 
 export default async function Home() {
   // Get the three most recent translation packs
@@ -42,6 +34,7 @@ export default async function Home() {
             fill
             className="object-cover opacity-20 h-1800 w-full"
             priority
+            rel="preload"
           />
         </div>
         <div className="container relative z-10">
