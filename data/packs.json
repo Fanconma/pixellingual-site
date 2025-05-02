@@ -603,5 +603,41 @@
           "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/ad9eb688-ecac-404e-9361-b6c0c16830ef/ZOMBIES_screenshot_3.jpg",
           "https://xforgeassets001.xboxlive.com/pf-namespace-b63a0803d3653643/e5e3ce58-4682-4fb4-ab9d-7d9c04954435/ZOMBIES_screenshot_4.jpg"
         ]
+      },
+      {
+        "id": "5YaKY0ngEU",
+        "title": "阿凡达：成年仪式",
+        "description": "开启一段激动人心的“阿凡达”DLC之旅！\n成为奥马蒂卡亚部落的纳美人。掌握生存技能，体验传统的成年仪式。与女妖建立联系，攀登哈利路亚山，探索生物发光的雨林！沿途邂逅令人惊叹的生物和植物。",
+        "image": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/eb654db9-9ef9-4076-8775-786f7d34d6ed/Avatar_Thumbnail_0.jpg",
+        "tags": [
+          "冒险",
+          "剧情"
+        ],
+        "updatedAt": "20250502",
+        "createdAt": "20250502",
+        "author": "Fanconma",
+        "studio": "gamemode-one",
+        "sectionIds": [
+          "dlc-content",
+          "popular-translations"
+        ],
+        "rating": 4.3,
+        "price": 1510,
+        "downloadLink": "https://www.ilanzou.com/s/jJFZzvKP",
+        "languages": [
+          "cn"
+        ],
+        "isFeatured": true,
+        "isDLC": true,
+        "features": [
+          "此翻译包的译制工作使用了 Gemini 2.0 Flash 大语言模型辅助翻译。如有误译欢迎指正！"
+        ],
+        "screenshots": [
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/f984d325-5538-4fa5-b23f-3b780589b874/Avatar_Screenshot_0.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/8660bdb3-0f86-4b75-8e24-c383f40bc176/Avatar_Screenshot_1.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/7bbc66b0-e1ca-452e-bb60-28a1f11441a1/Avatar_Screenshot_2.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/d15ffadb-644c-4991-98eb-332ae0881b24/Avatar_Screenshot_3.jpg",
+          "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/0b4da984-e092-4270-ade1-1618110f9f62/Avatar_Screenshot_4.jpg"
+        ]
       }
 ]
