@@ -29,6 +29,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: "您查找的翻译包不存在或已被移除。",
     };
   }
+  
+  const ogImageUrl = new URL("/api/og", process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000")
+  ogImageUrl.searchParams.set("title", pack.title)
+  ogImageUrl.searchParams.set("description", pack.description)
+  ogImageUrl.searchParams.set("type", "pack")
+  ogImageUrl.searchParams.set("studio", pack.studio)
+  ogImageUrl.searchParams.set("tags", pack.tags.join(", "))
 
   return {
     title: `${pack.title}翻译包 | PixelLingual像素语匠`,
@@ -37,7 +44,14 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     openGraph: {
       title: `${pack.title}翻译包 - PixelLingual像素语匠`,
       description: pack.description,
-      images: [pack.image], // 确保 image 属性是一个 URL 字符串
+      images: [
+        {
+          url: ogImageUrl.toString(),
+          width: 1200,
+          height: 630,
+          alt: pack.title,
+        },
+      ], // 确保 image 属性是一个 URL 字符串
       type: "article",
     },
     twitter: {
