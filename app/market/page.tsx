@@ -191,9 +191,9 @@ export default function MarketPage() {
           name="keywords"
           content="Minecraft中文翻译, 基岩版翻译包, 免费Minecraft资源, 游戏中文本地化, Minecraft资源市场"
         />
-        <meta name="og:title" content={pageTitle} />
-        <meta name="og:description" content="浏览PixelLingual的Minecraft中文翻译市场。免费下载高质量的游戏内容翻译，提升您的游戏体验。" />
-        <meta name="og:url" content="https://pling.top/market" />
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:description" content="浏览PixelLingual的Minecraft中文翻译市场。免费下载高质量的游戏内容翻译，提升您的游戏体验。" />
+        <meta property="og:url" content="https://pling.top/market" />
       </Head>
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
