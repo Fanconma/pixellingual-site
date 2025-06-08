@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
+import { BackButton } from "@/components/back-btn"
 import { Home, Search } from "lucide-react"
 import type { Metadata } from "next"
 
@@ -58,16 +59,12 @@ export default function NotFoundPage() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild className="minecraft-btn">
-              <Link href="/">
-                <span><span><Home className="mr-2 h-4 w-4" /></span>
-                返回首页</span>
-              </Link>
-            </Button>
+            <BackButton>
+            </BackButton>
             <Button asChild variant="outline">
               <Link href="/market">
-                <Search className="mr-2 h-4 w-4" />
-                浏览翻译包
+                <Home className="mr-2 h-4 w-4" />
+                返回首页
               </Link>
             </Button>
           </div>
