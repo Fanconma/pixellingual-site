@@ -19,6 +19,8 @@ import {
 import TranslationPackCard from "@/components/translation-pack-card"
 import StarRating from "@/components/star-rating"
 import { STUDIOS } from "@/data/translation-packs"
+import { useRouter } from "next/navigation"
+import Head from "next/head"
 
 interface PageProps {
   params: {
@@ -28,6 +30,7 @@ interface PageProps {
 
 export default function TranslationPackDetailPage({ params }: PageProps) {
   const { id } = params
+  const router = useRouter()
   const [pack, setPack] = useState<TranslationPack | null>(null)
   const [studioPacks, setStudioPacks] = useState<TranslationPack[] | []>([])
   const [similarPacks, setSimilarPacks] = useState<TranslationPack[] | []>([])
@@ -47,6 +50,9 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
     if (packData) {
       setPack(packData)
 
+      // 动态设置页面标题
+      document.title = `${packData.title} | PixelLingual像素语匠`
+
       // Get more from this studio
       const studioPacksData = getPacksByStudio(packData.studio, packId).slice(0, 4)
       setStudioPacks(studioPacksData)
@@ -58,6 +64,8 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
         const tagPacksData = getPacksByTag(randomTag, packId).slice(0, 4)
         setSimilarPacks(tagPacksData)
       }
+    } else {
+      document.title = "翻译包未找到 | PixelLingual像素语匠"
     }
   }, [id])
 
@@ -119,6 +127,11 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
   }
   if (!pack) {
     return (
+      <>
+        <Head>
+          <title>翻译包未找到 | PixelLingual像素语匠</title>
+          <meta name="description" content="您查找的翻译包不存在或已被移除。" />
+        </Head>
       <div className="container py-20 text-center">
         <h2 className="text-2xl font-pixel mb-4">翻译包未找到</h2>
         <p className="text-muted-foreground mb-8">
@@ -128,6 +141,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
           <Link href="/market">返回市场</Link>
         </Button>
       </div>
+      </>
     )
   }
 
@@ -140,6 +154,23 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
   const screenshots = pack.screenshots || []
 
   return (
+    <>
+      <Head>
+        <title>{pack.title}翻译包 | PixelLingual像素语匠</title>
+        <meta name="description" content={pack.description} />
+        <meta
+          name="keywords"
+          content={`${pack.title} 中文翻译, ${pack.tags.join(", ")}, Minecraft基岩版翻译, ${pack.studio} 翻译`}
+        />
+        <meta property="og:title" content={`${pack.title} - PixelLingual`} />
+        <meta property="og:description" content={pack.description} />
+        <meta property="og:image" content={pack.image} />
+        <meta property="og:type" content="article" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${pack.title} - PixelLingual`} />
+        <meta name="twitter:description" content={pack.description} />
+        <meta name="twitter:image" content={pack.image} />
+      </Head>
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
       <section className="relative py-8 animate-fade-in">
@@ -497,5 +528,6 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
       {/* Back to Top Button */}
       <BackToTop />
     </div>
+    </>
   )
 }

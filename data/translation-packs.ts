@@ -80,7 +80,7 @@ export const STUDIOS = [
   },
   {
     id: "blockception",
-    name: "Block ception",
+    name: "Blockception",
     logo: "/images/studios/blockception.png",
   },
   {

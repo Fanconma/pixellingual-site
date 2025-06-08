@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import Head from "next/head"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import TranslationPackCard from "@/components/translation-pack-card"
@@ -32,6 +33,13 @@ export default function StudioPage({ params }: PageProps) {
       const filtered = ALL_PACKS.filter((pack) => pack.studio.toLowerCase() === foundStudio.name.toLowerCase())
 
       setStudioPacks(filtered)
+      
+      // 设置页面标题
+      document.title = `${foundStudio.name} 工作室翻译包 | PixelLingual像素语匠`
+    } else {
+      // 格式化工作室名称以供显示
+      const formattedStudio = studio.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
+      document.title = `${formattedStudio} 工作室翻译包 | PixelLingual像素语匠`
     }
   }, [studio])
 
@@ -56,6 +64,18 @@ export default function StudioPage({ params }: PageProps) {
     : studio.replace(/-/g, " ").replace(/\b\w/g, (l) => l.toUpperCase())
 
   return (
+        <>
+      <Head>
+        <title>{formattedStudio} 工作室翻译包 | PixelLingual像素语匠</title>
+        <meta
+          name="description"
+          content={`浏览工作室${formattedStudio}的Minecraft中文翻译包。PixelLingual为您提供高质量的游戏内容翻译。`}
+        />
+        <meta
+          name="keywords"
+          content={`${formattedStudio} Minecraft翻译, ${formattedStudio}中文资源包, Minecraft基岩版翻译, ${formattedStudio}游戏翻译`}
+        />
+      </Head>
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
       <section className="relative py-12 overflow-hidden">
@@ -127,6 +147,7 @@ export default function StudioPage({ params }: PageProps) {
         </div>
       </section>
     </div>
+    </>
   )
 }
 

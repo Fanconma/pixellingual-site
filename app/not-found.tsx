@@ -17,13 +17,13 @@ export default function NotFoundPage() {
               // Define the creeper face pattern
               const creeperPattern = [
                 [0, 0, 0, 0, 0, 0, 0, 0],
+                [0, 0, 0, 0, 0, 0, 0, 0],
                 [0, 1, 1, 0, 0, 1, 1, 0],
                 [0, 1, 1, 0, 0, 1, 1, 0],
                 [0, 0, 0, 1, 1, 0, 0, 0],
                 [0, 0, 1, 1, 1, 1, 0, 0],
                 [0, 0, 1, 1, 1, 1, 0, 0],
                 [0, 0, 1, 0, 0, 1, 0, 0],
-                [0, 0, 0, 0, 0, 0, 0, 0],
               ]
 
               return <div key={i} className={`${creeperPattern[row][col] ? "bg-black" : "bg-green-600"}`} />
@@ -41,8 +41,8 @@ export default function NotFoundPage() {
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button asChild className="minecraft-btn">
               <Link href="/">
-                <Home className="mr-2 h-4 w-4" />
-                返回首页
+                <span><span><Home className="mr-2 h-4 w-4" /></span>
+                返回首页</span>
               </Link>
             </Button>
             <Button asChild variant="outline">

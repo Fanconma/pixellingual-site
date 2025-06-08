@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import Link from "next/link"
+import Head from "next/head"
 import { ArrowLeft } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import TranslationPackCard from "@/components/translation-pack-card"
@@ -20,11 +21,15 @@ export default function TagPage({ params }: PageProps) {
   const [visiblePacks, setVisiblePacks] = useState(12)
   const [tagPacks, setTagPacks] = useState([])
   const packListRef = useRef<HTMLDivElement>(null)
+  const formattedTag = decodedTag.charAt(0).toUpperCase() + decodedTag.slice(1)
 
   useEffect(() => {
     const filtered = ALL_PACKS.filter((pack) => pack.tags.some((t) => t.toLowerCase() === decodedTag.toLowerCase()))
     setTagPacks(filtered)
-  }, [decodedTag])
+
+    // 设置页面标题
+    document.title = `${formattedTag} 翻译 - PixelLingual`
+  }, [decodedTag, formattedTag])
 
   // Handle infinite scroll
   const handleScroll = () => {
@@ -41,10 +46,19 @@ export default function TagPage({ params }: PageProps) {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [tagPacks, visiblePacks])
 
-  // Capitalize first letter of tag
-  const formattedTag = decodedTag.charAt(0).toUpperCase() + decodedTag.slice(1)
-
   return (
+        <>
+      <Head>
+        <title>{formattedTag}类翻译包 | PixelLingual像素语匠</title>
+        <meta
+          name="description"
+          content={`浏览PixelLingual的${formattedTag}类别翻译包。找到适合您的高质量Minecraft中文翻译资源。`}
+        />
+        <meta
+          name="keywords"
+          content={`Minecraft ${formattedTag}翻译包, 中文${formattedTag}资源包, Minecraft基岩版翻译, ${formattedTag}中文本地化`}
+        />
+      </Head>
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
       <section className="relative py-12 overflow-hidden">
@@ -106,6 +120,7 @@ export default function TagPage({ params }: PageProps) {
         </div>
       </section>
     </div>
+    </>
   )
 }
 

@@ -1,4 +1,12 @@
 import { Mail, MapPin, Phone } from "lucide-react"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "联系我们 | PixelLingual - Minecraft中文翻译社区",
+  description:
+    "与PixelLingual取得联系，与志同道合的Minecraft爱好者一起翻译游戏内容，分享乐趣，共同成长。无论你是翻译爱好者、Minecraft玩家还是开发者，都能在这里找到归属。",
+  keywords: "Minecraft社区, 加入翻译社区, Minecraft志愿者, 游戏翻译, 中文本地化",
+}
 
 export default function ContactPage() {
   return (

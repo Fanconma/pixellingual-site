@@ -1,7 +1,8 @@
 import Image from "next/image"
 import Link from "next/link"
-import { Button } from "@/components/ui/button"
 import { ArrowRight, Download, Globe, Users, Heart } from "lucide-react"
+
+import { Button } from "@/components/ui/button"
 import { getMostRecentPacks } from "@/data/translation-packs"
 import TranslationPackCard from "@/components/translation-pack-card"
 import { fetchDonors } from "@/lib/afdian"
@@ -10,18 +11,18 @@ import { Donor } from "@/types/donor"
 export default async function Home() {
   // Get the three most recent translation packs
   const recentPacks = getMostRecentPacks(3)
-  // 获取顶级支持者（钻石和黄金等级）
+  // Get donors. This will fetch the latest donors from 爱发电 (afdian).
     let donors: Donor[] = []
   try {
     donors = await fetchDonors()
   } catch (e) {
-    console.error("获取爱发电数据失败:", e)
+    console.error("Error fetching donors:", e)
   }
   donors.sort((a, b) => b.amount - a.amount);
-  // 获取前3名赞助者（金额最高）
+  // Get the top three donors
   const topDonors = donors.slice(0, 3)
 
-  // 获取其他赞助者
+  // Get the other donors (after the top three)
   const otherDonors = donors.slice(3)
   return (
     <div className="flex flex-col min-h-screen">
@@ -42,7 +43,7 @@ export default async function Home() {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-pixel tracking-tight">
               <span className="text-primary">像素语匠</span><br/> PixelLingual
               <br /><br />
-              <span className="text-secondary">一个MC汉化工作室</span>
+              <span className="text-secondary">用文字塑造世界</span>
             </h1>
             <p className="text-xl text-muted-foreground">
             一个为爱发电的Minecraft基岩版市场地图翻译计划。
@@ -76,7 +77,7 @@ export default async function Home() {
               <div className="h-12 w-12 rounded-lg bg-primary/20 flex items-center justify-center">
                 <Globe className="h-6 w-6 text-primary" />
               </div>
-              <h3 className="font-pixel text-xl">较准确的翻译</h3>
+              <h3 className="font-pixel text-xl">准确的翻译</h3>
               <p className="text-muted-foreground">
                 大多数的翻译作品由翻译作者人工翻译，并非使用机器翻译(MT)或大语言模型(LLM)复制粘贴。但有些作品翻译会参考 LLM 和 MT 给出的建议。
               </p>
@@ -129,7 +130,7 @@ export default async function Home() {
       </section>
       {/* Our Supporters Section */}
       <section className="py-20 bg-muted/50">
-        <div className="container">
+        <div className="text-center container">
           <h2 className="text-3xl font-pixel mb-8 text-center">我们的支持者</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             非常感谢这些出色的支持者，他们向为爱发电的翻译者们提供了无限的动力！情谊如灯，照亮彼此前行的路，这正是支持的真谛所在。感谢你们！！！
@@ -191,9 +192,9 @@ export default async function Home() {
       <section className="py-20 bg-primary/10">
         <div className="container">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h2 className="text-3xl font-pixel">准备好增强你的 Minecraft 体验了吗？</h2>
+            <h2 className="text-3xl font-pixel">准备好用中文玩市场包了吗？</h2>
             <p className="text-muted-foreground">
-            浏览我们高质量的翻译包集合并立即开始用中文玩 Minecraft。
+            浏览我们高质量的翻译包集合并立即开始用中文玩 Minecraft 市场包。
             </p>
             <Button asChild size="lg" className="minecraft-btn">
               <Link href="/market">

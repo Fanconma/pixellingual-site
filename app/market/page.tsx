@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Filter } from "lucide-react"
+import { Filter, DoorOpen } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import SearchBar from "@/components/search-bar"
 import BackToTop from "@/components/back-to-top"
@@ -48,6 +48,7 @@ export default function MarketPage() {
   const searchParams = useSearchParams()
   const selectedTag = searchParams.get("tag")
   const [searchQuery, setSearchQuery] = useState("")
+  const [pageTitle, setPageTitle] = useState("翻译包市场 | PixelLingual像素语匠")
   const INITIAL_VISIBLE_PACKS = typeof window !== "undefined" && window.innerWidth < 768 ? 6 : 12; // Configurable constant
   const [visiblePacks, setVisiblePacks] = useState(INITIAL_VISIBLE_PACKS) // Initial number of packs to show
   const filteredPacks = useMemo(() => {
@@ -89,6 +90,21 @@ export default function MarketPage() {
     [Autoplay({ delay: 5000, stopOnInteraction: false })],
   )
 
+  // 动态设置页面标题
+  useEffect(() => {
+    let title = "翻译市场 - PixelLingual"
+
+    if (selectedTag) {
+      const formattedTag = selectedTag.charAt(0).toUpperCase() + selectedTag.slice(1)
+      title = `${formattedTag} 翻译 - PixelLingual`
+    } else if (searchQuery) {
+      title = `搜索 "${searchQuery}" - PixelLingual`
+    }
+
+    setPageTitle(title)
+    document.title = title
+  }, [selectedTag, searchQuery])
+  
   // Filter packs based on selected tag and search query
   useEffect(() => {
     let filtered = ALL_PACKS
@@ -154,10 +170,17 @@ export default function MarketPage() {
 
   return (
     <>
-    <Head>
-      <title>翻译包市场 | PixelLingual像素语匠</title>
-      <meta name="description" content="浏览 PixelLingual 的翻译包市场！从市场中选择一个翻译包并下载。" />
-    </Head>
+      <Head>
+        <title>{pageTitle}</title>
+        <meta
+          name="description"
+          content="浏览PixelLingual的Minecraft中文翻译市场。免费下载高质量的游戏内容翻译，提升您的游戏体验。"
+        />
+        <meta
+          name="keywords"
+          content="Minecraft中文翻译, 基岩版翻译包, 免费Minecraft资源, 游戏中文本地化, Minecraft资源市场"
+        />
+      </Head>
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
       <section className="relative py-12 md:py-20 overflow-hidden">
@@ -174,7 +197,7 @@ export default function MarketPage() {
 
           <div className="max-w-3xl mx-auto text-center space-y-6">
             <h1 className="text-3xl md:text-4xl lg:text-5xl font-pixel tracking-tight animate-fade-in">
-            TRANSLATION <span className="text-primary">MARKETPLACE</span>
+            MARKETPLACE<br/> <span className="text-primary">TRANSLATION</span>
             </h1>
             <p className="text-lg text-muted-foreground animate-fade-in animate-delay-100">
               浏览我们精选的 Minecraft 英译中翻译包。所有翻译包均可免费下载。
@@ -296,7 +319,7 @@ export default function MarketPage() {
         <section className="py-8 animate-fade-in animate-delay-500">
           <div className="container">
             <div className="flex items-center mb-4">
-              <Filter className="h-5 w-5 mr-2" />
+              <DoorOpen className="h-5 w-5 mr-2" />
               <h2 className="text-xl font-pixel">按工作室浏览</h2>
             </div>
 
@@ -336,14 +359,14 @@ export default function MarketPage() {
         })}
 
       {/* Recent Translations Section - Only show when not searching */}
-      {/* {!isSearching && (
+      {!isSearching && (
         <section className="py-8 animate-fade-in animate-delay-700">
           <div className="container">
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-pixel">Recent Translations</h2>
-              <Button asChild variant="link" className="font-pixel">
+              <h2 className="text-2xl font-pixel">最新翻译</h2>
+              {/* <Button asChild variant="link" className="font-pixel">
                 <Link href="/market">View All</Link>
-              </Button>
+              </Button> */}
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -353,13 +376,13 @@ export default function MarketPage() {
             </div>
           </div>
         </section>
-      )} */}
+      )}
 
       {/* All Translation Packs or Search Results */}
       <section className="py-8 animate-fade-in animate-delay-800">
         <div className="container">
           <h2 className="text-2xl font-pixel mb-6">
-            {isSearching ? `Search Results for "${searchQuery}"` : "全部翻译包"}
+            {isSearching ? `"${searchQuery}" 的搜索结果` : "全部翻译包"}
           </h2>
 
           <div ref={packListRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
