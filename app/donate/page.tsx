@@ -14,8 +14,9 @@ export const metadata: Metadata = {
   keywords: "Minecraft捐赠, 支持Minecraft翻译, PixelLingual支持者, Minecraft中文翻译",
   openGraph: {
     url: "https://pling.top/donate",
-    title: "支持我们 | PixelLingual像素语匠",
+    title: "支持我们 - PixelLingual像素语匠",
     description: "通过捐赠支持PixelLingual继续为社区提供高质量的Minecraft中文翻译。您的支持将帮助我们扩展翻译内容并提高质量。",
+    images: "/logo-short.png",
   },
   twitter: {
     card: "summary_large_image",
