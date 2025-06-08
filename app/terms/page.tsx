@@ -1,5 +1,23 @@
 import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
+import type { Metadata } from "next"
+
+export const metadata: Metadata = {
+  title: "服务条款 | Pixellingual像素语匠",
+  description: "通过访问或使用本服务，您同意受本条款约束。如果您不同意本条款的任何部分，请您立即退出 PixelLingual 网站并暂停使用 PixelLingual 的一切服务。",
+  openGraph: {
+    url: "https://pling.top/terms",
+    title: "服务条款 | Pixellingual像素语匠",
+    description: "通过访问或使用本服务，您同意受本条款约束。如果您不同意本条款的任何部分，请您立即退出 PixelLingual 网站并暂停使用 PixelLingual 的一切服务。",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PixelLingual - Minecraft中文翻译工作室",
+    description: "免费下载高质量的Minecraft基岩版中文翻译，提升您的游戏体验。",
+    images: "/logo-short.png",
+    creator: "@pixellingual",
+  },
+}
 
 export default function TermsPage() {
   return (

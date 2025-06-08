@@ -4,10 +4,20 @@ import type { Metadata } from "next"
 import { Users, MessageSquare, Code, ImportIcon as Translate, Gamepad2, Heart, Sparkles } from "lucide-react"
 
 export const metadata: Metadata = {
-  title: "加入我们 | PixelLingual - Minecraft中文翻译社区",
+  title: "加入我们 | PixelLingual像素语匠",
   description:
     "加入PixelLingual社区，与志同道合的Minecraft爱好者一起翻译游戏内容，分享乐趣，共同成长。无论你是翻译爱好者、Minecraft玩家还是开发者，都能在这里找到归属。",
   keywords: "Minecraft社区, 加入翻译社区, Minecraft志愿者, 游戏翻译, 中文本地化",
+  openGraph: {
+    url: "https://pling.top/join-us",
+    title: "加入我们 | PixelLingual像素语匠",
+    description: "加入PixelLingual社区，与志同道合的Minecraft爱好者一起翻译游戏内容，分享乐趣，共同成长。无论你是翻译爱好者、Minecraft玩家还是开发者，都能在这里找到归属。",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PixelLingual - Minecraft中文翻译工作室",
+    description: "免费下载高质量的Minecraft基岩版中文翻译，提升您的游戏体验。",
+  },
 }
 
 export default function JoinPage() {

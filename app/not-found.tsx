@@ -1,9 +1,28 @@
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Home, Search } from "lucide-react"
+import type { Metadata } from "next"
 
+export const metadata: Metadata = {
+  title: "404 - 页面未找到 | PixelLingual像素语匠",
+  description: "当前访问的页面并不存在~_~",
+  openGraph: {
+    type: "website",
+    url: "https://pling.top/404",
+    title: "404 - 页面未找到 | PixelLingual像素语匠",
+    description: "当前访问的页面并不存在~_~",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "404 - 页面未找到 | PixelLingual像素语匠",
+    description: "免费下载高质量的Minecraft基岩版中文翻译，提升您的游戏体验。",
+    images: "/logo-short.png",
+    creator: "@pixellingual",
+  },
+}
 export default function NotFoundPage() {
   return (
+    
     <div className="min-h-screen flex flex-col items-center justify-center p-4">
       <div className="max-w-2xl w-full text-center space-y-8">
         {/* Minecraft-style creeper face */}

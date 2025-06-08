@@ -2,10 +2,20 @@ import { Mail, MapPin, Phone } from "lucide-react"
 import type { Metadata } from "next"
 
 export const metadata: Metadata = {
-  title: "联系我们 | PixelLingual - Minecraft中文翻译社区",
+  title: "联系我们 | PixelLingual像素语匠",
   description:
     "与PixelLingual取得联系，与志同道合的Minecraft爱好者一起翻译游戏内容，分享乐趣，共同成长。无论你是翻译爱好者、Minecraft玩家还是开发者，都能在这里找到归属。",
   keywords: "Minecraft社区, 加入翻译社区, Minecraft志愿者, 游戏翻译, 中文本地化",
+    openGraph: {
+    url: "https://pling.top/contact",
+    title: "联系我们 | PixelLingual像素语匠",
+    description: "与PixelLingual取得联系，与志同道合的Minecraft爱好者一起翻译游戏内容，分享乐趣，共同成长。无论你是翻译爱好者、Minecraft玩家还是开发者，都能在这里找到归属。",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "PixelLingual - Minecraft中文翻译工作室",
+    description: "免费下载高质量的Minecraft基岩版中文翻译，提升您的游戏体验。",
+  },
 }
 
 export default function ContactPage() {
@@ -96,7 +106,7 @@ export default function ContactPage() {
                 加载 Microsoft Form...
               </iframe>
               <p className="text-xs text-muted-foreground mt-4 text-center">
-              Powered by Microsoft Forms. Your information will be handled according to our privacy policy.
+              Powered by Microsoft Forms. Your information will be handled according to their privacy policy.
             </p>
           </div>
           </div>
