@@ -12,6 +12,7 @@ export const metadata: Metadata = {
     url: "https://pling.top/join-us",
     title: "加入我们 | PixelLingual像素语匠",
     description: "加入PixelLingual社区，与志同道合的Minecraft爱好者一起翻译游戏内容，分享乐趣，共同成长。无论你是翻译爱好者、Minecraft玩家还是开发者，都能在这里找到归属。",
+    images: "/logo-short.png",
   },
   twitter: {
     card: "summary_large_image",
