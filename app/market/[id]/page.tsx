@@ -33,9 +33,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   return {
     title: `${pack.title}翻译包 | PixelLingual像素语匠`,
     description: pack.description,
-    keywords: `${pack.title} 中文翻译, ${pack.tags.join(", ")}, Minecraft基岩版翻译, ${pack.studio} 翻译`,
+    keywords: `${pack.title} 中文翻译, ${pack.tags.join(", ")}, Minecraft基岩版翻译, ${pack.studio} 翻译下载`,
     openGraph: {
-      title: `${pack.title} - PixelLingual`,
+      title: `${pack.title}翻译包 - PixelLingual像素语匠`,
       description: pack.description,
       images: [pack.image], // 确保 image 属性是一个 URL 字符串
       type: "article",

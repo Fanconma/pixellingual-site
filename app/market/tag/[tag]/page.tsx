@@ -1,126 +1,110 @@
-"use client"
+import { Metadata } from 'next'; 
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
-import { useState, useEffect, useRef, use } from "react"
-import Image from "next/image"
-import Link from "next/link"
-import Head from "next/head"
-import { ArrowLeft } from "lucide-react"
-import { Button } from "@/components/ui/button"
-import TranslationPackCard from "@/components/translation-pack-card"
-import { ALL_PACKS } from "@/data/translation-packs"
+import { ALL_PACKS, TranslationPack } from "@/data/translation-packs"; // 导入 ALL_PACKS 和 TranslationPack 类型
+// 导入客户端组件
+import TagClient from "./tag-client";
 
 interface PageProps {
   params: {
-    tag: string
-  }
+    tag: string; // URL 编码后的标签 slug
+  };
 }
 
-export default function TagPage({ params }: PageProps) {
-  const { tag } = use(params)
-  const decodedTag = decodeURIComponent(tag)
-  const [visiblePacks, setVisiblePacks] = useState(12)
-  const [tagPacks, setTagPacks] = useState([])
-  const packListRef = useRef<HTMLDivElement>(null)
-  const formattedTag = decodedTag.charAt(0).toUpperCase() + decodedTag.slice(1)
+// 辅助函数：格式化标签以供显示
+function formatTagForDisplay(tagSlug: string): string {
+  const decodedTag = decodeURIComponent(tagSlug);
+  return decodedTag.charAt(0).toUpperCase() + decodedTag.slice(1);
+}
 
-  useEffect(() => {
-    const filtered = ALL_PACKS.filter((pack) => pack.tags.some((t) => t.toLowerCase() === decodedTag.toLowerCase()))
-    setTagPacks(filtered)
+// --------------------------------------------------------
+// 1. generateMetadata 函数 (用于服务器端生成 <head> 标签)
+// --------------------------------------------------------
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const decodedTag = decodeURIComponent(params.tag);
+  const formattedTag = formatTagForDisplay(params.tag);
 
-    // 设置页面标题
-    document.title = `${formattedTag} 翻译 - PixelLingual`
-  }, [decodedTag, formattedTag])
+  // 在服务器端过滤包以获取元数据相关信息
+  const filteredPacks = ALL_PACKS.filter((pack) =>
+    pack.tags.some((t) => t.toLowerCase() === decodedTag.toLowerCase())
+  );
 
-  // Handle infinite scroll
-  const handleScroll = () => {
-    if (!packListRef.current) return
+  let description: string;
+  let keywords: string;
+  let ogImage: string = "/placeholder.svg"; // 默认占位符图片
 
-    const { scrollTop, scrollHeight, clientHeight } = document.documentElement
-    if (scrollTop + clientHeight >= scrollHeight - 300 && visiblePacks < tagPacks.length) {
-      setVisiblePacks((prev) => Math.min(prev + 6, tagPacks.length))
-    }
+  if (filteredPacks.length > 0) {
+    description = `浏览PixelLingual的${formattedTag}类别翻译包。找到适合您的高质量Minecraft中文翻译资源。`;
+    keywords = `Minecraft ${formattedTag}翻译包, 中文${formattedTag}资源包, Minecraft基岩版翻译, ${formattedTag}中文本地化, ${formattedTag}翻译, ${formattedTag}模组翻译`;
+    // 使用第一个包的图片作为 OG 图片
+    ogImage = filteredPacks[0].image || "/placeholder.svg";
+  } else {
+    // 如果该标签下未找到任何包
+    description = `我们无法找到任何带有标签"${formattedTag}"的翻译包。`;
+    keywords = `未找到翻译包, ${formattedTag}翻译, Minecraft翻译`;
+    // ogImage 保持为默认值
   }
 
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [tagPacks, visiblePacks])
+  return {
+    title: `${formattedTag}类翻译包 | PixelLingual像素语匠`,
+    description: description,
+    keywords: keywords,
+    openGraph: {
+      title: `${formattedTag}类翻译包 - PixelLingual`,
+      description: description,
+      images: [
+        {
+          url: ogImage,
+          width: 1200, // 建议的 OG 图片宽度
+          height: 630, // 建议的 OG 图片高度
+          alt: `${formattedTag} Translations`,
+        }
+      ],
+      type: "website", // 对于分类页面，通常是 "website" 类型
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${formattedTag}类翻译包 - PixelLingual`,
+      description: description,
+      images: [ogImage],
+    },
+  };
+}
 
+// --------------------------------------------------------
+// 2. 页面组件 (服务器组件)
+// --------------------------------------------------------
+export default async function TagPage({ params }: PageProps) {
+  const { tag } = params;
+  const decodedTag = decodeURIComponent(tag); // 解码 URL 参数
+  const formattedTag = formatTagForDisplay(tag); // 格式化用于显示
+
+  // 在服务器组件中根据标签过滤包
+  const tagPacks = ALL_PACKS.filter((pack) =>
+    pack.tags.some((t) => t.toLowerCase() === decodedTag.toLowerCase())
+  );
+
+  // 如果该标签下没有找到包，则直接在服务器端渲染一个“未找到”页面
+  if (tagPacks.length === 0) {
+    return (
+      <div className="container py-20 text-center">
+        <h3 className="text-xl font-pixel mb-2">未找到翻译包</h3>
+        <p className="text-muted-foreground">
+          我们无法找到任何带有标签"{formattedTag}"的翻译包。
+        </p>
+        <Button asChild className="minecraft-btn mt-4">
+          <Link href="/market">返回市场</Link>
+        </Button>
+      </div>
+    );
+  }
+
+  // 将过滤后的包和格式化后的标签传递给客户端组件
   return (
-        <>
-      <Head>
-        <title>{formattedTag}类翻译包 | PixelLingual像素语匠</title>
-        <meta
-          name="description"
-          content={`浏览PixelLingual的${formattedTag}类别翻译包。找到适合您的高质量Minecraft中文翻译资源。`}
-        />
-        <meta
-          name="keywords"
-          content={`Minecraft ${formattedTag}翻译包, 中文${formattedTag}资源包, Minecraft基岩版翻译, ${formattedTag}中文本地化`}
-        />
-      </Head>
-    <div className="min-h-screen pb-20">
-      {/* Hero Section */}
-      <section className="relative py-12 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <Image
-            src={`/placeholder.svg?height=400&width=1920&text=${formattedTag} Maps`}
-            alt={`${formattedTag} maps`}
-            fill
-            className="object-cover opacity-20"
-            priority
-          />
-        </div>
-        <div className="container relative z-10">
-          <Link href="/market" className="inline-flex items-center text-muted-foreground hover:text-primary mb-4">
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            回到市场
-          </Link>
-
-          <div className="max-w-3xl mx-auto text-center space-y-4">
-            <h1 className="text-3xl md:text-4xl font-pixel tracking-tight">
-              <span className="text-primary">{formattedTag}</span> 翻译包
-            </h1>
-            <p className="text-muted-foreground">浏览我们所有{formattedTag.toLowerCase()}的翻译包</p>
-          </div>
-        </div>
-      </section>
-
-      {/* Translation Packs Grid */}
-      <section className="py-8">
-        <div className="container">
-          <div ref={packListRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-            {tagPacks.slice(0, visiblePacks).map((pack) => (
-              <TranslationPackCard key={pack.id} pack={pack} />
-            ))}
-          </div>
-
-          {visiblePacks < tagPacks.length && (
-            <div className="mt-8 text-center">
-              <Button
-                onClick={() => setVisiblePacks((prev) => Math.min(prev + 6, tagPacks.length))}
-                className="minecraft-btn"
-              >
-                加载更多
-              </Button>
-            </div>
-          )}
-
-          {tagPacks.length === 0 && (
-            <div className="text-center py-12">
-              <h3 className="text-xl font-pixel mb-2">未找到翻译包</h3>
-              <p className="text-muted-foreground">
-                我们无法找到任何带有标签"{formattedTag}"的翻译包
-              </p>
-              <Button asChild className="minecraft-btn mt-4">
-                <Link href="/market">返回市场</Link>
-              </Button>
-            </div>
-          )}
-        </div>
-      </section>
-    </div>
-    </>
-  )
+    <TagClient
+      initialTagPacks={tagPacks}
+      formattedTag={formattedTag}
+    />
+  );
 }
-
