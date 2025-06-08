@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     locale: "zh_CN",
     url: "https://pling.top",
     title: "PixelLingual - Minecraft中文翻译工作室",
+    images: "/logo-short.png",
     description: "免费下载高质量的Minecraft基岩版中文翻译，提升您的游戏体验。",
     siteName: "PixelLingual",
   },
@@ -33,6 +34,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "PixelLingual - Minecraft中文翻译工作室",
     description: "免费下载高质量的Minecraft基岩版中文翻译，提升您的游戏体验。",
+    images: "/logo-short.png",
     creator: "@pixellingual",
   },
   robots: {

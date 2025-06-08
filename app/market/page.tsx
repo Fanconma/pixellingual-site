@@ -3,18 +3,27 @@
 import { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import Image from "next/image"
 import Link from "next/link"
-import { Filter, DoorOpen } from "lucide-react"
+import dynamic from "next/dynamic"
+import Head from "next/head"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import SearchBar from "@/components/search-bar"
 import BackToTop from "@/components/back-to-top"
-import { useSearchParams } from "next/navigation"
+import { throttle, debounce } from "@/lib/performance"
 import useEmblaCarousel from "embla-carousel-react"
 import Autoplay from "embla-carousel-autoplay"
-import { throttle, debounce } from "@/lib/performance"
-import dynamic from "next/dynamic"
-import Head from "next/head"
+import { Filter, DoorOpen } from "lucide-react"
 
 // Dynamically import heavy components
+/**
+ * Dynamically loads the `TranslationPackCard` component with client-side rendering only (SSR disabled).
+ * While loading, displays a placeholder div styled as a Minecraft card with a pulsing animation.
+ *
+ * @remarks
+ * This dynamic import is useful for components that rely on browser-specific APIs or should not be rendered on the server.
+ *
+ * @see {@link https://nextjs.org/docs/pages/building-your-application/optimizing/dynamic-imports}
+ */
 const TranslationPackCard = dynamic(() => import("@/components/translation-pack-card"), {
   ssr: false,
   loading: () => <div className="minecraft-card animate-pulse h-64"></div>,
@@ -49,7 +58,9 @@ export default function MarketPage() {
   const selectedTag = searchParams.get("tag")
   const [searchQuery, setSearchQuery] = useState("")
   const [pageTitle, setPageTitle] = useState("翻译包市场 | PixelLingual像素语匠")
-  const INITIAL_VISIBLE_PACKS = typeof window !== "undefined" && window.innerWidth < 768 ? 6 : 12; // Configurable constant
+  const INITIAL_VISIBLE_PACKS = useMemo(() => {
+    return typeof window !== "undefined" && window.innerWidth < 768 ? 6 : 12;
+  }, []);
   const [visiblePacks, setVisiblePacks] = useState(INITIAL_VISIBLE_PACKS) // Initial number of packs to show
   const filteredPacks = useMemo(() => {
     let filtered = ALL_PACKS;
@@ -143,7 +154,7 @@ export default function MarketPage() {
     if (scrollTop + clientHeight >= scrollHeight - 300 && visiblePacks < filteredPacks.length) {
       setVisiblePacks((prev) => Math.min(prev + 6, filteredPacks.length))
     }
-  },200), [filteredPacks, visiblePacks],)
+  },500), [filteredPacks, visiblePacks],)
 
   useEffect(() => {
     window.addEventListener("scroll", handleScroll)
@@ -237,7 +248,7 @@ export default function MarketPage() {
                           <h3 className="font-pixel text-xl text-white mb-2">{pack.title}</h3>
                           <p className="text-sm text-gray-300 line-clamp-2">{pack.description}</p>
                           <div className="flex items-center mt-2">
-                            <span className="text-xs text-gray-400 mr-4">{studio.name}</span>
+                            <span className="text-xs text-gray-400 mr-4">{studio? studio.name:"无名氏"}</span>
                             <span className="text-xs text-primary flex items-center">
                               <span className="mr-1">价格:</span>
                               {pack.price === 0 ? "免费" : `${pack.price} MC`}

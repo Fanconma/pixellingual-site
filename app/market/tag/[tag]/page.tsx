@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { useState, useEffect, useRef, use } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import Head from "next/head"
@@ -16,7 +16,7 @@ interface PageProps {
 }
 
 export default function TagPage({ params }: PageProps) {
-  const { tag } = params
+  const { tag } = use(params)
   const decodedTag = decodeURIComponent(tag)
   const [visiblePacks, setVisiblePacks] = useState(12)
   const [tagPacks, setTagPacks] = useState([])

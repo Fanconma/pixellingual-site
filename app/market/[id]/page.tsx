@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { ArrowLeft, Calendar, Star, Share2, Globe, ChevronLeft, ChevronRight } from "lucide-react"
@@ -29,7 +29,7 @@ interface PageProps {
 }
 
 export default function TranslationPackDetailPage({ params }: PageProps) {
-  const { id } = params
+  const { id } = use(params)
   const router = useRouter()
   const [pack, setPack] = useState<TranslationPack | null>(null)
   const [studioPacks, setStudioPacks] = useState<TranslationPack[] | []>([])
@@ -236,7 +236,7 @@ export default function TranslationPackDetailPage({ params }: PageProps) {
                   </div>
                   <div className="flex flex-wrap gap-1">
                     {pack.languages.map((lang) => (
-                      <span key={lang} className="text-xs bg-gray-700 px-2 py-1 rounded">
+                      <span key={lang} className="text-xs px-2 py-1 rounded">
                         {getLanguageDisplayName(lang)}
                       </span>
                     ))}
