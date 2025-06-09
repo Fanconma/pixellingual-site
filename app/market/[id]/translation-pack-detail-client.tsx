@@ -8,7 +8,8 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import DisclaimerPopup from "@/components/disclaimer-popup";
 import BackToTop from "@/components/back-to-top";
-// 注意：这里不再需要 getPackById, getPacksByStudio, getPacksByTag，因为数据是从服务器组件传入的
+import WalineComments from '@/components/waline-comment';
+import { useTheme } from "next-themes";
 import {
   getLanguageDisplayName,
   TranslationPack, // 导入类型
@@ -118,7 +119,13 @@ export default function TranslationPackDetailClient({
       setCurrentScreenshot((prev) => (prev - 1 + pack.screenshots.length) % pack.screenshots.length);
     }
   };
+  // 使用 useTheme 获取主题相关信息
+  const {resolvedTheme} = useTheme();
+  const [mounted, setMounted] = useState(false);
 
+  useEffect(() => {
+    setMounted(true);
+  })
   // 计算星级显示，这部分是纯展示逻辑，可以直接放在渲染中
   const studio = STUDIOS.find((s) => s.id === pack.studio);
   const screenshots = pack.screenshots || [];
@@ -469,6 +476,26 @@ export default function TranslationPackDetailClient({
           </div>
         </section>
       )}
+
+      {/* Comments Section */}
+      <section className="py-8 animate-fade-in animate-delay-400"> {/* 添加 section 和动画延迟 */}
+        <div className="container">
+          <h2 className="text-2xl font-pixel mb-6">评论</h2> {/* 调整标题样式 */}
+          {mounted && (
+            <div className="minecraft-card p-6 mt-6"> {/* ⬅️ 新增包裹层，并应用样式 */}
+              <WalineComments
+                serverURL="https://comment.pling.top/"
+                path={pack.id}
+                dark={resolvedTheme === 'dark'} 
+                lang="zh-CN"
+                // reaction={true} // 如果需要，可以启用
+                // ...更多 WalineInitOptions
+              />
+            </div>
+          )}
+        </div>
+      </section>
+
 
       {/* Disclaimer Popup */}
       <DisclaimerPopup

@@ -8,6 +8,11 @@ import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import Preload from "./preload"
 
+// Waline 的默认 CSS (必须在你的自定义样式之前)
+import '../styles/waline.css';
+// 你的自定义 Waline 样式 (必须在 Waline 默认样式之后，以覆盖它)
+import '../styles/waline-custom.css'; 
+
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" })
 const pixelFont = localFont({
   src: "./fonts/unifont-16.0.02.otf", // 相对于该文件的位置
