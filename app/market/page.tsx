@@ -7,15 +7,15 @@ import {
   STUDIOS,
   SECTIONS,
   getMostRecentPacks,
-  // getPacksBySectionId, // 暂时不需要在这里获取，可以在客户端组件中自行过滤
-} from "@/data/translation-packs";
-import MarketClient from "./market-client"; // 导入客户端组件
+} from "@/data/translation-packs"; // 确保路径正确
+import MarketClient from "./market-client"; // 导入客户端组件，确保路径正确
 
 interface PageProps {
-  // `searchParams` prop 在 Next.js 13 App Router 的 page.tsx 中自动提供
+  // 修正：明确 searchParams 的值可能是 string 或 string[] 或 undefined
   searchParams: {
-    tag?: string;
-    q?: string; // 假设搜索查询参数名为 'q'
+    tag?: string | string[]; // 'tag' 参数可能是一个字符串或字符串数组
+    q?: string | string[];   // 'q' (query) 参数可能是一个字符串或字符串数组
+    [key: string]: string | string[] | undefined; // 允许其他未明确定义的参数
   };
 }
 
@@ -27,7 +27,8 @@ function formatTagForDisplay(tagSlug: string): string {
   } catch (error) {
     // 如果解码失败 (例如，URL参数格式不正确), 返回原始标签或默认值
     console.error("Error decoding tag slug:", tagSlug, error);
-    return tagSlug.charAt(0).toUpperCase() + tagSlug.slice(1); // 尝试简单格式化
+    // 确保这里返回的是字符串
+    return String(tagSlug).charAt(0).toUpperCase() + String(tagSlug).slice(1);
   }
 }
 
@@ -35,8 +36,9 @@ function formatTagForDisplay(tagSlug: string): string {
 // 1. generateMetadata 函数 (用于服务器端生成 <head> 标签)
 // --------------------------------------------------------
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  const selectedTagFromUrl = searchParams.tag || null;
-  const searchQueryFromUrl = searchParams.q || "";
+  // 修正：使用 Array.isArray 确保只取第一个值或处理为字符串
+  const selectedTagFromUrl = Array.isArray(searchParams.tag) ? searchParams.tag[0] : searchParams.tag ?? null;
+  const searchQueryFromUrl = Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q ?? "";
 
   let pageTitle = "翻译包市场 | PixelLingual像素语匠";
   let description = "浏览PixelLingual的Minecraft中文翻译市场。免费下载高质量的游戏内容翻译，提升您的游戏体验。";
@@ -88,17 +90,18 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 // 2. 页面组件 (服务器组件)
 // --------------------------------------------------------
 export default async function MarketPage({ searchParams }: PageProps) {
-  const selectedTag = searchParams.tag || null;
-  const searchQuery = searchParams.q || ""; // 假设搜索参数是 'q'
+  // 修正：使用 Array.isArray 确保只取第一个值或处理为字符串
+  const selectedTag = Array.isArray(searchParams.tag) ? searchParams.tag[0] : searchParams.tag ?? null;
+  const searchQuery = Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q ?? "";
 
   // 在服务器端执行初始过滤
   let initialFilteredPacks = ALL_PACKS;
-  if (selectedTag) {
+  if (selectedTag) { // 确保 selectedTag 是一个字符串或 null
     initialFilteredPacks = initialFilteredPacks.filter((pack) =>
       pack.tags.some((tag) => tag.toLowerCase() === selectedTag.toLowerCase())
     );
   }
-  if (searchQuery) {
+  if (searchQuery) { // 确保 searchQuery 是一个字符串
     const query = searchQuery.toLowerCase();
     initialFilteredPacks = initialFilteredPacks.filter(
       (pack) =>

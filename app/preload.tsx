@@ -21,7 +21,7 @@ export default function Preload() {
     })
 
     // Prefetch important pages
-    const pagesToPrefetch = ["/market", "/about"]
+    const pagesToPrefetch = ["/market"]
     pagesToPrefetch.forEach((page) => {
       const link = document.createElement("link")
       link.rel = "prefetch"
