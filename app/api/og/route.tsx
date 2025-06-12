@@ -1,6 +1,5 @@
 import { ImageResponse } from "next/og"
 import type { NextRequest } from "next/server"
-// 导入 STUDIOS 数据，假设其路径为 "@/data/translation-packs"
 import { STUDIOS } from "@/data/translation-packs"; 
 
 export const runtime = "edge"

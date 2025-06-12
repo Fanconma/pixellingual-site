@@ -6,9 +6,8 @@ import {
   getPackById,
   getPacksByStudio,
   getPacksByTag,
-  TranslationPack, // 导入 TranslationPack 类型
-  STUDIOS, // <-- ADDED: Import STUDIOS for metadata
-  getLanguageDisplayName, // <-- ADDED: Import getLanguageDisplayName for metadata
+  TranslationPack, 
+  STUDIOS, 
 } from "@/data/translation-packs";
 
 import TranslationPackDetailClient from "./translation-pack-detail-client";
@@ -63,16 +62,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   ogImageUrl.searchParams.set("title", pack.title)
   ogImageUrl.searchParams.set("description", pack.description)
   ogImageUrl.searchParams.set("type", "pack")
-  ogImageUrl.searchParams.set("studio", studioFullName) // <-- CHANGED: Pass full studio name
+  ogImageUrl.searchParams.set("studio", studioFullName) 
   ogImageUrl.searchParams.set("tags", pack.tags.join(", "))
   ogImageUrl.searchParams.set("rating", pack.rating.toFixed(1))
   ogImageUrl.searchParams.set("price", pack.price.toString())
-  // ogImageUrl.searchParams.set("languages", pack.languages.join(", ")) // <-- REMOVED: No longer used by OG API
   ogImageUrl.searchParams.set("author", pack.author)
   ogImageUrl.searchParams.set("coverImage", pack.image || "")
-  ogImageUrl.searchParams.set("isFeatured", String(pack.isFeatured || false)) // <-- ADDED: Pass as string
-  ogImageUrl.searchParams.set("isDLC", String(pack.isDLC || false))         // <-- ADDED: Pass as string
-  ogImageUrl.searchParams.set("createdAt", ogCreatedAt)                   // <-- ADDED: Using pack.updatedAt for createdAt
+  ogImageUrl.searchParams.set("isFeatured", String(pack.isFeatured || false)) 
+  ogImageUrl.searchParams.set("isDLC", String(pack.isDLC || false))
+  ogImageUrl.searchParams.set("createdAt", ogCreatedAt)
 
   return {
     title: `${pack.title}翻译包 | PixelLingual像素语匠`,
@@ -83,7 +81,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: pack.description,
       images: [
         {
-          url: ogImageUrl.toString(), // <-- NOW uses the custom generated OG image
+          url: ogImageUrl.toString(), 
           width: 1200,
           height: 630,
           alt: pack.title,
@@ -95,7 +93,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       card: "summary_large_image",
       title: `${pack.title} - PixelLingual`,
       description: pack.description,
-      images: [ogImageUrl.toString()], // <-- NOW also uses the custom generated OG image for consistency
+      images: [ogImageUrl.toString()], 
     },
   };
 }
@@ -136,8 +134,6 @@ export default async function TranslationPackDetailPage({ params }: PageProps) {
       .filter(p => p.id !== pack.id) // Exclude current pack
       .slice(0, 4);
   }
-
-  // 评论
   
 
   // 将获取到的数据作为 prop 传递给客户端组件

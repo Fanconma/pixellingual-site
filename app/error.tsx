@@ -33,7 +33,7 @@ export default function ErrorPage({
         <div className="minecraft-card p-8">
           <h1 className="text-3xl font-pixel mb-6 text-red-500">出问题了！</h1>
           <p className="text-lg mb-8">
-            看来我们的服务器上发生了 TNT 爆炸！别担心，我们的村民正在努力解决这个问题。
+            看来我们的服务器上的 TNT 爆炸了！这并不是你的问题。请尝试联系支持团队或稍后再试。
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">

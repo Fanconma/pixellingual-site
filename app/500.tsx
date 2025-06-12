@@ -52,7 +52,7 @@ export default function InternalErrorPage() {
           </div>
         </div>
 
-        <div className="text-sm text-muted-foreground">错误代码: REDSTONE_FAILURE_500</div>
+        <div className="text-sm text-muted-foreground">Error Code: REDSTONE_FAILURE_500</div>
       </div>
     </div>
   )

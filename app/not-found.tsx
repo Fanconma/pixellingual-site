@@ -55,7 +55,7 @@ export default function NotFoundPage() {
           <h1 className="text-5xl font-pixel mb-4 text-red-500">404</h1>
           <h2 className="text-3xl font-pixel mb-6">Page Not Found</h2>
           <p className="text-lg mb-8">
-          哎呀！好像有苦力怕炸掉了这个页面。您正在寻找的方块已被破坏或根本不存在。
+          哎呀！好像有苦力怕炸掉了这个页面。您正在寻找的页面已被破坏或根本不存在。
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
