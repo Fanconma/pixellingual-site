@@ -137,6 +137,9 @@ export default async function TranslationPackDetailPage({ params }: PageProps) {
       .slice(0, 4);
   }
 
+  // 评论
+  
+
   // 将获取到的数据作为 prop 传递给客户端组件
   return (
     <TranslationPackDetailClient
