@@ -9,6 +9,7 @@ export const metadata: Metadata = {
     url: "https://pling.top/terms",
     title: "服务条款 - Pixellingual像素语匠",
     description: "通过访问或使用本服务，您同意受本条款约束。如果您不同意本条款的任何部分，请您立即退出 PixelLingual 网站并暂停使用 PixelLingual 的一切服务。",
+    images: "/logo-short.png",
   },
   twitter: {
     card: "summary_large_image",
