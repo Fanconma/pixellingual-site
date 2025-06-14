@@ -83,7 +83,7 @@ export default function SectionClient({
         <div className="container relative z-10">
           <Link href="/market" className="inline-flex items-center text-muted-foreground hover:text-primary mb-4">
             <ArrowLeft className="mr-2 h-4 w-4" />
-            Back to Market
+            返回市场
           </Link>
 
           <div className="max-w-3xl mx-auto text-center space-y-4">

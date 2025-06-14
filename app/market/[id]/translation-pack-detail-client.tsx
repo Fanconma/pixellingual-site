@@ -390,11 +390,11 @@ export default function TranslationPackDetailClient({
                 <h2 className="text-xl font-pixel mb-4">翻译包安装说明</h2>
                 <ol className="space-y-4">
                   {[
-                    "下载.mcpack后缀的资源包文件",
-                    "选择\"使用 Minecraft 打开\"该紫云阿宝文件",
+                    "下载 \".mcpack\" 后缀的资源包文件",
+                    "选择\"使用 Minecraft 打开\"该文件",
                     "进入对应市场地图的创建页面",
                     '点击蓝色背景的\"解锁设置\"',
-                    "进入资源包页面并激活对应的汉化资源包",
+                    "进入资源包页面并激活对应的翻译资源包",
                   ].map((step, index) => (
                     <li key={index} className="flex items-start">
                       <span className="font-pixel text-primary mr-2">{index + 1}.</span>
@@ -409,7 +409,7 @@ export default function TranslationPackDetailClient({
                   <ul className="space-y-2">
                   <li className="flex items-start">
                       <span className="text-primary mr-2">•</span>
-                      <h2>蓝奏云下载时要点开汉化包文件才可直接下载</h2>
+                      <span>手机用户在蓝奏云下载时要点开汉化包文件详情页才可直接下载</span>
                     </li>
                     <li className="flex items-start">
                       <span className="text-primary mr-2">•</span>

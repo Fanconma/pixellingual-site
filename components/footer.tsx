@@ -46,13 +46,13 @@ export default function Footer() {
             <h3 className="font-pixel text-sm mb-4">资源信息</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link href="/faq" className="text-muted-foreground hover:text-primary transition-colors">
-                  FAQ
+                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                  FAQ(待完善)
                 </Link>
               </li>
               <li>
-                <Link href="/tutorials" className="text-muted-foreground hover:text-primary transition-colors">
-                  教程
+                <Link href="/" className="text-muted-foreground hover:text-primary transition-colors">
+                  教程(待完善)
                 </Link>
               </li>
               <li>
@@ -69,7 +69,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h3 className="font-pixel text-sm mb-4">Connect</h3>
+            <h3 className="font-pixel text-sm mb-4">联络</h3>
             <div className="flex space-x-4">
               <Link href="https://github.com/Fanconma/pixellingual-site" className="text-muted-foreground hover:text-primary transition-colors">
                 <i className="fab fa-github h-5 w-5"></i>

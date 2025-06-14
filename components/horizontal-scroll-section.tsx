@@ -49,7 +49,7 @@ export default function HorizontalScrollSection({
             <h2 className="text-2xl font-pixel">{title}</h2>
             {viewAllHref && (
               <Button asChild variant="link" className="font-pixel">
-                <Link href={viewAllHref}>View All</Link>
+                <Link href={viewAllHref}>查看全部</Link>
               </Button>
             )}
           </div>
@@ -65,7 +65,7 @@ export default function HorizontalScrollSection({
           onClick={() => scroll("left")}
         >
           <ArrowLeft className="h-4 w-4" />
-          <span className="sr-only">Scroll left</span>
+          <span className="sr-only">向左滚动</span>
         </Button>
 
         <div
@@ -89,7 +89,7 @@ export default function HorizontalScrollSection({
           onClick={() => scroll("right")}
         >
           <ArrowRight className="h-4 w-4" />
-          <span className="sr-only">Scroll right</span>
+          <span className="sr-only">向右滚动</span>
         </Button>
       </div>
     </div>
