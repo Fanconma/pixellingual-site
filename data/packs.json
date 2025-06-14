@@ -673,5 +673,39 @@
           "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/f44778cb-edf1-4309-957d-d18e051e2bee/Star_Wars_Path_of_the_Jedi_screenshot_3.jpg",
           "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/3c7105e0-e8fd-4bba-a595-655e52a47463/Star_Wars_Path_of_the_Jedi_screenshot_4.jpg"
         ]
-      }
+      },
+      {
+  "id": "bdcX5yFGGN",
+  "title": "环球影城体验",
+  "description": "我们去环球影城吧，在 Minecraft 里就有！你将从环球影城的大门开始冒险，啄木鸟伍迪正在此处等你，还会请你帮忙找回环球地球仪上的字母。在冒险过程中，你能体验扣人心弦的娱乐项目，参观纪念品商店，游玩乐趣无穷的迷你游戏，还能邂逅更多的神奇角色，比如史瑞克与 E.T.",
+  "image": "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/1699eef8-9fc2-4d8d-a650-cecd89e29288/Universal-Studios-Experience_thumbnail_0.jpg",
+  "tags": [
+    "休闲",
+    "主题公园"
+  ],
+  "updatedAt": "20241117",
+  "createdAt": "20241117",
+  "author": "Fanconma",
+  "studio": "everbloom",
+  "sectionIds": [
+    "dlc-content",
+    "popular-translations",
+    "leisure"
+  ],
+  "rating": 4.2,
+  "price": 1510,
+  "downloadLink": "https://www.ilanzou.com/s/IaQZJrcX",
+  "languages": [
+    "cn"
+  ],
+  "isFeatured": true,
+  "isDLC": true,
+  "features": [],
+  "screenshots": [
+    "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/deec516a-6826-4ca2-a84f-264d2ae168bb/Universal-Studios-Experience_screenshot_4.jpg",
+    "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/d9f94d4d-0d37-4628-a89d-1b9c45cc28c8/Universal-Studios-Experience_screenshot_3.jpg",
+    "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/8cf74f3d-8541-42cc-982f-1eb772cc00cd/Universal-Studios-Experience_screenshot_2.jpg",
+    "https://xforgeassets002.xboxlive.com/pf-namespace-b63a0803d3653643/d06b0653-d6f0-438d-9384-0cf34cb3b01d/Universal-Studios-Experience_screenshot_1.jpg"
+  ]
+}
 ]
