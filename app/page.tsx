@@ -7,6 +7,7 @@ import { getMostRecentPacks } from "@/data/translation-packs"
 import TranslationPackCard from "@/components/translation-pack-card"
 import { fetchDonors } from "@/lib/afdian"
 import { Donor } from "@/types/donor"
+// import BannerAdmin from "@/components/banner-admin"
 
 export default async function Home() {
   // Get the three most recent translation packs
@@ -207,6 +208,8 @@ export default async function Home() {
           </div>
         </div>
       </section>
+      {/* 开发环境横幅管理器 */}
+      {/* {process.env.NODE_ENV === "development" && <BannerAdmin />} */}
     </div>
   )
 }

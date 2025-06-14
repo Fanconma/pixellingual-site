@@ -4,6 +4,7 @@ import { Inter } from "next/font/google"
 import localFont from "next/font/local"
 import "./globals.css"
 import Header from "@/components/header"
+import TopBanner from "@/components/top-banner"
 import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import Preload from "./preload"
@@ -84,6 +85,7 @@ export default function RootLayout({
       <Preload />
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
           <div className="flex min-h-screen flex-col">
+            <TopBanner />
             <Header />
             <main className="flex-1">{children}</main>
             <Footer />
