@@ -13,9 +13,10 @@ import {
 import TranslationPackDetailClient from "./translation-pack-detail-client";
 
 interface PageProps {
-  params: {
+  // 修正：明确 params 的值现在是一个 Promise
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 // --------------------------------------------------------
@@ -42,7 +43,8 @@ const formatDateForDisplay = (dateString: string | undefined | null) => {
 // 1. generateMetadata 函数 (用于服务器端生成 <head> 标签)
 // --------------------------------------------------------
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { id: packId } = params;
+  const awaitedParams = await params;
+  const { id: packId } = awaitedParams;
   const pack = getPackById(packId);
 
   if (!pack) {
@@ -102,7 +104,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // 2. 页面组件 (服务器组件)
 // --------------------------------------------------------
 export default async function TranslationPackDetailPage({ params }: PageProps) {
-  const { id: packId } = params;
+  const awaitedParams = await params;
+  const { id: packId } = awaitedParams;
 
   const pack = getPackById(packId);
 

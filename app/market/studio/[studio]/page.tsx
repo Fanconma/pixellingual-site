@@ -8,16 +8,17 @@ import { ALL_PACKS, getStudioById } from "@/data/translation-packs";
 import StudioClient from "./studio-client";
 
 interface PageProps {
-  params: {
+  params: Promise< {
     studio: string; // studio slug, e.g., "mojang-studios"
-  };
+  }>;
 }
 
 // --------------------------------------------------------
 // 1. generateMetadata 函数 (用于服务器端生成 <head> 标签)
 // --------------------------------------------------------
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const studioIdParam = params.studio;
+  const awaitedParams = await params;
+  const studioIdParam = awaitedParams.studio;
   const studioInfo = getStudioById(studioIdParam); // 在服务器端获取工作室信息
 
   let formattedStudioName: string;
@@ -76,7 +77,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // 2. 页面组件 (服务器组件)
 // --------------------------------------------------------
 export default async function StudioPage({ params }: PageProps) {
-  const { studio: studioIdParam } = params;
+  const awaitedParams = await params; // 等待 params 解析完成
+  const { studio: studioIdParam } = awaitedParams;
 
   const studioInfo = getStudioById(studioIdParam); // 在服务器端获取工作室信息
 

@@ -7,9 +7,9 @@ import { ALL_PACKS, TranslationPack } from "@/data/translation-packs"; // 导入
 import TagClient from "./tag-client";
 
 interface PageProps {
-  params: {
+  params: Promise< {
     tag: string; // URL 编码后的标签 slug
-  };
+  }>;
 }
 
 // 辅助函数：格式化标签以供显示
@@ -22,8 +22,9 @@ function formatTagForDisplay(tagSlug: string): string {
 // 1. generateMetadata 函数 (用于服务器端生成 <head> 标签)
 // --------------------------------------------------------
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const decodedTag = decodeURIComponent(params.tag);
-  const formattedTag = formatTagForDisplay(params.tag);
+  const awaitedParams = await params; // 等待 params 解析完成
+  const decodedTag = decodeURIComponent(awaitedParams.tag);
+  const formattedTag = formatTagForDisplay(awaitedParams.tag);
 
   // 在服务器端过滤包以获取元数据相关信息
   const filteredPacks = ALL_PACKS.filter((pack) =>
@@ -76,7 +77,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 // 2. 页面组件 (服务器组件)
 // --------------------------------------------------------
 export default async function TagPage({ params }: PageProps) {
-  const { tag } = params;
+  const awaitedParams = await params; // 等待 params 解析完成
+  const { tag } = awaitedParams;
   const decodedTag = decodeURIComponent(tag); // 解码 URL 参数
   const formattedTag = formatTagForDisplay(tag); // 格式化用于显示
 

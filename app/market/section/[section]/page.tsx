@@ -6,16 +6,17 @@ import { getPacksBySectionId, getSectionTitleById } from "@/data/translation-pac
 // 注意：这里不再需要客户端相关的 hooks 和组件
 
 interface PageProps {
-  params: {
+  params: Promise< {
     section: string;
-  };
+  }>;
 }
 
 // --------------------------------------------------------
 // 1. generateMetadata 函数 (用于服务器端生成 <head> 标签)
 // --------------------------------------------------------
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const sectionId = params.section;
+  const awaitedParams = await params; // 等待 params 解析完成
+  const sectionId = awaitedParams.section;
   const sectionTitle = getSectionTitleById(sectionId);
   const packs = getPacksBySectionId(sectionId);
 
@@ -68,7 +69,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 import SectionClient from "./section-client"; // 👈 导入客户端组件
 
 export default async function SectionPage({ params }: PageProps) {
-  const { section } = params;
+  const awaitedParams = await params; // 等待 params 解析完成
+  const { section } = awaitedParams;
 
   const sectionTitle = getSectionTitleById(section);
   const sectionPacks = getPacksBySectionId(section);

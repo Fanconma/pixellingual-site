@@ -11,12 +11,12 @@ import {
 import MarketClient from "./market-client"; // 导入客户端组件，确保路径正确
 
 interface PageProps {
-  // 修正：明确 searchParams 的值可能是 string 或 string[] 或 undefined
-  searchParams: {
+  // 修正：明确 searchParams 的值现在是一个 Promise
+  searchParams: Promise<{
     tag?: string | string[]; // 'tag' 参数可能是一个字符串或字符串数组
     q?: string | string[];   // 'q' (query) 参数可能是一个字符串或字符串数组
     [key: string]: string | string[] | undefined; // 允许其他未明确定义的参数
-  };
+  }>;
 }
 
 // 辅助函数：格式化标签以供显示 (在服务器组件和客户端组件中可能都需要)
@@ -37,8 +37,12 @@ function formatTagForDisplay(tagSlug: string): string {
 // --------------------------------------------------------
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   // 修正：使用 Array.isArray 确保只取第一个值或处理为字符串
-  const selectedTagFromUrl = Array.isArray(searchParams.tag) ? searchParams.tag[0] : searchParams.tag ?? null;
-  const searchQueryFromUrl = Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q ?? "";
+
+  const awaitedSearchParams = await searchParams;
+
+
+  const selectedTagFromUrl = Array.isArray(awaitedSearchParams.tag) ? awaitedSearchParams.tag[0] : awaitedSearchParams.tag ?? null;
+  const searchQueryFromUrl = Array.isArray(awaitedSearchParams.q) ? awaitedSearchParams.q[0] : awaitedSearchParams.q ?? "";
 
   let pageTitle = "翻译包市场 | PixelLingual像素语匠";
   let description = "浏览PixelLingual的Minecraft中文翻译市场。免费下载高质量的游戏内容翻译，提升您的游戏体验。";
@@ -90,9 +94,10 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
 // 2. 页面组件 (服务器组件)
 // --------------------------------------------------------
 export default async function MarketPage({ searchParams }: PageProps) {
-  // 修正：使用 Array.isArray 确保只取第一个值或处理为字符串
-  const selectedTag = Array.isArray(searchParams.tag) ? searchParams.tag[0] : searchParams.tag ?? null;
-  const searchQuery = Array.isArray(searchParams.q) ? searchParams.q[0] : searchParams.q ?? "";
+  const awaitedSearchParams = await searchParams; // [1]
+
+  const selectedTag = Array.isArray(awaitedSearchParams.tag) ? awaitedSearchParams.tag[0] : awaitedSearchParams.tag ?? null;
+  const searchQuery = Array.isArray(awaitedSearchParams.q) ? awaitedSearchParams.q[0] : awaitedSearchParams.q ?? "";
 
   // 在服务器端执行初始过滤
   let initialFilteredPacks = ALL_PACKS;
