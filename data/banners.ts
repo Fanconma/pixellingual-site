@@ -73,20 +73,20 @@ export const BANNER_THEMES = {
 
 // 当前活跃的横幅配置
 export const ACTIVE_BANNERS: Banner[] = [
-    {
-        id: "no-using-cracked-packs",
-        type: "warning",
-        title: "请勿使用他人盗搬的PLG翻译包",
-        message: "PixelLingual 谴责倒搬行为。盗搬既是对翻译作者的不尊重，也是对翻译社区的伤害。",
-        backgroundColor: BANNER_THEMES.warning.backgroundColor,
-        textColor: BANNER_THEMES.warning.textColor,
-        borderColor: BANNER_THEMES.warning.borderColor,
-        icon: BANNER_THEMES.warning.icon,
-        buttonText: "了解更多",
-        buttonLink: "https://docs.qq.com/aio/p/sczle9it02uebmq?p=M0Xeir1ipGxVUxjVZUjaZv",
-        priority: 100,
-        dismissible: true,
-    }
+    // {
+    //     id: "no-using-cracked-packs",
+    //     type: "warning",
+    //     title: "请勿使用他人盗搬的PLG翻译包",
+    //     message: "PixelLingual 谴责倒搬行为。盗搬既是对翻译作者的不尊重，也是对翻译社区的伤害。",
+    //     backgroundColor: BANNER_THEMES.warning.backgroundColor,
+    //     textColor: BANNER_THEMES.warning.textColor,
+    //     borderColor: BANNER_THEMES.warning.borderColor,
+    //     icon: BANNER_THEMES.warning.icon,
+    //     buttonText: "了解更多",
+    //     buttonLink: "https://docs.qq.com/aio/p/sczle9it02uebmq?p=M0Xeir1ipGxVUxjVZUjaZv",
+    //     priority: 100,
+    //     dismissible: true,
+    // }
 //   {
 //     id: "new-year-2024",
 //     type: "event",
