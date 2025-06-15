@@ -59,8 +59,6 @@ export default function RootLayout({
     <html lang="zh-CN" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" sizes="any" />
-        {/* 添加FontAwesome */}
-        <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/6.7.2/css/all.min.css" rel="stylesheet" />
         {/* 添加结构化数据 */}
         <script
           type="application/ld+json"

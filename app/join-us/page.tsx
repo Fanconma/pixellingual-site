@@ -2,6 +2,8 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import type { Metadata } from "next"
 import { Users, MessageSquare, Code, ImportIcon as Translate, Gamepad2, Heart, Sparkles } from "lucide-react"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faDiscord } from "@fortawesome/free-brands-svg-icons"
 
 export const metadata: Metadata = {
   title: "加入我们 | PixelLingual像素语匠",
@@ -238,8 +240,7 @@ export default function JoinPage() {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <Button asChild size="lg" className="minecraft-btn">
             <a href="https://discord.gg/m2mQScdxed" target="_blank" rel="noopener noreferrer">
-            <i className="fab fa-discord h-5 w-5"></i>
-              加入Discord
+            <FontAwesomeIcon icon={faDiscord} className="h-5 w-5" />加入Discord
             </a>
           </Button>
           <Button asChild variant="outline" size="lg">

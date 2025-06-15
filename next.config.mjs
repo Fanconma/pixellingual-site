@@ -20,8 +20,24 @@ const nextConfig = {
     ignoreBuildErrors: true,
   },
   images: {
-    unoptimized: true,
+      remotePatterns: [
+    {
+      protocol: 'https',
+      hostname: 'xforgeassets002.xboxlive.com',
+
+    },
+    {
+      protocol: 'https',
+      hostname: 'xforgeassets001.xboxlive.com',
+    },
+    {
+      protocol: 'https',
+      hostname: 'pic1.afdiancdn.com',
+    }
+  ],
+    unoptimized: false,
   },
+
   experimental: {
     webpackBuildWorker: true,
     parallelServerBuildTraces: true,

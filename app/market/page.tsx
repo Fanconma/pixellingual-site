@@ -1,42 +1,38 @@
-// app/market/page.tsx
 import { Metadata } from 'next';
-// 移除所有客户端相关的导入和逻辑
+// 确保所有数据源都只在此服务器组件中导入
 import {
-  ALL_PACKS,
+  ALL_PACKS, // ALL_PACKS 在这里导入，但不会传给客户端，而是通过 API 懒加载
   FEATURED_PACKS,
   TAGS,
   STUDIOS,
   SECTIONS,
   getMostRecentPacks,
-  TranslationPack, // 导入 TranslationPack 类型
-} from "@/data/translation-packs"; // 确保路径正确
-import MarketClient from "./market-client"; // 导入客户端组件，确保路径正确
+  TranslationPack,
+  Section, // 导入 Section 类型
+  getPacksBySectionId, // 在服务器端使用
+} from "@/data/translation-packs";
+import MarketClient from "./market-client";
 
 interface PageProps {
-  // 修正：明确 searchParams 的值现在是一个 Promise
   searchParams: Promise<{
-    tag?: string | string[]; // 'tag' 参数可能是一个字符串或字符串数组
-    q?: string | string[];   // 'q' (query) 参数可能是一个字符串或字符串数组
-    [key: string]: string | string[] | undefined; // 允许其他未明确定义的参数
+    tag?: string | string[];
+    q?: string | string[];
+    [key: string]: string | string[] | undefined;
   }>;
 }
 
-// 辅助函数：格式化标签以供显示 (在服务器组件和客户端组件中可能都需要)
+// 辅助函数：格式化标签以供显示 (不变)
 function formatTagForDisplay(tagSlug: string): string {
   try {
     const decodedTag = decodeURIComponent(tagSlug);
     return decodedTag.charAt(0).toUpperCase() + decodedTag.slice(1);
   } catch (error) {
-    // 如果解码失败 (例如，URL参数格式不正确), 返回原始标签或默认值
     console.error("Error decoding tag slug:", tagSlug, error);
-    // 确保这里返回的是字符串
     return String(tagSlug).charAt(0).toUpperCase() + String(tagSlug).slice(1);
   }
 }
 
-// --------------------------------------------------------
-// 1. generateMetadata 函数 (用于服务器端生成 <head> 标签)
-// --------------------------------------------------------
+// generateMetadata 函数 (不变)
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
   const awaitedSearchParams = await searchParams;
 
@@ -46,7 +42,7 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   let pageTitle = "翻译包市场 | PixelLingual像素语匠";
   let description = "浏览PixelLingual的Minecraft中文翻译市场。免费下载高质量的游戏内容翻译，提升您的游戏体验。";
   let keywords = "Minecraft中文翻译, 基岩版翻译包, 免费Minecraft资源, 游戏中文本地化, Minecraft资源市场, 我的世界汉化";
-  const ogUrl = "https://pling.top/market"; // 市场的固定URL
+  const ogUrl = "https://pling.top/market";
 
   if (selectedTagFromUrl) {
     const formattedTag = formatTagForDisplay(selectedTagFromUrl);
@@ -59,7 +55,6 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
     keywords = `Minecraft翻译搜索, ${searchQueryFromUrl}, 游戏汉化搜索`;
   }
 
-  // 默认 OG 图像
   const ogImage = "/images/market.jpeg";
 
   return {
@@ -73,12 +68,12 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
       images: [
         {
           url: ogImage,
-          width: 1920, // 适应你的背景图尺寸
-          height: 400, // 适应你的背景图尺寸
+          width: 1920,
+          height: 400,
           alt: "Minecraft marketplace background",
         },
       ],
-      type: "website", // 对于主市场页面，通常是 "website" 类型
+      type: "website",
     },
     twitter: {
       card: "summary_large_image",
@@ -89,23 +84,19 @@ export async function generateMetadata({ searchParams }: PageProps): Promise<Met
   };
 }
 
-// --------------------------------------------------------
-// 2. 页面组件 (服务器组件)
-// --------------------------------------------------------
+// 页面组件 (服务器组件)
 export default async function MarketPage({ searchParams }: PageProps) {
-  const awaitedSearchParams = await searchParams; // [1]
+  const awaitedSearchParams = await searchParams;
 
   const selectedTag = Array.isArray(awaitedSearchParams.tag) ? awaitedSearchParams.tag[0] : awaitedSearchParams.tag ?? null;
   const searchQuery = Array.isArray(awaitedSearchParams.q) ? awaitedSearchParams.q[0] : awaitedSearchParams.q ?? "";
 
-  const initialIsSearching = !!searchQuery; // 是否存在搜索查询
+  const initialIsSearching = !!searchQuery;
 
   let serverFilteredPacks: TranslationPack[] = [];
 
-  // 只有当 URL 中有搜索查询或标签时，才在服务器端进行过滤
-  // 否则，initialFilteredPacks 将是空数组，客户端将懒加载 ALL_PACKS
   if (selectedTag || searchQuery) {
-      serverFilteredPacks = ALL_PACKS; // 从所有数据开始过滤
+      serverFilteredPacks = ALL_PACKS;
       if (selectedTag) {
           serverFilteredPacks = serverFilteredPacks.filter((pack) =>
               pack.tags.some((tag) => tag.toLowerCase() === selectedTag.toLowerCase())
@@ -124,16 +115,20 @@ export default async function MarketPage({ searchParams }: PageProps) {
       }
   }
 
-  // 获取其他静态或预计算数据
-  const recentPacks = getMostRecentPacks(3); // 服务器端获取
-  const featuredPacks = FEATURED_PACKS; // 直接引用常量
-  const tags = TAGS; // 直接引用常量
-  const studios = STUDIOS; // 直接引用常量
-  const sections = SECTIONS; // 直接引用常量
+  // 服务器端获取并处理所有数据，然后传递给客户端组件
+  const recentPacks = getMostRecentPacks(3);
+  const featuredPacks = FEATURED_PACKS;
+  const tags = TAGS;
+  const studios = STUDIOS;
+
+  // 预处理 sections，将每个 section 相关的 packs 附加进去
+  const sectionsWithPacks = SECTIONS.map(section => ({
+    ...section,
+    packs: getPacksBySectionId(section.id), // 在服务器端获取
+  })).filter(section => section.packs.length > 0); // 过滤掉没有 packs 的 sections
 
   return (
     <MarketClient
-      // initialFilteredPacks 将是服务器端过滤结果，或在没有初始查询/标签时为空数组
       initialFilteredPacks={serverFilteredPacks}
       initialSelectedTag={selectedTag}
       initialSearchQuery={searchQuery}
@@ -142,7 +137,7 @@ export default async function MarketPage({ searchParams }: PageProps) {
       featuredPacks={featuredPacks}
       tags={tags}
       studios={studios}
-      sections={sections}
+      sections={sectionsWithPacks} // 传递预处理过的 sections
     />
   );
 }

@@ -1,5 +1,7 @@
-import { Mail, MapPin, Phone } from "lucide-react"
+import { Mail, MapPin } from "lucide-react"
 import type { Metadata } from "next"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faXTwitter, faBilibili, faGithub, faDiscord, faSquareXTwitter } from "@fortawesome/free-brands-svg-icons"
 
 export const metadata: Metadata = {
   title: "联系我们 | PixelLingual像素语匠",
@@ -52,7 +54,7 @@ export default function ContactPage() {
 
             <div className="flex items-start">
               <div className="h-10 w-10 rounded-lg bg-primary/20 flex items-center justify-center mr-4">
-                <i className="fab fa-discord h-4 w-5 text-primary"></i>
+                <FontAwesomeIcon className="h-4 w-5 text-primary" icon={faXTwitter} />
               </div>
               <div>
                 <h3 className="font-pixel text-lg">Discord</h3>
@@ -122,28 +124,28 @@ export default function ContactPage() {
                 href="https://discord.gg/m2mQScdxed"
                 className="minecraft-card p-3 flex items-center justify-center gap-2 hover:bg-muted/50 transition-colors"
               >
-                <i className="fab fa-discord h-4 w-5"></i>
+                <FontAwesomeIcon icon={faDiscord} className="h-4 w-5" />
                 <span>Discord</span>
               </a>
               <a
                 href="https://github.com/Fanconma/pixellingual-site"
                 className="minecraft-card p-3 flex items-center justify-center gap-2 hover:bg-muted/50 transition-colors"
               >
-                <i className="fab fa-github h-4 w-5"></i>
+                <FontAwesomeIcon icon={faGithub} className="h-4 w-5" />
                 <span>GitHub</span>
               </a>
               <a
                 href="https://x.com/plg_project"
                 className="minecraft-card p-3 flex items-center justify-center gap-2 hover:bg-muted/50 transition-colors"
               >
-                <i className="fab fa-x-twitter"></i>
+                <FontAwesomeIcon icon={faSquareXTwitter} className="h-4 w-5" />
                 <span>X</span>
               </a>
               <a
                 href="https://space.bilibili.com/647647625"
                 className="minecraft-card p-3 flex items-center justify-center gap-2 hover:bg-muted/50 transition-colors"
               >
-                <i className="fab fa-bilibili h-4 w-5"></i>
+                <FontAwesomeIcon icon={faBilibili} className="h-4 w-5" />
                 <span>哔哩哔哩</span>
               </a>
             </div>

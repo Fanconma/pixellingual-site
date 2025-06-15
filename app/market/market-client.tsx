@@ -34,17 +34,12 @@ const HorizontalScrollSection = dynamic(() => import("@/components/horizontal-sc
   ssr: false,
 });
 
-// 导入数据源中的类型和常量，以及 getPacksBySectionId 函数
+// 仅导入类型，不导入实际数据
 import {
-  ALL_PACKS, // 确保 ALL_PACKS 在客户端可用，用于懒加载
-  FEATURED_PACKS,
-  TAGS,
-  STUDIOS,
-  SECTIONS,
   TranslationPack,
   Studio,
   Section,
-  getPacksBySectionId,
+  // 移除所有数据导入：ALL_PACKS, FEATURED_PACKS, TAGS, STUDIOS, SECTIONS, getPacksBySectionId
 } from "@/data/translation-packs";
 
 // Helper function for date formatting (from previous steps)
@@ -60,18 +55,18 @@ const formatDateString = (dateString: string | undefined | null) => {
   return date;
 };
 
-
+// 更新 MarketClientProps 接口，以反映数据现在通过 props 传递，
+// 并且 sections 现在包含 packs 数组。
 interface MarketClientProps {
-  // initialFilteredPacks 现在可能是服务器端过滤后的结果，或者在没有初始查询/标签时为空数组
   initialFilteredPacks: TranslationPack[];
   initialSelectedTag: string | null;
   initialSearchQuery: string;
   initialIsSearching: boolean;
   recentPacks: TranslationPack[];
   featuredPacks: TranslationPack[];
-  tags: string[];
-  studios: Studio[];
-  sections: Section[];
+  tags: string[]; // 从服务器端传递
+  studios: Studio[]; // 从服务器端传递
+  sections: (Section & { packs: TranslationPack[] })[]; // 从服务器端传递，已预处理 packs
 }
 
 export default function MarketClient({
@@ -81,9 +76,9 @@ export default function MarketClient({
   initialIsSearching,
   recentPacks,
   featuredPacks,
-  tags,
-  studios,
-  sections,
+  tags,    // 现在是 props
+  studios, // 现在是 props
+  sections, // 现在是 props，已包含 packs
 }: MarketClientProps) {
   const searchParams = useSearchParams();
   const currentSelectedTagFromUrl = searchParams.get("tag");
@@ -94,11 +89,11 @@ export default function MarketClient({
     return typeof window !== "undefined" && window.innerWidth < 768 ? 6 : 12;
   }, []);
   const [visiblePacks, setVisiblePacks] = useState(INITIAL_VISIBLE_PACKS);
-  const [isSearching, setIsSearching] = useState(initialIsSearching); // 客户端的搜索状态
+  const [isSearching, setIsSearching] = useState(initialIsSearching);
   const packListRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLDivElement>(null);
 
-  // ---------- 新增懒加载相关的状态和 ref ----------
+  // ---------- 懒加载相关的状态和 ref ----------
   const [clientLoadedAllPacks, setClientLoadedAllPacks] = useState<TranslationPack[]>([]);
   const [isLoadingClientAllPacks, setIsLoadingClientAllPacks] = useState(false);
   const allPacksSectionRef = useRef<HTMLDivElement>(null);
@@ -122,12 +117,6 @@ export default function MarketClient({
 
   // ---------- Intersection Observer 用于懒加载 "全部翻译包" ----------
   useEffect(() => {
-    // 仅当满足以下条件时触发懒加载：
-    // 1. 元素存在于 DOM 中
-    // 2. 页面没有初始搜索查询 (initialIsSearching 为 false)
-    // 3. 页面没有初始标签筛选 (initialSelectedTag 为 null)
-    // 4. 客户端尚未加载 ALL_PACKS 数据 (clientLoadedAllPacks 为空)
-    // 5. 当前没有正在加载 ALL_PACKS
     if (
       allPacksSectionRef.current &&
       !initialIsSearching &&
@@ -137,14 +126,23 @@ export default function MarketClient({
     ) {
       const observer = new IntersectionObserver(
         (entries) => {
-          entries.forEach((entry) => {
+          entries.forEach(async (entry) => { // 注意这里添加了 async
             if (entry.isIntersecting) {
               setIsLoadingClientAllPacks(true);
-              // 模拟数据加载延迟，实际应用中这里会是 fetch('/api/all-packs')
-              setTimeout(() => {
-                setClientLoadedAllPacks(ALL_PACKS); // 加载 ALL_PACKS 数据
+              try {
+                // *** 核心修改：从 API 路由获取 ALL_PACKS 数据 ***
+                const res = await fetch('/api/packs');
+                if (!res.ok) {
+                  throw new Error(`HTTP error! status: ${res.status}`);
+                }
+                const data: TranslationPack[] = await res.json();
+                setClientLoadedAllPacks(data); // 加载 ALL_PACKS 数据
+              } catch (error) {
+                console.error("Error fetching ALL_PACKS:", error);
+                // 可以添加用户友好的错误消息
+              } finally {
                 setIsLoadingClientAllPacks(false);
-              }, 800); // 模拟 800ms 的网络延迟
+              }
               observer.unobserve(entry.target); // 一旦加载，停止观察，避免重复触发
             }
           });
@@ -173,14 +171,10 @@ export default function MarketClient({
   // 根据当前状态，选择基础数据源
   const basePacks = useMemo(() => {
     if (initialIsSearching || initialSelectedTag) {
-      // 如果 URL 中有初始搜索查询或标签，则使用服务器端提供的过滤结果
       return initialFilteredPacks;
     } else if (clientLoadedAllPacks.length > 0) {
-      // 如果客户端已懒加载 ALL_PACKS，则使用这些数据
       return clientLoadedAllPacks;
     }
-    // 默认情况：在客户端 ALL_PACKS 加载完成之前，返回空数组
-    // 此时，UI 会显示加载骨架屏
     return [];
   }, [initialFilteredPacks, initialIsSearching, initialSelectedTag, clientLoadedAllPacks]);
 
@@ -212,8 +206,8 @@ export default function MarketClient({
 
   // 当搜索查询或标签改变时，更新搜索状态和可见包数量
   useEffect(() => {
-    setIsSearching(!!searchQuery); // 更新 isSearching 状态，控制其他部分的显示
-    setVisiblePacks(INITIAL_VISIBLE_PACKS); // 重置可见包数量
+    setIsSearching(!!searchQuery);
+    setVisiblePacks(INITIAL_VISIBLE_PACKS);
   }, [searchQuery, selectedTag, INITIAL_VISIBLE_PACKS]);
 
   const handleScroll = useCallback(
@@ -263,6 +257,8 @@ export default function MarketClient({
             fill
             className="object-cover opacity-20"
             priority
+            quality={45}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
         <div className="container relative z-10">
@@ -290,9 +286,10 @@ export default function MarketClient({
 
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
-                {featuredPacks.map((pack) => {
+                {featuredPacks.map((pack) => { // 使用 props.featuredPacks
                   if (pack.isFeatured) {
-                    const studio = STUDIOS.find((studio) => studio.id === pack.studio);
+                    // 使用 props.studios
+                    const studio = studios.find((studio) => studio.id === pack.studio);
                     return (
                       <div key={pack.id} className="flex-[0_0_100%] min-w-0 pl-4 md:flex-[0_0_50%] lg:flex-[0_0_50%]">
                         <Link href={`/market/${pack.id}`} className="block">
@@ -370,7 +367,7 @@ export default function MarketClient({
             </div>
 
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
-              {tags.map((tag) => (
+              {tags.map((tag) => ( // 使用 props.tags
                 <TagCard key={tag} tag={tag} isSelected={selectedTag?.toLowerCase() === tag.toLowerCase()} />
               ))}
             </div>
@@ -388,7 +385,7 @@ export default function MarketClient({
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {studios.map((studio) => (
+              {studios.map((studio) => ( // 使用 props.studios
                 <StudioCard key={studio.id} studio={studio} />
               ))}
             </div>
@@ -398,10 +395,9 @@ export default function MarketClient({
 
       {/* Dynamic Sections based on data - Only show when not searching */}
       {!isSearching &&
-        sections.map((section) => {
-          const sectionPacks = getPacksBySectionId(section.id);
-
-          if (sectionPacks.length === 0) return null;
+        sections.map((section) => { // 使用 props.sections，它现在包含 packs
+          // section.packs 已经在服务器端预处理好了
+          if (section.packs.length === 0) return null;
 
           return (
             <section key={section.id} className="py-8 animate-fade-in animate-delay-600">
@@ -411,7 +407,7 @@ export default function MarketClient({
                   description={section.description}
                   viewAllHref={`/market/section/${section.id}`}
                 >
-                  {sectionPacks.slice(0, 10).map((pack) => (
+                  {section.packs.slice(0, 10).map((pack) => (
                     <div key={pack.id} className="w-80">
                       <TranslationPackCard pack={pack} size="large" />
                     </div>
@@ -431,7 +427,7 @@ export default function MarketClient({
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recentPacks.map((pack) => (
+              {recentPacks.map((pack) => ( // 使用 props.recentPacks
                 <TranslationPackCard key={pack.id} pack={pack} />
               ))}
             </div>
@@ -449,14 +445,12 @@ export default function MarketClient({
 
           {/* 根据加载状态和是否存在搜索/标签，显示骨架屏或实际内容 */}
           {isLoadingClientAllPacks && !isSearching && !selectedTag ? (
-            // 只有当客户端正在加载 ALL_PACKS 且没有处于搜索/标签过滤状态时显示骨架屏
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
               {[...Array(INITIAL_VISIBLE_PACKS)].map((_, i) => (
                 <div key={i} className="minecraft-card animate-pulse h-64"></div>
               ))}
             </div>
           ) : (
-            // 否则，渲染实际的翻译包列表或“未找到”消息
             <>
               {filteredPacks.length > 0 ? (
                 <div ref={packListRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
@@ -465,7 +459,6 @@ export default function MarketClient({
                   ))}
                 </div>
               ) : (
-                // 未找到翻译包
                 <div className="text-center py-12">
                   <h3 className="text-xl font-pixel mb-2">未找到翻译包</h3>
                   <p className="text-muted-foreground">尝试调整您的过滤条件或搜索词</p>
