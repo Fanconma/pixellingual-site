@@ -1,5 +1,7 @@
 import Link from "next/link"
 import Image from "next/image"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faBilibili, faDiscord, faGithub, faXTwitter } from "@fortawesome/free-brands-svg-icons"
 
 export default function Footer() {
   return (
@@ -72,19 +74,18 @@ export default function Footer() {
             <h3 className="font-pixel text-sm mb-4">联络</h3>
             <div className="flex space-x-4">
               <Link href="https://github.com/Fanconma/pixellingual-site" className="text-muted-foreground hover:text-primary transition-colors">
-                <i className="fab fa-github h-5 w-5"></i>
-                <span className="sr-only">GitHub</span>
+                <FontAwesomeIcon icon={faGithub} className="h-5 w-5" />
               </Link>
               <Link href="https://x.com/plg_project" className="text-muted-foreground hover:text-primary transition-colors">
-                <i className="fab fa-x-twitter h-5 w-5"></i>
+                <FontAwesomeIcon icon={faXTwitter} className="h-5 w-5" />
                 <span className="sr-only">X</span>
               </Link>
               <Link href="https://discord.gg/m2mQScdxed" className="text-muted-foreground hover:text-primary transition-colors">
-                <i className="fab fa-discord h-5 w-5"></i>
+                <FontAwesomeIcon icon={faDiscord} className="h-5 w-5" />
                 <span className="sr-only">Discord</span>
               </Link>
               <Link href="https://space.bilibili.com/647647625" className="text-muted-foreground hover:text-primary transition-colors">
-                <i className="fab fa-bilibili h-5 w-5"></i>
+                <FontAwesomeIcon icon={faBilibili} className="h-5 w-5" />
                 <span className="sr-only">Bilibili</span>
               </Link>
             </div>
