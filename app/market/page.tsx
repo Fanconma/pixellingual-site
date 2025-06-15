@@ -1,3 +1,4 @@
+// app/market/page.tsx
 import { Metadata } from 'next';
 // 移除所有客户端相关的导入和逻辑
 import {
@@ -7,6 +8,7 @@ import {
   STUDIOS,
   SECTIONS,
   getMostRecentPacks,
+  TranslationPack, // 导入 TranslationPack 类型
 } from "@/data/translation-packs"; // 确保路径正确
 import MarketClient from "./market-client"; // 导入客户端组件，确保路径正确
 
@@ -36,10 +38,7 @@ function formatTagForDisplay(tagSlug: string): string {
 // 1. generateMetadata 函数 (用于服务器端生成 <head> 标签)
 // --------------------------------------------------------
 export async function generateMetadata({ searchParams }: PageProps): Promise<Metadata> {
-  // 修正：使用 Array.isArray 确保只取第一个值或处理为字符串
-
   const awaitedSearchParams = await searchParams;
-
 
   const selectedTagFromUrl = Array.isArray(awaitedSearchParams.tag) ? awaitedSearchParams.tag[0] : awaitedSearchParams.tag ?? null;
   const searchQueryFromUrl = Array.isArray(awaitedSearchParams.q) ? awaitedSearchParams.q[0] : awaitedSearchParams.q ?? "";
@@ -99,23 +98,30 @@ export default async function MarketPage({ searchParams }: PageProps) {
   const selectedTag = Array.isArray(awaitedSearchParams.tag) ? awaitedSearchParams.tag[0] : awaitedSearchParams.tag ?? null;
   const searchQuery = Array.isArray(awaitedSearchParams.q) ? awaitedSearchParams.q[0] : awaitedSearchParams.q ?? "";
 
-  // 在服务器端执行初始过滤
-  let initialFilteredPacks = ALL_PACKS;
-  if (selectedTag) { // 确保 selectedTag 是一个字符串或 null
-    initialFilteredPacks = initialFilteredPacks.filter((pack) =>
-      pack.tags.some((tag) => tag.toLowerCase() === selectedTag.toLowerCase())
-    );
-  }
-  if (searchQuery) { // 确保 searchQuery 是一个字符串
-    const query = searchQuery.toLowerCase();
-    initialFilteredPacks = initialFilteredPacks.filter(
-      (pack) =>
-        pack.title.toLowerCase().includes(query) ||
-        pack.description.toLowerCase().includes(query) ||
-        pack.tags.some((tag) => tag.toLowerCase().includes(query)) ||
-        pack.author.toLowerCase().includes(query) ||
-        pack.studio.toLowerCase().includes(query),
-    );
+  const initialIsSearching = !!searchQuery; // 是否存在搜索查询
+
+  let serverFilteredPacks: TranslationPack[] = [];
+
+  // 只有当 URL 中有搜索查询或标签时，才在服务器端进行过滤
+  // 否则，initialFilteredPacks 将是空数组，客户端将懒加载 ALL_PACKS
+  if (selectedTag || searchQuery) {
+      serverFilteredPacks = ALL_PACKS; // 从所有数据开始过滤
+      if (selectedTag) {
+          serverFilteredPacks = serverFilteredPacks.filter((pack) =>
+              pack.tags.some((tag) => tag.toLowerCase() === selectedTag.toLowerCase())
+          );
+      }
+      if (searchQuery) {
+          const query = searchQuery.toLowerCase();
+          serverFilteredPacks = serverFilteredPacks.filter(
+              (pack) =>
+                  pack.title.toLowerCase().includes(query) ||
+                  pack.description.toLowerCase().includes(query) ||
+                  pack.tags.some((tag) => tag.toLowerCase().includes(query)) ||
+                  pack.author.toLowerCase().includes(query) ||
+                  pack.studio.toLowerCase().includes(query),
+          );
+      }
   }
 
   // 获取其他静态或预计算数据
@@ -125,12 +131,10 @@ export default async function MarketPage({ searchParams }: PageProps) {
   const studios = STUDIOS; // 直接引用常量
   const sections = SECTIONS; // 直接引用常量
 
-  // 判断是否处于搜索状态
-  const initialIsSearching = !!searchQuery;
-
   return (
     <MarketClient
-      initialFilteredPacks={initialFilteredPacks}
+      // initialFilteredPacks 将是服务器端过滤结果，或在没有初始查询/标签时为空数组
+      initialFilteredPacks={serverFilteredPacks}
       initialSelectedTag={selectedTag}
       initialSearchQuery={searchQuery}
       initialIsSearching={initialIsSearching}
