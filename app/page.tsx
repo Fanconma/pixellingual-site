@@ -171,7 +171,7 @@ export default async function Home() {
               {otherDonors.map((donor) => (
                   <div key={donor.id} className="px-3 py-1 bg-primary/10 rounded-full flex items-center">
                     <span className="font-pixel text-sm">{donor.name}</span>
-                    <span className="text-xs text-primary ml-2">${donor.amount}</span>
+                    <span className="text-xs text-primary ml-2">￥{donor.amount}</span>
                   </div>
                 ))}
               </div>

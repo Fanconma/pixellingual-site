@@ -1,4 +1,4 @@
-"use client"; 
+"use client";
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
@@ -22,25 +22,16 @@ import { useRouter } from "next/navigation";
 // 格式化日期函数
 const formatDate = (dateString: string | undefined | null) => {
   if (!dateString) {
-    return "N/A"; // 如果日期字符串为空或 null/undefined，返回 "N/A"
+    return "N/A";
   }
-
-  // 假设 dateString 是 "YYYYMMDD" 格式，例如 "20220217"
-  // 将其转换为 "YYYY-MM-DD" 格式，例如 "2022-02-17"
-  // 使用正则表达式匹配年、月、日，并用破折号连接
   const formattedDateString = dateString.replace(
     /(\d{4})(\d{2})(\d{2})/,
     '$1-$2-$3'
   );
-
   const date = new Date(formattedDateString);
-
-  // 检查日期对象是否有效 (getTime() 返回 NaN 表示无效日期)
   if (isNaN(date.getTime())) {
-    return "无效日期格式"; // 如果仍然无法解析，返回一个友好的错误提示
+    return "无效日期格式";
   }
-
-  // 使用 toLocaleDateString 进行格式化
   return date.toLocaleDateString("zh-CN", { year: "numeric", month: "long", day: "numeric" });
 };
 
@@ -56,23 +47,18 @@ export default function TranslationPackDetailClient({
   initialSimilarPacks,
 }: TranslationPackDetailClientProps) {
   const router = useRouter();
-  // 使用从 props 传入的初始数据初始化状态
   const [pack, setPack] = useState<TranslationPack>(initialPack);
   const [studioPacks, setStudioPacks] = useState<TranslationPack[]>(initialStudioPacks);
   const [similarPacks, setSimilarPacks] = useState<TranslationPack[]>(initialSimilarPacks);
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
 
-  // 滚动到顶部（对于客户端路由跳转时仍有用）
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, [pack.id]); // 依赖 pack.id 确保在从详情页A跳转到详情页B时也会滚动
-
-  // 移除了原始的 useEffect 数据获取逻辑，因为数据现在通过 props 传入
+  }, [pack.id]);
 
   const handleDownloadClick = () => {
     const disclaimerAccepted = localStorage.getItem("disclaimerAccepted") === "true";
-
     if (disclaimerAccepted) {
       if (pack) window.open(pack.downloadLink, "_blank");
     } else {
@@ -119,14 +105,14 @@ export default function TranslationPackDetailClient({
       setCurrentScreenshot((prev) => (prev - 1 + pack.screenshots.length) % pack.screenshots.length);
     }
   };
-  // 使用 useTheme 获取主题相关信息
-  const {resolvedTheme} = useTheme();
+
+  const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-  })
-  // 计算星级显示，这部分是纯展示逻辑，可以直接放在渲染中
+  }, []);
+
   const studio = STUDIOS.find((s) => s.id === pack.studio);
   const screenshots = pack.screenshots || [];
 
@@ -141,20 +127,33 @@ export default function TranslationPackDetailClient({
           </Link>
 
           <div className="grid md:grid-cols-2 gap-8">
+            {/* --- 重点改动区域开始 --- */}
             <div className="minecraft-card overflow-hidden">
-              {pack.isDLC && (
-                <div className="absolute top-4 left-4 z-10">
-                  <span className="bg-yellow-500 text-black font-pixel px-3 py-1">DLC</span>
-                </div>
-              )}
-              <Image
-                src={pack.image || "/placeholder.svg"}
-                alt={pack.title}
-                width={600}
-                height={400}
-                className="w-full h-auto object-cover"
-              />
+              {/* 
+                1. 创建一个相对定位的容器，并用 aspect-video (16:9) 固定其宽高比。
+                   这样就为图片提供了一个固定形状的“画框”。
+              */}
+              <div className="relative aspect-video">
+                {pack.isDLC && (
+                  <div className="absolute top-4 left-4 z-10">
+                    <span className="bg-yellow-500 text-black font-pixel px-3 py-1">DLC</span>
+                  </div>
+                )}
+                {/* 
+                  2. 修改 Image 组件：
+                     - 移除 width 和 height 属性。
+                     - 添加 fill 属性，让图片填充其父容器（也就是上面那个 aspect-video 的 div）。
+                     - 确保 className 中有 object-cover，它会让图片在填充时保持自身比例，多余部分被裁剪，而不是被拉伸。
+                */}
+                <Image
+                  src={pack.image || "/placeholder.svg"}
+                  alt={pack.title}
+                  fill
+                  className="object-cover"
+                />
+              </div>
             </div>
+            {/* --- 重点改动区域结束 --- */}
 
             <div className="space-y-6">
               <div>
@@ -242,10 +241,10 @@ export default function TranslationPackDetailClient({
               </div>
             </div>
           </div>
-          </div>
-        </section>
+        </div>
+      </section>
 
-      {/* Content Tabs */}
+      {/* Content Tabs (以下部分无需改动，保持原样) */}
       <section className="py-8 animate-fade-in animate-delay-100">
         <div className="container">
           <Tabs defaultValue="details">
@@ -302,7 +301,6 @@ export default function TranslationPackDetailClient({
                 
                 {screenshots.length > 0 ? (
                   <div className="space-y-6">
-                    {/* 主要截图展示 */}
                     <div className="relative minecraft-card overflow-hidden">
                       <div className="aspect-video relative">
                         <Image
@@ -313,7 +311,6 @@ export default function TranslationPackDetailClient({
                         />
                       </div>
                       
-                      {/* 导航按钮 */}
                       {screenshots.length > 1 && (
                         <>
                           <Button 
@@ -323,7 +320,6 @@ export default function TranslationPackDetailClient({
                             onClick={prevScreenshot}
                           >
                             <ChevronLeft className="h-4 w-4" />
-                            <span className="sr-only">前一张截图</span>
                           </Button>
                           
                           <Button 
@@ -333,18 +329,15 @@ export default function TranslationPackDetailClient({
                             onClick={nextScreenshot}
                           >
                             <ChevronRight className="h-4 w-4" />
-                            <span className="sr-only">下一张截图</span>
                           </Button>
                         </>
                       )}
                       
-                      {/* 截图计数器 */}
                       <div className="absolute bottom-2 right-2 bg-background/80 backdrop-blur-sm px-2 py-1 rounded text-xs">
                         {currentScreenshot + 1} / {screenshots.length}
                       </div>
                     </div>
                     
-                    {/* 缩略图导航 */}
                     {screenshots.length > 1 && (
                       <div className="grid grid-cols-4 sm:grid-cols-6 gap-2">
                         {screenshots.map((screenshot, index) => (
@@ -407,7 +400,7 @@ export default function TranslationPackDetailClient({
                   <h3 className="font-pixel text-lg mb-2">故障排除</h3>
                   <p className="mb-4">如果您在使用翻译包时遇到任何问题，请尝试以下操作：</p>
                   <ul className="space-y-2">
-                  <li className="flex items-start">
+                    <li className="flex items-start">
                       <span className="text-primary mr-2">•</span>
                       <span>手机用户在蓝奏云下载时要点开汉化包文件详情页才可直接下载</span>
                     </li>
@@ -447,12 +440,10 @@ export default function TranslationPackDetailClient({
         </div>
       </section>
 
-      {/* More from this Studio */}
       {studioPacks.length > 0 && (
         <section className="py-8 animate-fade-in animate-delay-200">
           <div className="container">
             <h2 className="text-2xl font-pixel mb-6">更多来自 {studio ? studio.name : "无名氏"} 的地图翻译包</h2>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {studioPacks.map((studioPack) => (
                 <TranslationPackCard key={studioPack.id} pack={studioPack} />
@@ -462,12 +453,10 @@ export default function TranslationPackDetailClient({
         </section>
       )}
 
-      {/* Similar Translations */}
       {similarPacks.length > 0 && (
         <section className="py-8 animate-fade-in animate-delay-300">
           <div className="container">
             <h2 className="text-2xl font-pixel mb-6">类似地图的汉化包</h2>
-
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {similarPacks.map((similarPack) => (
                 <TranslationPackCard key={similarPack.id} pack={similarPack} />
@@ -477,27 +466,22 @@ export default function TranslationPackDetailClient({
         </section>
       )}
 
-      {/* Comments Section */}
-      <section className="py-8 animate-fade-in animate-delay-400"> {/* 添加 section 和动画延迟 */}
+      <section className="py-8 animate-fade-in animate-delay-400">
         <div className="container">
-          <h2 className="text-2xl font-pixel mb-6">评论</h2> {/* 调整标题样式 */}
+          <h2 className="text-2xl font-pixel mb-6">评论</h2>
           {mounted && (
-            <div className="minecraft-card p-6 mt-6"> {/* ⬅️ 新增包裹层，并应用样式 */}
+            <div className="minecraft-card p-6 mt-6">
               <WalineComments
                 serverURL="https://comment.pling.top/"
                 path={pack.id}
-                dark={resolvedTheme === 'dark'} 
+                dark={resolvedTheme === 'dark'}
                 lang="zh-CN"
-                // reaction={true} // 如果需要，可以启用
-                // ...更多 WalineInitOptions
               />
             </div>
           )}
         </div>
       </section>
 
-
-      {/* Disclaimer Popup */}
       <DisclaimerPopup
         isOpen={isDisclaimerOpen}
         onClose={() => setIsDisclaimerOpen(false)}
@@ -505,8 +489,7 @@ export default function TranslationPackDetailClient({
         packTitle={pack.title}
       />
 
-      {/* Back to Top Button */}
       <BackToTop />
     </div>
-); 
+  );
 }

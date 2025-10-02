@@ -160,6 +160,10 @@ const CarouselItem = React.forwardRef<HTMLDivElement, React.HTMLAttributes<HTMLD
         ref={ref}
         role="group"
         aria-roledescription="slide"
+        // 调整 item 宽度，使其在横向时更宽，更好地展示大卡片
+        // 这里的 basis-full 可能会限制卡片数量，md:basis-1/2 lg:basis-1/3 可以让多张卡片并排
+        // 但鉴于Featured Carousel通常是一张大卡片，basis-full 可能是期望行为。
+        // 如果需要多张卡片并排，这里需要调整
         className={cn("min-w-0 shrink-0 grow-0 basis-full", orientation === "horizontal" ? "pl-4" : "pt-4", className)}
         {...props}
       />
@@ -175,12 +179,16 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
     return (
       <Button
         ref={ref}
-        variant={variant}
-        size={size}
+        // 重新设计按钮样式
         className={cn(
-          "absolute h-8 w-8 rounded-full",
+          "absolute rounded-md z-10", // 使用 rounded-md 保持块状感，z-10 确保在最上层
+          "bg-gray-800/80 backdrop-blur-sm border-2 border-gray-600", // Minecraft-like 深色半透明背景和边框
+          "hover:bg-gray-700/90 hover:border-primary transition-colors duration-200", // 悬停时的背景和边框变化
+          "shadow-md text-white", // 添加阴影和确保箭头图标为白色
+          // 调整尺寸和位置
+          "h-12 w-12", // 增大按钮尺寸
           orientation === "horizontal"
-            ? "-left-12 top-1/2 -translate-y-1/2"
+            ? "-left-6 top-1/2 -translate-y-1/2" // 向内移动，靠近轮播图内容
             : "-top-12 left-1/2 -translate-x-1/2 rotate-90",
           className,
         )}
@@ -188,7 +196,7 @@ const CarouselPrevious = React.forwardRef<HTMLButtonElement, React.ComponentProp
         onClick={scrollPrev}
         {...props}
       >
-        <ArrowLeft className="h-4 w-4" />
+        <ArrowLeft className="h-6 w-6" /> {/* 增大箭头图标尺寸 */}
         <span className="sr-only">Previous slide</span>
       </Button>
     )
@@ -203,12 +211,16 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
     return (
       <Button
         ref={ref}
-        variant={variant}
-        size={size}
+        // 重新设计按钮样式
         className={cn(
-          "absolute h-8 w-8 rounded-full",
+          "absolute rounded-md z-10", // 使用 rounded-md 保持块状感，z-10 确保在最上层
+          "bg-gray-800/80 backdrop-blur-sm border-2 border-gray-600", // Minecraft-like 深色半透明背景和边框
+          "hover:bg-gray-700/90 hover:border-primary transition-colors duration-200", // 悬停时的背景和边框变化
+          "shadow-md text-white", // 添加阴影和确保箭头图标为白色
+          // 调整尺寸和位置
+          "h-12 w-12", // 增大按钮尺寸
           orientation === "horizontal"
-            ? "-right-12 top-1/2 -translate-y-1/2"
+            ? "-right-6 top-1/2 -translate-y-1/2" // 向内移动，靠近轮播图内容
             : "-bottom-12 left-1/2 -translate-x-1/2 rotate-90",
           className,
         )}
@@ -216,7 +228,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
         onClick={scrollNext}
         {...props}
       >
-        <ArrowRight className="h-4 w-4" />
+        <ArrowRight className="h-6 w-6" /> {/* 增大箭头图标尺寸 */}
         <span className="sr-only">Next slide</span>
       </Button>
     )
@@ -225,4 +237,3 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 CarouselNext.displayName = "CarouselNext"
 
 export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext }
-

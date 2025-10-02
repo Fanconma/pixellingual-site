@@ -12,7 +12,8 @@ import BackToTop from "@/components/back-to-top";
 import { throttle, debounce } from "@/lib/performance";
 import useEmblaCarousel from "embla-carousel-react";
 import Autoplay from "embla-carousel-autoplay";
-import { Filter, DoorOpen } from "lucide-react";
+import { Filter, DoorOpen, ChevronRight } from "lucide-react"; 
+import { cn } from "@/lib/utils"; 
 
 // Dynamically import heavy components (keep these in the client component)
 const TranslationPackCard = dynamic(() => import("@/components/translation-pack-card"), {
@@ -39,7 +40,8 @@ import {
   TranslationPack,
   Studio,
   Section,
-  // 移除所有数据导入：ALL_PACKS, FEATURED_PACKS, TAGS, STUDIOS, SECTIONS, getPacksBySectionId
+  getPacksBySectionId, 
+  getPackStatus, 
 } from "@/data/translation-packs";
 
 // Helper function for date formatting (from previous steps)
@@ -246,6 +248,9 @@ export default function MarketClient({
     }
   };
 
+  // 定义所有非DLC徽章共用的基础样式（从 TranslationPackCard 复制过来）
+  const otherBadgeBaseClasses = "absolute z-20 font-pixel text-xs sm:text-sm font-bold px-3 py-1.5 shadow-lg border-2";
+
   return (
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
@@ -282,74 +287,87 @@ export default function MarketClient({
       {!isSearching && (
         <section className="py-12 bg-gray-900/50 animate-fade-in animate-delay-300">
           <div className="container">
-            <h2 className="text-2xl font-pixel mb-6">推荐汉化包</h2>
+            {/* 统一标题大小，并添加箭头 */}
+            <h2 className="text-xl md:text-2xl font-pixel mb-6 flex items-center"> {/* <-- 标题大小调整 */}
+              推荐汉化包 <ChevronRight className="ml-2 h-6 w-6 text-primary" />
+            </h2> 
 
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
-                {featuredPacks.map((pack) => { // 使用 props.featuredPacks
-                  if (pack.isFeatured) {
-                    // 使用 props.studios
-                    const studio = studios.find((studio) => studio.id === pack.studio);
-                    return (
-                      <div key={pack.id} className="flex-[0_0_100%] min-w-0 pl-4 md:flex-[0_0_50%] lg:flex-[0_0_50%]">
-                        <Link href={`/market/${pack.id}`} className="block">
-                          <div className="relative aspect-video overflow-hidden rounded-lg group">
-                            <Image
-                              src={pack.image || "/placeholder.svg"}
-                              alt={pack.title}
-                              fill
-                              className="object-cover transition-transform duration-500 group-hover:scale-105"
-                            />
-                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                {featuredPacks.map((pack) => {
+                  const studio = STUDIOS.find((studio) => studio.id === pack.studio);
+                  const studioName = studio ? studio.name : "未知工作室";
+                  const { isNew, isUpdated } = getPackStatus(pack); 
 
-                            <div className="absolute bottom-0 left-0 p-6">
-                              <h3 className="font-pixel text-xl text-white mb-2">{pack.title}</h3>
-                              <p className="text-sm text-gray-300 line-clamp-2">{pack.description}</p>
-                              <div className="flex items-center mt-2">
-                                <span className="text-xs text-gray-400 mr-4">{studio ? studio.name : "无名氏"}</span>
-                                <span className="text-xs text-primary flex items-center">
-                                  <span className="mr-1">价格:</span>
-                                  {pack.price === 0 ? "免费" : `${pack.price} MC`}
-                                </span>
+                  return (
+                    <div key={pack.id} className="flex-[0_0_100%] min-w-0 pl-4 md:flex-[0_0_50%] lg:flex-[0_0_50%]">
+                      <Link href={`/market/${pack.id}`} className="block group"> 
+                        <div className="relative aspect-video overflow-hidden rounded transform transition-transform duration-300 group-hover:scale-[1.02] group-hover:shadow-xl group-hover:shadow-black/50">
+                          <Image
+                            src={pack.image || "/placeholder.svg"}
+                            alt={pack.title}
+                            fill
+                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            loading="lazy"
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+                          {/* 优化后的 DLC 徽章样式 */}
+                          {pack.isDLC && (
+                            <div className={cn(
+                              "absolute top-3 left-3 p-[2px] rounded overflow-hidden shadow-lg",
+                              "bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500",
+                              "transform rotate-[-3deg]",
+                              "transition-all duration-300 ease-out",
+                              "group-hover:from-yellow-400 group-hover:via-green-400 group-hover:to-red-500",
+                              "group-hover:scale-105 group-hover:rotate-0 group-hover:shadow-xl"
+                            )}>
+                              <div className={cn(
+                                "flex items-center justify-center",
+                                "bg-yellow-500 text-black",
+                                "font-pixel text-xs sm:text-sm font-bold px-3 py-1.5 rounded",
+                                "group-hover:bg-yellow-400"
+                              )}>
+                                DLC
+
                               </div>
                             </div>
+                          )}
+                      
+                          {/* 优化后的 新 / 更新徽章样式 */}
+                          {isNew ? (
+                            <div className={cn(otherBadgeBaseClasses,
+                              "top-3 right-3",
+                              "bg-red-600 text-white border-red-800 rounded-full",
+                              "transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+                            )}>
+                              新
+                            </div>
+                          ) : isUpdated && (
+                            <div className={cn(otherBadgeBaseClasses,
+                              "top-3 right-3",
+                              "bg-blue-600 text-white border-blue-800 rounded",
+                            )}>
+                              更新
+                            </div>
+                          )}
 
-                            {/* New/Updated Tag - using formatDateString helper */}
-                            {(() => {
-                              const currentDate = new Date();
-                              const createdDate = formatDateString(pack.createdAt);
-                              const updatedDate = formatDateString(pack.updatedAt);
-
-                              const isNew = createdDate && (currentDate.getTime() - createdDate.getTime()) / (1000 * 3600 * 24) <= 7;
-                              const isUpdated = !isNew && updatedDate && (currentDate.getTime() - updatedDate.getTime()) / (1000 * 3600 * 24) <= 7;
-
-                              if (isNew) {
-                                return (
-                                  <div className="absolute top-4 right-4">
-                                    <span className="tag-pill">New</span>
-                                  </div>
-                                );
-                              } else if (isUpdated) {
-                                return (
-                                  <div className="absolute top-4 right-4">
-                                    <span className="tag-pill bg-blue-600">Updated</span>
-                                  </div>
-                                );
-                              }
-                              return null;
-                            })()}
-
-                            {pack.isDLC && (
-                              <div className="absolute top-4 left-4">
-                                <span className="bg-yellow-500 text-black font-pixel px-3 py-1">DLC</span>
-                              </div>
-                            )}
+                          <div className="absolute bottom-0 left-0 p-6">
+                            <h3 className="font-pixel text-xl text-white mb-2">{pack.title}</h3>
+                            <p className="text-sm text-gray-300 line-clamp-2">{pack.description}</p>
+                            <div className="flex items-center mt-2">
+                              <span className="text-xs text-gray-400 mr-4">{studioName}</span> 
+                              <span className="text-xs text-primary flex items-center">
+                                <span className="mr-1">价格:</span>
+                                {pack.price === 0 ? "免费" : `${pack.price} MC`}
+                              </span>
+                            </div>
                           </div>
-                        </Link>
-                      </div>
-                    );
-                  }
-                  return null;
+                        </div>
+                      </Link>
+                    </div>
+                  );
                 })}
               </div>
             </div>
@@ -361,9 +379,12 @@ export default function MarketClient({
       {!isSearching && (
         <section className="py-8 animate-fade-in animate-delay-400">
           <div className="container">
+            {/* 统一标题大小，并添加箭头 */}
             <div className="flex items-center mb-4">
               <Filter className="h-5 w-5 mr-2" />
-              <h2 className="text-xl font-pixel">按标签浏览</h2>
+              <h2 className="text-xl md:text-2xl font-pixel flex items-center"> {/* <-- 标题大小调整 */}
+                按标签浏览 <ChevronRight className="ml-2 h-6 w-6 text-primary" />
+              </h2>
             </div>
 
             <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
@@ -379,9 +400,12 @@ export default function MarketClient({
       {!isSearching && (
         <section className="py-8 animate-fade-in animate-delay-500">
           <div className="container">
+            {/* 统一标题大小，并添加箭头 */}
             <div className="flex items-center mb-4">
               <DoorOpen className="h-5 w-5 mr-2" />
-              <h2 className="text-xl font-pixel">按工作室浏览</h2>
+              <h2 className="text-xl md:text-2xl font-pixel flex items-center"> {/* <-- 标题大小调整 */}
+                按工作室浏览 <ChevronRight className="ml-2 h-6 w-6 text-primary" />
+              </h2>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
@@ -393,11 +417,12 @@ export default function MarketClient({
         </section>
       )}
 
-      {/* Dynamic Sections based on data - Only show when not searching */}
+      {/* Dynamic Sections based on data - HorizontalScrollSection 自身已处理标题和箭头 */}
       {!isSearching &&
-        sections.map((section) => { // 使用 props.sections，它现在包含 packs
-          // section.packs 已经在服务器端预处理好了
-          if (section.packs.length === 0) return null;
+        sections.map((section) => {
+          const sectionPacks = getPacksBySectionId(section.id);
+
+          if (sectionPacks.length === 0) return null;
 
           return (
             <section key={section.id} className="py-8 animate-fade-in animate-delay-600">
@@ -423,7 +448,10 @@ export default function MarketClient({
         <section className="py-8 animate-fade-in animate-delay-700">
           <div className="container">
             <div className="flex justify-between items-center mb-8">
-              <h2 className="text-2xl font-pixel">最新翻译</h2>
+              {/* 统一标题大小，并添加箭头 */}
+              <h2 className="text-xl md:text-2xl font-pixel flex items-center"> {/* <-- 标题大小调整 */}
+                最新翻译 <ChevronRight className="ml-2 h-6 w-6 text-primary" />
+              </h2>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -439,8 +467,9 @@ export default function MarketClient({
       {/* 使用 allPacksSectionRef 观察此 section */}
       <section className="py-8 animate-fade-in animate-delay-800" ref={allPacksSectionRef}>
         <div className="container">
-          <h2 className="text-2xl font-pixel mb-6">
-            {isSearching ? `"${searchQuery}" 的搜索结果` : "全部翻译包"}
+          {/* 统一标题大小，并添加箭头 */}
+          <h2 className="text-xl md:text-2xl font-pixel mb-6 flex items-center"> {/* <-- 标题大小调整 */}
+            {isSearching ? `"${searchQuery}" 的搜索结果` : "全部翻译包"} <ChevronRight className="ml-2 h-6 w-6 text-primary" />
           </h2>
 
           {/* 根据加载状态和是否存在搜索/标签，显示骨架屏或实际内容 */}
@@ -476,7 +505,7 @@ export default function MarketClient({
             <div className="mt-8 text-center">
               <Button
                 onClick={() => setVisiblePacks((prev) => Math.min(prev + 6, filteredPacks.length))}
-                className="minecraft-btn"
+                className="minecraft-btn px-8 py-4 text-lg"
               >
                 加载更多
               </Button>

@@ -3,7 +3,7 @@
     --waline-white: #fff;
     --waline-light-grey: #999;
     --waline-dark-grey: #666;
-    --waline-theme-color: #27ae60;
+    --waline-theme-color: #3A971E;
     --waline-active-color: #2ecc71;
     --waline-color: #444;
     --waline-bg-color: #fff;
@@ -23,7 +23,10 @@
     --waline-info-font-size: 0.625em;
     --waline-border: 1px solid var(--waline-border-color);
     --waline-avatar-radius: 50%;
-    --waline-box-shadow: none
+    --btn-color: 58, 151, 30;         /* 按钮主色 */
+    --btn-shadow-dark: #2F7B18;       /* 按钮底部立体感阴影颜色 */
+    --border-color: rgba(0, 0, 0, 0.4); /* 边框颜色 */
+    --press-depth: 4px;                /* 定义按钮“下沉”的深度 */
 }
 
 [data-waline] {
@@ -138,23 +141,40 @@
     min-width: 2.5em;
     margin-bottom: 0;
     padding: .5em 1em;
-    border: 1px solid var(--waline-border-color);
-    border-radius: .5em;
+    border: 2px solid rgba(0,0,0,0.4);
+    border-radius: 0;
     background: rgba(0, 0, 0, 0);
     color: var(--waline-color);
     font-weight: 400;
     font-size: .75em;
     line-height: 1.5;
     text-align: center;
+    text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.4);
     white-space: nowrap;
     cursor: pointer;
     user-select: none;
     touch-action: manipulation;
-    transition-duration: .4s
+    transition-duration: .4s;
+
+    position: relative;
+    box-shadow:
+      inset 0 calc(var(--press-depth) * -1) #C0C0C0,
+      inset 2px 2px 0px rgba(255, 255, 255, 0.2),
+      inset -2px -7px 0px rgba(0, 0, 0, 0.06);
+    transition: background-color 0.1s linear, box-shadow 0.1s linear;
+
 }
 
-.wl-btn:hover,
+.wl-btn:hover{
+    border-color: var(--waline-theme-color);
+    color: var(--waline-theme-color)
+}
 .wl-btn:active {
+    top: var(--press-depth);
+    box-shadow:
+      inset 2px 2px 0px rgba(255, 255, 255, 0.2),
+      inset -2px -2px 0px rgba(0, 0, 0, 0.1);
+    text-shadow: none; 
     border-color: var(--waline-theme-color);
     color: var(--waline-theme-color)
 }
@@ -167,16 +187,25 @@
 }
 
 .wl-btn.primary {
-    border-color: var(--waline-theme-color);
+    box-shadow:
+      inset 0 calc(var(--press-depth) * -1) var(--btn-shadow-dark),
+      inset 2px 2px 0px rgba(255, 255, 255, 0.2),
+      inset -2px -7px 0px rgba(0, 0, 0, 0.06);
+    border-color: rgba(0,0,0,0.4);
     background: var(--waline-theme-color);
     color: var(--waline-white)
 }
 
-.wl-btn.primary:hover,
+.wl-btn.primary:hover{
+    background-color: rgba(var(--btn-color), 0.9);
+}
+
 .wl-btn.primary:active {
-    border-color: var(--waline-active-color);
-    background: var(--waline-active-color);
-    color: var(--waline-white)
+    background: #34881B;
+    color: var(--waline-white);
+    box-shadow:
+      inset 2px 2px 0px rgba(255, 255, 255, 0.2),
+      inset -2px -2px 0px rgba(0, 0, 0, 0.1);
 }
 
 .wl-btn.primary:disabled {
@@ -262,10 +291,11 @@
     flex-shrink: 1;
     width: 100%;
     margin: .5em;
-    border: var(--waline-border);
-    border-radius: .75em;
-    background: var(--waline-bg-color);
-    box-shadow: var(--waline-box-shadow)
+    border: 2px solid #000;
+    background: #FFF5;
+    box-shadow:
+        inset -2px -4px #0004,
+        inset 2px 2px #FFF7;
 }
 
 .wl-header {
