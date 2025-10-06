@@ -50,6 +50,7 @@
     "embla-carousel": "latest",
     "embla-carousel-autoplay": "^8.6.0",
     "embla-carousel-react": "^8.6.0",
+    "fontawesome": "^5.6.3",
     "input-otp": "1.4.1",
     "lucide-react": "^0.454.0",
     "md5": "^2.3.0",

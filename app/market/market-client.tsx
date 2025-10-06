@@ -38,8 +38,8 @@ const HorizontalScrollSection = dynamic(() => import("@/components/horizontal-sc
 // 仅导入类型，不导入实际数据
 import {
   TranslationPack,
-  Studio,
-  Section,
+  STUDIOS,
+  SECTIONS,
   getPacksBySectionId, 
   getPackStatus, 
 } from "@/data/translation-packs";
