@@ -112,12 +112,17 @@ export default async function TranslationPackDetailPage({ params }: PageProps) {
   // 处理翻译包未找到的情况 (服务器端渲染)
   if (!pack) {
     return (
-      <div className="container py-20 text-center">
-        <h2 className="text-2xl font-pixel mb-4">翻译包未找到</h2>
-        <p className="text-muted-foreground mb-8">
+      <div className="container flex flex-col items-center py-24 text-center">
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl bg-muted/50">
+          <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8 text-muted-foreground/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4" />
+          </svg>
+        </div>
+        <h2 className="text-2xl font-pixel mb-3 text-foreground">翻译包未找到</h2>
+        <p className="text-muted-foreground mb-8 max-w-md">
           您正在寻找的翻译包不存在或因某些原因已被移除。
         </p>
-        <Button asChild className="minecraft-btn">
+        <Button asChild className="rounded-xl bg-primary px-6 py-3 font-pixel text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_24px_rgba(93,156,66,0.3)]">
           <Link href="/market">返回市场</Link>
         </Button>
       </div>
