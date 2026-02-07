@@ -17,16 +17,28 @@ export default function StudioCard({ studio, isSelected = false, className }: St
     <Link
       href={`/market/studio/${studio.id}`}
       className={cn(
-        "block minecraft-card p-6 transition-all duration-300 hover:shadow-md transform hover:scale-[1.05]",
-        isSelected ? "border-primary border-2" : "",
+        "group block rounded-xl p-5 text-center",
+        "border border-border/50 bg-card/60 backdrop-blur-sm",
+        "transition-all duration-300 ease-out",
+        "hover:bg-primary/5 hover:border-primary/30 hover:shadow-[0_4px_24px_rgba(93,156,66,0.12)]",
+        "hover:-translate-y-1",
+        isSelected
+          ? "border-primary bg-primary/10 shadow-[0_0_16px_rgba(93,156,66,0.2)]"
+          : "",
         className,
       )}
     >
-      <div className="flex flex-col items-center">
-        <div className="relative w-16 h-16 mb-2">
+      <div className="flex flex-col items-center gap-3">
+        <div className={cn(
+          "relative w-16 h-16 rounded-lg overflow-hidden",
+          "ring-2 ring-border/30 transition-all duration-300",
+          "group-hover:ring-primary/40 group-hover:shadow-[0_0_12px_rgba(93,156,66,0.2)]",
+        )}>
           <Image src={studio.logo || "/placeholder.svg"} alt={studio.name} fill className="object-contain pixelated" />
         </div>
-        <div className="font-pixel text-center text-lg">{studio.name}</div>
+        <span className="font-pixel text-base text-foreground/90 transition-colors duration-300 group-hover:text-primary">
+          {studio.name}
+        </span>
       </div>
     </Link>
   )
