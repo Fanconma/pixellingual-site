@@ -1,30 +1,27 @@
 import React from 'react';
 
-const StarRating = ({ rate }) => {
-  // 限制评分在 0 到 5 之间
+const StarRating = ({ rate }: { rate: number }) => {
   const clampedRate = Math.max(0, Math.min(rate, 5));
-  // 计算填充的百分比
   const percentage = (clampedRate / 5) * 100;
 
   return (
-    <div className="relative inline-block text-base">
-      {/* 底层灰色星星 */}
-      <div className="text-gray-300">
+    <div className="relative inline-flex text-sm leading-none" aria-label={`Rating: ${clampedRate.toFixed(1)} out of 5`}>
+      <div className="text-muted-foreground/30" aria-hidden="true">
         {Array(5)
           .fill(0)
           .map((_, idx) => (
-            <span key={idx}>★</span>
+            <span key={idx}>&#9733;</span>
           ))}
       </div>
-      {/* 上层黄色星星，通过 Tailwind 的 overflow-hidden 和绝对定位控制宽度 */}
       <div
         className="absolute top-0 left-0 overflow-hidden whitespace-nowrap text-yellow-400"
         style={{ width: `${percentage}%` }}
+        aria-hidden="true"
       >
         {Array(5)
           .fill(0)
           .map((_, idx) => (
-            <span key={idx}>★</span>
+            <span key={idx}>&#9733;</span>
           ))}
       </div>
     </div>
