@@ -1,4 +1,7 @@
 {
-    "compile-hero.disable-compile-files-on-did-save-code": true,
-    "Codegeex.RepoIndex": true
+  "compile-hero.disable-compile-files-on-did-save-code": true,
+  "Codegeex.RepoIndex": true,
+  "files.readonlyInclude": {
+    "**/*": true
+  }
 }

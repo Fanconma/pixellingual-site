@@ -101,15 +101,26 @@ export default function MarketClient({
   const allPacksSectionRef = useRef<HTMLDivElement>(null);
   // ---------------------------------------------
 
-  const [emblaRef] = useEmblaCarousel(
+  const [emblaRef, emblaApi] = useEmblaCarousel(
     {
       loop: true,
-      align: "start",
+      align: "center",
       skipSnaps: false,
-      dragFree: true,
+      dragFree: false,
+      containScroll: false,
     },
-    [Autoplay({ delay: 5000, stopOnInteraction: false })],
+    [Autoplay({ delay: 5000, stopOnInteraction: true })],
   );
+
+  // Track which slide index is active for center-highlight styling
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  useEffect(() => {
+    if (!emblaApi) return;
+    const onSelect = () => setSelectedIndex(emblaApi.selectedScrollSnap());
+    emblaApi.on("select", onSelect);
+    onSelect();
+    return () => { emblaApi.off("select", onSelect); };
+  }, [emblaApi]);
 
   // 根据 URL 中的 'tag' 参数更新 selectedTag 状态
   useEffect(() => {
@@ -248,9 +259,6 @@ export default function MarketClient({
     }
   };
 
-  // 定义所有非DLC徽章共用的基础样式（从 TranslationPackCard 复制过来）
-  const otherBadgeBaseClasses = "absolute z-20 font-pixel text-xs sm:text-sm font-bold px-3 py-1.5 shadow-lg border-2";
-
   return (
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
@@ -285,82 +293,114 @@ export default function MarketClient({
 
       {/* Featured Carousel - Only show when not searching */}
       {!isSearching && (
-        <section className="py-12 bg-gray-900/50 animate-fade-in animate-delay-300">
+        <section className="py-12 bg-muted/30 backdrop-blur-sm animate-fade-in animate-delay-300">
           <div className="container">
-            {/* 统一标题大小，并添加箭头 */}
-            <h2 className="text-xl md:text-2xl font-pixel mb-6 flex items-center"> {/* <-- 标题大小调整 */}
-              推荐汉化包 <ChevronRight className="ml-2 h-6 w-6 text-primary" />
-            </h2> 
+            <div className="flex items-center gap-3 mb-6">
+              <div className="h-6 w-1 rounded-full bg-primary" />
+              <h2 className="text-xl md:text-2xl font-pixel">推荐汉化包</h2>
+              <ChevronRight className="h-5 w-5 text-primary" />
+            </div>
 
             <div className="overflow-hidden" ref={emblaRef}>
               <div className="flex">
-                {featuredPacks.map((pack) => {
-                  const studio = STUDIOS.find((studio) => studio.id === pack.studio);
+                {featuredPacks.map((pack, index) => {
+                  const studio = STUDIOS.find((s) => s.id === pack.studio);
                   const studioName = studio ? studio.name : "未知工作室";
-                  const { isNew, isUpdated } = getPackStatus(pack); 
+                  const { isNew, isUpdated } = getPackStatus(pack);
+                  const isActive = index === selectedIndex;
 
                   return (
-                    <div key={pack.id} className="flex-[0_0_100%] min-w-0 pl-4 md:flex-[0_0_50%] lg:flex-[0_0_50%]">
-                      <Link href={`/market/${pack.id}`} className="block group"> 
-                        <div className="relative aspect-video overflow-hidden rounded transform transition-transform duration-300 group-hover:scale-[1.02] group-hover:shadow-xl group-hover:shadow-black/50">
+                    <div
+                      key={pack.id}
+                      className={cn(
+                        "flex-[0_0_85%] min-w-0 px-2 md:flex-[0_0_55%] lg:flex-[0_0_50%]",
+                        "transition-all duration-500 ease-out",
+                        isActive
+                          ? "scale-100 opacity-100"
+                          : "scale-[0.92] opacity-60",
+                      )}
+                    >
+                      <Link href={`/market/${pack.id}`} className="block group">
+                        <div
+                          className={cn(
+                            "relative aspect-video overflow-hidden rounded-xl",
+                            "transition-all duration-500 ease-out",
+                            "border border-transparent",
+                            isActive
+                              ? "shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-primary/20"
+                              : "shadow-md",
+                            "group-hover:shadow-[0_12px_48px_rgba(0,0,0,0.5)]",
+                          )}
+                        >
                           <Image
                             src={pack.image || "/placeholder.svg"}
                             alt={pack.title}
                             fill
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
+                            className="object-cover transition-transform duration-500 group-hover:scale-105"
                             loading="lazy"
                             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
 
-                          {/* 优化后的 DLC 徽章样式 */}
+                          {/* DLC badge with hover glow */}
                           {pack.isDLC && (
-                            <div className={cn(
-                              "absolute top-3 left-3 p-[2px] rounded overflow-hidden shadow-lg",
-                              "bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500",
-                              "transform rotate-[-3deg]",
-                              "transition-all duration-300 ease-out",
-                              "group-hover:from-yellow-400 group-hover:via-green-400 group-hover:to-red-500",
-                              "group-hover:scale-105 group-hover:rotate-0 group-hover:shadow-xl"
-                            )}>
-                              <div className={cn(
-                                "flex items-center justify-center",
-                                "bg-yellow-500 text-black",
-                                "font-pixel text-xs sm:text-sm font-bold px-3 py-1.5 rounded",
-                                "group-hover:bg-yellow-400"
-                              )}>
-                                DLC
-
-                              </div>
+                            <div
+                              className={cn(
+                                "absolute top-3 left-3 z-20 font-pixel text-xs sm:text-sm font-bold",
+                                "px-3 py-1.5 rounded-md backdrop-blur-sm",
+                                "bg-purple-600/90 text-white",
+                                "shadow-lg shadow-purple-900/30",
+                                "transition-all duration-500 ease-out",
+                                "animate-dlc-glow",
+                                "group-hover:shadow-[0_0_20px_rgba(147,51,234,0.7),_0_0_40px_rgba(147,51,234,0.3)]",
+                                "group-hover:bg-purple-500/95 group-hover:scale-110",
+                              )}
+                            >
+                              DLC
                             </div>
                           )}
-                      
-                          {/* 优化后的 新 / 更新徽章样式 */}
+
+                          {/* New / Updated badges */}
                           {isNew ? (
-                            <div className={cn(otherBadgeBaseClasses,
-                              "top-3 right-3",
-                              "bg-red-600 text-white border-red-800 rounded-full",
-                              "transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
-                            )}>
-                              新
+                            <div
+                              className={cn(
+                                "absolute top-3 right-3 z-20 font-pixel text-xs sm:text-sm font-bold",
+                                "px-3 py-1.5 rounded-md backdrop-blur-sm",
+                                "bg-red-500/90 text-white shadow-lg shadow-red-900/30",
+                                "transition-transform duration-300 group-hover:scale-110",
+                              )}
+                            >
+                              NEW
                             </div>
-                          ) : isUpdated && (
-                            <div className={cn(otherBadgeBaseClasses,
-                              "top-3 right-3",
-                              "bg-blue-600 text-white border-blue-800 rounded",
-                            )}>
-                              更新
-                            </div>
+                          ) : (
+                            isUpdated && (
+                              <div
+                                className={cn(
+                                  "absolute top-3 right-3 z-20 font-pixel text-xs sm:text-sm font-bold",
+                                  "px-3 py-1.5 rounded-md backdrop-blur-sm",
+                                  "bg-blue-500/90 text-white shadow-lg shadow-blue-900/30",
+                                )}
+                              >
+                                UPD
+                              </div>
+                            )
                           )}
 
-                          <div className="absolute bottom-0 left-0 p-6">
-                            <h3 className="font-pixel text-xl text-white mb-2">{pack.title}</h3>
-                            <p className="text-sm text-gray-300 line-clamp-2">{pack.description}</p>
-                            <div className="flex items-center mt-2">
-                              <span className="text-xs text-gray-400 mr-4">{studioName}</span> 
-                              <span className="text-xs text-primary flex items-center">
-                                <span className="mr-1">价格:</span>
-                                {pack.price === 0 ? "免费" : `${pack.price} MC`}
+                          {/* Bottom info overlay */}
+                          <div className="absolute bottom-0 inset-x-0 p-5">
+                            <h3 className="font-pixel text-lg md:text-xl text-white mb-1.5 line-clamp-1">{pack.title}</h3>
+                            <p className="text-sm text-white/70 line-clamp-2 mb-2">{pack.description}</p>
+                            <div className="flex items-center gap-4">
+                              <span className="text-xs text-white/50">{studioName}</span>
+                              <span
+                                className={cn(
+                                  "font-pixel text-xs font-bold rounded-md px-2 py-0.5",
+                                  pack.price === 0
+                                    ? "bg-primary/20 text-primary"
+                                    : "bg-yellow-500/20 text-yellow-400",
+                                )}
+                              >
+                                {pack.price === 0 ? "FREE" : `${pack.price} MC`}
                               </span>
                             </div>
                           </div>
@@ -370,6 +410,23 @@ export default function MarketClient({
                   );
                 })}
               </div>
+            </div>
+
+            {/* Carousel dot indicators */}
+            <div className="flex justify-center gap-2 mt-5">
+              {featuredPacks.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => emblaApi?.scrollTo(index)}
+                  className={cn(
+                    "h-1.5 rounded-full transition-all duration-300",
+                    index === selectedIndex
+                      ? "w-8 bg-primary"
+                      : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50",
+                  )}
+                  aria-label={`Go to slide ${index + 1}`}
+                />
+              ))}
             </div>
           </div>
         </section>

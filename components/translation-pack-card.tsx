@@ -22,40 +22,47 @@ const TranslationPackCard = memo(function TranslationPackCard({
   const studio = STUDIOS.find((studio) => studio.id === pack.studio)
   const studioName = studio ? studio.name : "未知工作室"
 
-  const badgeBaseClasses = "absolute z-20 font-pixel text-xs sm:text-sm font-bold px-2 py-1"
+  const badgeBaseClasses =
+    "absolute z-20 font-pixel text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-md backdrop-blur-sm"
 
   return (
     <Link
       href={`/market/${pack.id}`}
       className={cn("group block h-full outline-none", className)}
     >
-      {/* 
-        主容器，实现“凹陷插槽”风格和固定高度：
-        - 使用 flex-col 来控制内部布局，确保卡片能撑满父容器高度。
-        - 背景色更深，并添加了微妙的噪点纹理，模拟游戏UI质感。
-        - 使用多重 inset box-shadow 来创建凹陷的立体边框，效果比 border 好得多。
-        - 悬停/特色状态：添加明亮的 outline 来模拟游戏中的“选中”效果，清晰且不影响布局。
-      */}
       <div
         className={cn(
-          "flex h-full flex-col bg-zinc-900", // h-full 确保卡片在 grid/flex 布局中等高
-          "transition-all duration-200 ease-out",
-          // 核心：使用 inset shadow 创建凹陷效果
-          "shadow-[inset_2px_2px_0_rgba(0,0,0,0.4),_inset_-2px_-2px_0_rgba(255,255,255,0.1)]",
-          // 悬停时阴影变深，立体感更强
-          "group-hover:shadow-[inset_3px_3px_0_rgba(0,0,0,0.6),_inset_-3px_-3px_0_rgba(255,255,255,0.15)]",
-          // 特色/悬停时的外发光边框
-          pack.isFeatured && "outline outline-2 outline-yellow-400",
-          "group-hover:outline group-hover:outline-2 group-hover:outline-white",
+          "relative flex h-full flex-col overflow-hidden rounded-xl",
+          "border bg-card/70 backdrop-blur-sm",
+          "transition-all duration-300 ease-out",
+          "shadow-sm",
+          "group-hover:-translate-y-1.5",
+          "group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.3),_0_0_20px_rgba(93,156,66,0.1)]",
+          "group-hover:border-primary/30",
+          pack.isFeatured
+            ? [
+                "border-yellow-500/70 dark:border-yellow-500/50",
+                "shadow-[0_0_20px_rgba(234,179,8,0.2)] dark:shadow-[0_0_16px_rgba(234,179,8,0.15)]",
+                "ring-1 ring-yellow-400/30",
+                "group-hover:shadow-[0_0_32px_rgba(234,179,8,0.35),_0_8px_30px_rgba(0,0,0,0.3)]",
+                "group-hover:border-yellow-400/80",
+              ]
+            : "border-border/40",
           size === "large" ? "w-80" : "w-full",
         )}
       >
+        {/* Featured top accent line */}
+        {pack.isFeatured && (
+          <div className="absolute inset-x-0 top-0 z-30 h-[2px] bg-gradient-to-r from-yellow-500/0 via-yellow-400 to-yellow-500/0" />
+        )}
+
+        {/* Image */}
         <div className="relative aspect-video flex-shrink-0 overflow-hidden">
           <Image
             src={pack.image || "/placeholder.svg"}
             alt={pack.title}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 ease-out group-hover:scale-110"
             loading="lazy"
             sizes={
               size === "large"
@@ -63,47 +70,85 @@ const TranslationPackCard = memo(function TranslationPackCard({
                 : "(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             }
           />
+          {/* Bottom gradient for text contrast */}
+          <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-black/60 to-transparent" />
 
-          {/* 徽章保持不变 */}
+          {/* DLC Badge with hover glow */}
           {pack.isDLC && (
-            <div className={cn(badgeBaseClasses, "top-2 left-2", "bg-purple-600 text-white", "outline outline-1 outline-black/50")}>
+            <div
+              className={cn(
+                badgeBaseClasses,
+                "top-2.5 left-2.5",
+                "bg-purple-600/90 text-white shadow-lg shadow-purple-900/30",
+                "transition-all duration-500 ease-out",
+                "group-hover:shadow-[0_0_16px_rgba(147,51,234,0.6),_0_0_32px_rgba(147,51,234,0.3)]",
+                "group-hover:bg-purple-500/95 group-hover:scale-105",
+                "animate-dlc-glow",
+              )}
+            >
               DLC
             </div>
           )}
+
+          {/* New / Updated badges */}
           {isNew ? (
-            <div className={cn(badgeBaseClasses, "top-2 right-2", "bg-red-600 text-white", "outline outline-1 outline-black/50")}>
-              新
+            <div
+              className={cn(
+                badgeBaseClasses,
+                "top-2.5 right-2.5",
+                "bg-red-500/90 text-white shadow-lg shadow-red-900/30",
+              )}
+            >
+              NEW
             </div>
           ) : (
             isUpdated && (
-              <div className={cn(badgeBaseClasses, "top-2 right-2", "bg-blue-600 text-white", "outline outline-1 outline-black/50")}>
-                更新
+              <div
+                className={cn(
+                  badgeBaseClasses,
+                  "top-2.5 right-2.5",
+                  "bg-blue-500/90 text-white shadow-lg shadow-blue-900/30",
+                )}
+              >
+                UPD
               </div>
             )
           )}
+
+          {/* Featured ribbon */}
+          {pack.isFeatured && (
+            <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1 rounded-md bg-yellow-500/90 px-2 py-0.5 font-pixel text-[10px] font-bold text-yellow-950 shadow-lg backdrop-blur-sm transition-shadow duration-300 group-hover:shadow-[0_0_12px_rgba(234,179,8,0.5)]">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+              </svg>
+              FEATURED
+            </div>
+          )}
         </div>
 
-        {/* 
-          信息面板 - 固定高度和文字溢出处理：
-          - flex-grow 让此区域填充剩余空间。
-          - 内部再用 flex 布局将标题推到顶部，作者和价格推到底部。
-          - 标题使用 line-clamp 限制最多显示3行，超出部分显示...
-          - 作者名称使用 truncate 单行截断。
-        */}
-        <div className="flex flex-grow flex-col justify-between p-3">
-          {/* 标题部分 */}
-          <h3 className="font-pixel text-lg text-white break-words shadow-black/75 [text-shadow:2px_2px_0_var(--tw-shadow-color)] line-clamp-3">
+        {/* Info Panel */}
+        <div className="flex flex-grow flex-col justify-between gap-2 p-3.5">
+          <h3 className="font-pixel text-base leading-snug text-foreground line-clamp-2 transition-colors duration-300 group-hover:text-primary">
             {pack.title}
           </h3>
-          {/* 底部信息 */}
-          <div className="mt-2 flex items-center justify-between">
-            <span className="truncate text-sm text-zinc-300 font-pixel shadow-black/75 [text-shadow:1px_1px_0_var(--tw-shadow-color)]" title={studioName}>
+          <div className="flex items-center justify-between gap-2">
+            <span
+              className="truncate font-pixel text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70"
+              title={studioName}
+            >
               {studioName}
             </span>
-            <div className="flex flex-shrink-0 items-center">
+            <div className="flex flex-shrink-0 items-center gap-1.5">
               <StarRating rate={pack.rating} />
-              <span className="font-pixel ml-2 text-sm font-bold text-yellow-400 shadow-black/75 [text-shadow:2px_2px_0_var(--tw-shadow-color)]">
-                {pack.price === 0 ? "免费" : `${pack.price} MC`}
+              <span
+                className={cn(
+                  "font-pixel text-xs font-bold rounded-md px-2 py-0.5",
+                  pack.price === 0
+                    ? "bg-primary/15 text-primary"
+                    : "bg-yellow-500/15 text-yellow-400",
+                )}
+              >
+                {pack.price === 0 ? "FREE" : `${pack.price} MC`}
               </span>
             </div>
           </div>
