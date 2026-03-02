@@ -293,6 +293,20 @@
 .animate-float-delayed {
   animation: float 8s ease-in-out 2s infinite;
 }
+
+/* DLC badge subtle pulsing glow */
+@keyframes dlcGlow {
+  0%, 100% {
+    box-shadow: 0 0 6px rgba(147, 51, 234, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 14px rgba(147, 51, 234, 0.5), 0 0 24px rgba(147, 51, 234, 0.15);
+  }
+}
+
+.animate-dlc-glow {
+  animation: dlcGlow 3s ease-in-out infinite;
+}
 /* 500错误页面的故障动画 */
 @keyframes glitch {
   0% {
