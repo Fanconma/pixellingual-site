@@ -12,7 +12,7 @@ export default function TagCard({ tag, isSelected = false, className }: TagCardP
     <Link
       href={`/market/tag/${tag.toLowerCase()}`}
       className={cn(
-        "group block rounded-lg px-4 py-3 text-center",
+        "group block rounded-lg px-2.5 py-2 sm:px-4 sm:py-3 text-center",
         "border border-border/50 bg-card/60 backdrop-blur-sm",
         "transition-all duration-300 ease-out",
         "hover:bg-primary/10 hover:border-primary/40 hover:shadow-[0_0_16px_rgba(93,156,66,0.15)]",
@@ -24,7 +24,7 @@ export default function TagCard({ tag, isSelected = false, className }: TagCardP
       )}
     >
       <span className={cn(
-        "font-pixel text-sm text-foreground/80 transition-colors duration-300",
+        "font-pixel text-xs sm:text-sm text-foreground/80 transition-colors duration-300",
         "group-hover:text-primary",
         isSelected && "text-primary font-bold"
       )}>

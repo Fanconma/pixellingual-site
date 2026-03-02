@@ -262,7 +262,7 @@ export default function MarketClient({
   return (
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
-      <section className="relative py-12 md:py-20 overflow-hidden">
+      <section className="relative py-8 sm:py-12 md:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/market.jpeg"
@@ -276,7 +276,7 @@ export default function MarketClient({
         </div>
         <div className="container relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-pixel tracking-tight animate-fade-in">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel tracking-tight animate-fade-in">
               MARKETPLACE<br /> <span className="text-primary">TRANSLATION</span>
             </h1>
             <p className="text-lg text-muted-foreground animate-fade-in animate-delay-100">
@@ -445,7 +445,7 @@ export default function MarketClient({
               </h2>
             </div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3">
               {tags.map((tag) => ( // 使用 props.tags
                 <TagCard key={tag} tag={tag} isSelected={selectedTag?.toLowerCase() === tag.toLowerCase()} />
               ))}
@@ -466,7 +466,7 @@ export default function MarketClient({
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-4">
               {studios.map((studio) => ( // 使用 props.studios
                 <StudioCard key={studio.id} studio={studio} />
               ))}
@@ -491,8 +491,8 @@ export default function MarketClient({
                   viewAllHref={`/market/section/${section.id}`}
                 >
                   {section.packs.slice(0, 10).map((pack) => (
-                    <div key={pack.id} className="w-64 sm:w-72 md:w-80">
-                      <TranslationPackCard pack={pack} size="large" />
+                    <div key={pack.id} className="w-44 sm:w-64 md:w-72 lg:w-80">
+                      <TranslationPackCard pack={pack} />
                     </div>
                   ))}
                 </HorizontalScrollSection>
@@ -512,7 +512,7 @@ export default function MarketClient({
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
               {recentPacks.map((pack) => (
                 <TranslationPackCard key={pack.id} pack={pack} />
               ))}
@@ -532,15 +532,15 @@ export default function MarketClient({
 
           {/* 根据加载状态和是否存在搜索/标签，显示骨架屏或实际内容 */}
           {isLoadingClientAllPacks && !isSearching && !selectedTag ? (
-            <div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
               {[...Array(INITIAL_VISIBLE_PACKS)].map((_, i) => (
-                <div key={i} className="rounded-xl bg-card/50 animate-pulse h-48 sm:h-64"></div>
+                <div key={i} className="rounded-lg sm:rounded-xl bg-card/50 animate-shimmer h-48 sm:h-64"></div>
               ))}
             </div>
           ) : (
             <>
               {filteredPacks.length > 0 ? (
-                <div ref={packListRef} className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
+                <div ref={packListRef} className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
                   {filteredPacks.slice(0, visiblePacks).map((pack) => (
                     <TranslationPackCard key={pack.id} pack={pack} />
                   ))}

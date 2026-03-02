@@ -176,7 +176,7 @@ export default function TranslationPackDetailClient({
             </span>
           </nav>
 
-          <div className="grid gap-8 md:grid-cols-2">
+          <div className="grid gap-5 sm:gap-8 md:grid-cols-2">
             {/* Image */}
             <div
               className="animate-slide-up overflow-hidden rounded-xl border border-border/40 bg-card/70 backdrop-blur-sm"
@@ -232,7 +232,7 @@ export default function TranslationPackDetailClient({
                 className="animate-slide-up"
                 style={{ animationDelay: "0.15s" }}
               >
-                <h1 className="font-pixel text-3xl text-foreground text-balance leading-tight">
+                <h1 className="font-pixel text-xl sm:text-3xl text-foreground text-balance leading-tight">
                   {pack.title}
                 </h1>
                 <p className="mt-2 leading-relaxed text-muted-foreground">
@@ -403,8 +403,8 @@ export default function TranslationPackDetailClient({
             </TabsList>
 
             {/* Details Tab */}
-            <TabsContent value="details" className="mt-6">
-              <div className="space-y-8 rounded-xl border border-border/40 bg-card/60 p-6 backdrop-blur-sm">
+            <TabsContent value="details" className="mt-4 sm:mt-6">
+              <div className="space-y-6 sm:space-y-8 rounded-xl border border-border/40 bg-card/60 p-4 sm:p-6 backdrop-blur-sm">
                 {/* Features */}
                 <div>
                   <h3 className="mb-4 flex items-center gap-2 font-pixel text-lg text-foreground">
@@ -469,8 +469,8 @@ export default function TranslationPackDetailClient({
             </TabsContent>
 
             {/* Screenshots Tab */}
-            <TabsContent value="screenshots" className="mt-6">
-              <div className="rounded-xl border border-border/40 bg-card/60 p-6 backdrop-blur-sm">
+            <TabsContent value="screenshots" className="mt-4 sm:mt-6">
+              <div className="rounded-xl border border-border/40 bg-card/60 p-3 sm:p-6 backdrop-blur-sm">
                 <h3 className="mb-4 flex items-center gap-2 font-pixel text-lg text-foreground">
                   <ImageIcon className="h-5 w-5 text-primary" />
                   截图
@@ -562,8 +562,8 @@ export default function TranslationPackDetailClient({
             </TabsContent>
 
             {/* Installation Tab */}
-            <TabsContent value="installation" className="mt-6">
-              <div className="space-y-6 rounded-xl border border-border/40 bg-card/60 p-6 backdrop-blur-sm">
+            <TabsContent value="installation" className="mt-4 sm:mt-6">
+              <div className="space-y-5 sm:space-y-6 rounded-xl border border-border/40 bg-card/60 p-4 sm:p-6 backdrop-blur-sm">
                 <div>
                   <h3 className="mb-4 flex items-center gap-2 font-pixel text-lg text-foreground">
                     <Wrench className="h-5 w-5 text-primary" />
@@ -658,7 +658,7 @@ export default function TranslationPackDetailClient({
             <SectionHeader>
               更多来自 {studio ? studio.name : "无名氏"} 的地图翻译包
             </SectionHeader>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
               {studioPacks.map((studioPack) => (
                 <TranslationPackCard key={studioPack.id} pack={studioPack} />
               ))}
@@ -675,7 +675,7 @@ export default function TranslationPackDetailClient({
         >
           <div className="container">
             <SectionHeader>类似地图的汉化包</SectionHeader>
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 lg:grid-cols-4">
               {similarPacks.map((similarPack) => (
                 <TranslationPackCard
                   key={similarPack.id}

@@ -23,7 +23,7 @@ export default async function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* ───── Hero Section ───── */}
-      <section className="relative overflow-hidden py-24 md:py-32">
+      <section className="relative overflow-hidden py-16 sm:py-24 md:py-32">
         {/* Background image */}
         <div className="absolute inset-0 z-0">
           <Image
@@ -51,12 +51,12 @@ export default async function Home() {
               <span className="font-pixel text-xs text-primary">Minecraft 基岩版翻译计划</span>
             </div>
 
-            <h1 className="animate-slide-up text-4xl md:text-5xl lg:text-6xl font-pixel tracking-tight text-balance" style={{ animationDelay: "0.1s" }}>
+            <h1 className="animate-slide-up text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-pixel tracking-tight text-balance" style={{ animationDelay: "0.1s" }}>
               <span className="text-primary">像素语匠</span>
               <br />
               <span className="text-foreground">PixelLingual</span>
               <br />
-              <span className="mt-2 block text-2xl md:text-3xl text-muted-foreground">用文字塑造世界</span>
+              <span className="mt-2 block text-xl sm:text-2xl md:text-3xl text-muted-foreground">用文字塑造世界</span>
             </h1>
 
             <p className="animate-slide-up mx-auto max-w-xl text-lg text-muted-foreground leading-relaxed" style={{ animationDelay: "0.2s" }}>
@@ -79,11 +79,11 @@ export default async function Home() {
       </section>
 
       {/* ───── Features Section ───── */}
-      <section className="py-20 md:py-24">
+      <section className="py-12 sm:py-20 md:py-24">
         <div className="container">
-          <div className="mb-14 text-center">
+          <div className="mb-8 sm:mb-14 text-center">
             <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-primary" />
-            <h2 className="text-3xl font-pixel mb-4 text-balance">什么是 PixelLingual?</h2>
+            <h2 className="text-2xl sm:text-3xl font-pixel mb-4 text-balance">什么是 PixelLingual?</h2>
             <p className="mx-auto max-w-2xl text-muted-foreground leading-relaxed">
               PixelLingual(像素语匠)是专门翻译 Minecraft 基岩版市场地图的工作室。市场中大多数除教育地图以外的地图都不包含中文翻译。为了让更多国内玩家更好的了解优秀的 Minecraft 作品，我们来翻译，让玩家更好的游玩地图。
             </p>
@@ -129,12 +129,12 @@ export default async function Home() {
       </section>
 
       {/* ───── Recent Translations Section ───── */}
-      <section className="py-20 md:py-24">
+      <section className="py-12 sm:py-20 md:py-24">
         <div className="container">
-          <div className="mb-8 flex items-center justify-between">
-            <div className="flex items-center gap-3">
-              <div className="h-8 w-1 rounded-full bg-primary" />
-              <h2 className="text-3xl font-pixel text-foreground">浏览汉化包</h2>
+          <div className="mb-6 sm:mb-8 flex items-center justify-between">
+            <div className="flex items-center gap-2 sm:gap-3">
+              <div className="h-6 sm:h-8 w-1 rounded-full bg-primary" />
+              <h2 className="text-2xl sm:text-3xl font-pixel text-foreground">浏览汉化包</h2>
             </div>
             <Button asChild variant="ghost" className="group gap-1 font-pixel text-muted-foreground transition-colors hover:text-primary">
               <Link href="/market">
@@ -144,7 +144,7 @@ export default async function Home() {
             </Button>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-6">
             {recentPacks.map((pack) => (
               <TranslationPackCard key={pack.id} pack={pack} />
             ))}
@@ -153,10 +153,10 @@ export default async function Home() {
       </section>
 
       {/* ───── Supporters Section ───── */}
-      <section className="py-20 md:py-24">
+      <section className="py-12 sm:py-20 md:py-24">
         <div className="container text-center">
           <div className="mx-auto mb-3 h-1 w-10 rounded-full bg-primary" />
-          <h2 className="text-3xl font-pixel mb-4">我们的支持者</h2>
+          <h2 className="text-2xl sm:text-3xl font-pixel mb-4">我们的支持者</h2>
           <p className="mx-auto mb-12 max-w-2xl text-muted-foreground leading-relaxed">
             非常感谢这些出色的支持者，他们向为爱发电的翻译者们提供了无限的动力！情谊如灯，照亮彼此前行的路，这正是支持的真谛所在。感谢你们！！！
           </p>
@@ -167,7 +167,7 @@ export default async function Home() {
               <Heart className="h-5 w-5 text-primary" />
               Community Supporters
             </h3>
-            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-5 md:grid-cols-3">
+            <div className="mx-auto grid max-w-4xl grid-cols-1 gap-3 sm:gap-5 md:grid-cols-3">
               {topDonors.map((donor) => (
                 <div
                   key={donor.id}
@@ -221,7 +221,7 @@ export default async function Home() {
       </section>
 
       {/* ───── CTA Section ───── */}
-      <section className="relative overflow-hidden py-20 md:py-24">
+      <section className="relative overflow-hidden py-12 sm:py-20 md:py-24">
         <div className="absolute inset-0 bg-primary/5" />
         <div className="absolute left-[5%] top-[30%] h-32 w-32 rounded-full bg-primary/5 blur-3xl" />
         <div className="absolute right-[10%] bottom-[20%] h-24 w-24 rounded-full bg-secondary/5 blur-3xl" />
