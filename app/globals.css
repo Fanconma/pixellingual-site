@@ -371,3 +371,32 @@
 .menu-item-animate-delay-5 {
   animation-delay: 0.25s;
 }
+
+/* ================================================
+   Reduced Motion - Toggle or System Preference
+   ================================================ */
+
+/* When user toggles reduce-motion via our component */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Also respect system-level prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .animate-slide-up,
+  .animate-fade-in,
+  .animate-float,
+  .animate-float-delayed,
+  .animate-dlc-glow,
+  .animate-pulse-slow,
+  .animate-glitch {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

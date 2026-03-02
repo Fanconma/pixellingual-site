@@ -242,50 +242,51 @@ export default function TranslationPackDetailClient({
 
               {/* Stats Grid */}
               <div
-                className="animate-slide-up grid grid-cols-2 gap-3"
+                className="animate-slide-up grid grid-cols-2 gap-2 sm:gap-3"
                 style={{ animationDelay: "0.2s" }}
               >
                 {/* Rating */}
-                <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm transition-colors duration-200 hover:border-primary/20">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-yellow-500/10">
-                    <Star className="h-4 w-4 text-yellow-500" />
+                <div className="flex items-center gap-2 sm:gap-3 rounded-xl border border-border/40 bg-card/60 p-2.5 sm:p-3 backdrop-blur-sm transition-colors duration-200 hover:border-primary/20">
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center rounded-lg bg-yellow-500/10">
+                    <Star className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-yellow-500" />
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">评分</p>
-                    <div className="flex items-center gap-1.5">
-                      <StarRating rate={pack.rating} />
-                      <span className="font-pixel text-sm">
+                  <div className="min-w-0 overflow-hidden">
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">评分</p>
+                    <div className="flex items-center gap-1">
+                      <span className="hidden sm:inline-flex"><StarRating rate={pack.rating} /></span>
+                      <span className="font-pixel text-xs sm:text-sm">
                         {pack.rating.toFixed(1)}
                       </span>
+                      <span className="inline sm:hidden text-yellow-400 text-[10px]">&#9733;</span>
                     </div>
                   </div>
                 </div>
 
                 {/* Updated */}
-                <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm transition-colors duration-200 hover:border-primary/20">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500/10">
-                    <Calendar className="h-4 w-4 text-blue-500" />
+                <div className="flex items-center gap-2 sm:gap-3 rounded-xl border border-border/40 bg-card/60 p-2.5 sm:p-3 backdrop-blur-sm transition-colors duration-200 hover:border-primary/20">
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center rounded-lg bg-blue-500/10">
+                    <Calendar className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-blue-500" />
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">更新时间</p>
-                    <p className="font-pixel text-sm">
+                  <div className="min-w-0 overflow-hidden">
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">更新时间</p>
+                    <p className="font-pixel text-[10px] sm:text-sm truncate">
                       {formatDate(pack.updatedAt)}
                     </p>
                   </div>
                 </div>
 
                 {/* Languages */}
-                <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm transition-colors duration-200 hover:border-primary/20">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                    <Globe className="h-4 w-4 text-primary" />
+                <div className="flex items-center gap-2 sm:gap-3 rounded-xl border border-border/40 bg-card/60 p-2.5 sm:p-3 backdrop-blur-sm transition-colors duration-200 hover:border-primary/20">
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                    <Globe className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-primary" />
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">翻译语言</p>
-                    <div className="flex flex-wrap gap-1">
+                  <div className="min-w-0 overflow-hidden">
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">翻译语言</p>
+                    <div className="flex flex-wrap gap-0.5 sm:gap-1">
                       {pack.languages.map((lang) => (
                         <span
                           key={lang}
-                          className="rounded bg-muted/80 px-1.5 py-0.5 text-xs"
+                          className="rounded bg-muted/80 px-1 sm:px-1.5 py-0.5 text-[10px] sm:text-xs truncate"
                         >
                           {getLanguageDisplayName(lang)}
                         </span>
@@ -295,15 +296,15 @@ export default function TranslationPackDetailClient({
                 </div>
 
                 {/* Price */}
-                <div className="flex items-center gap-3 rounded-xl border border-border/40 bg-card/60 p-3 backdrop-blur-sm transition-colors duration-200 hover:border-primary/20">
-                  <div className="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
-                    <Package className="h-4 w-4 text-emerald-500" />
+                <div className="flex items-center gap-2 sm:gap-3 rounded-xl border border-border/40 bg-card/60 p-2.5 sm:p-3 backdrop-blur-sm transition-colors duration-200 hover:border-primary/20">
+                  <div className="flex h-8 w-8 sm:h-9 sm:w-9 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-500/10">
+                    <Package className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-emerald-500" />
                   </div>
-                  <div>
-                    <p className="text-xs text-muted-foreground">地图价格</p>
+                  <div className="min-w-0 overflow-hidden">
+                    <p className="text-[10px] sm:text-xs text-muted-foreground">地图价格</p>
                     <span
                       className={cn(
-                        "inline-block rounded-md px-2 py-0.5 font-pixel text-sm font-bold",
+                        "inline-block rounded-md px-1.5 sm:px-2 py-0.5 font-pixel text-[10px] sm:text-sm font-bold",
                         pack.price === 0
                           ? "bg-primary/15 text-primary"
                           : "bg-yellow-500/15 text-yellow-400"
@@ -315,22 +316,21 @@ export default function TranslationPackDetailClient({
                 </div>
               </div>
 
-              {/* Action Buttons */}
+              {/* Action Buttons - single row on all screen sizes */}
               <div
-                className="animate-slide-up flex flex-col gap-3 sm:flex-row"
+                className="animate-slide-up flex flex-row items-stretch gap-2 sm:gap-3"
                 style={{ animationDelay: "0.25s" }}
               >
                 <Button
-                  className="group flex-1 justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-pixel text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_24px_rgba(93,156,66,0.3)]"
+                  className="group flex-1 justify-center gap-2 rounded-xl bg-primary px-4 sm:px-6 py-3 font-pixel text-sm sm:text-base text-primary-foreground shadow-lg transition-all duration-300 motion-reduce:transition-none hover:bg-primary/90 hover:shadow-[0_0_24px_rgba(93,156,66,0.3)]"
                   onClick={handleDownloadClick}
                 >
-                  <Download className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
+                  <Download className="h-4 w-4 transition-transform duration-300 motion-reduce:transition-none group-hover:-translate-y-0.5" />
                   下载翻译包
                 </Button>
                 <Button
                   variant="outline"
-                  size="icon"
-                  className="h-11 w-11 rounded-xl border-border/50 backdrop-blur-sm transition-all duration-200 hover:border-primary/30 hover:bg-primary/5"
+                  className="h-auto w-11 flex-shrink-0 rounded-xl border-border/50 backdrop-blur-sm transition-all duration-200 motion-reduce:transition-none hover:border-primary/30 hover:bg-primary/5"
                   onClick={handleShare}
                 >
                   <Share2 className="h-4 w-4" />
@@ -497,19 +497,19 @@ export default function TranslationPackDetailClient({
                           <Button
                             variant="outline"
                             size="icon"
-                            className="absolute left-3 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full border-border/30 bg-background/70 opacity-0 backdrop-blur-md transition-all duration-300 hover:bg-background/90 hover:border-primary/30 group-hover:opacity-100"
+                            className="absolute left-2 sm:left-3 top-1/2 z-10 h-8 w-8 sm:h-10 sm:w-10 -translate-y-1/2 rounded-full border-border/30 bg-background/70 opacity-80 sm:opacity-0 backdrop-blur-md transition-all duration-300 motion-reduce:transition-none hover:bg-background/90 hover:border-primary/30 group-hover:opacity-100"
                             onClick={prevScreenshot}
                           >
-                            <ChevronLeft className="h-5 w-5" />
+                            <ChevronLeft className="h-4 w-4 sm:h-5 sm:w-5" />
                           </Button>
 
                           <Button
                             variant="outline"
                             size="icon"
-                            className="absolute right-3 top-1/2 z-10 h-10 w-10 -translate-y-1/2 rounded-full border-border/30 bg-background/70 opacity-0 backdrop-blur-md transition-all duration-300 hover:bg-background/90 hover:border-primary/30 group-hover:opacity-100"
+                            className="absolute right-2 sm:right-3 top-1/2 z-10 h-8 w-8 sm:h-10 sm:w-10 -translate-y-1/2 rounded-full border-border/30 bg-background/70 opacity-80 sm:opacity-0 backdrop-blur-md transition-all duration-300 motion-reduce:transition-none hover:bg-background/90 hover:border-primary/30 group-hover:opacity-100"
                             onClick={nextScreenshot}
                           >
-                            <ChevronRight className="h-5 w-5" />
+                            <ChevronRight className="h-4 w-4 sm:h-5 sm:w-5" />
                           </Button>
                         </>
                       )}
@@ -689,13 +689,13 @@ export default function TranslationPackDetailClient({
 
       {/* Comments */}
       <section
-        className="animate-slide-up py-8"
+        className="animate-slide-up py-6 sm:py-8"
         style={{ animationDelay: "0.5s" }}
       >
         <div className="container">
           <SectionHeader>评论</SectionHeader>
           {mounted && (
-            <div className="rounded-xl border border-border/40 bg-card/60 p-6 backdrop-blur-sm">
+            <div className="rounded-xl border border-border/40 bg-card/60 p-3 sm:p-6 backdrop-blur-sm [&_.wl-cards]:space-y-3 sm:[&_.wl-cards]:space-y-4 [&_.wl-card]:p-2 sm:[&_.wl-card]:p-4">
               <WalineComments
                 serverURL="https://comment.pling.top/"
                 path={pack.id}
