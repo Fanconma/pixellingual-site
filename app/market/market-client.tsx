@@ -152,7 +152,7 @@ export default function MarketClient({
                 setClientLoadedAllPacks(data); // 加载 ALL_PACKS 数据
               } catch (error) {
                 console.error("Error fetching ALL_PACKS:", error);
-                // 可以添加用户友好的错误消息
+                // 可以添加用户友好��错误消息
               } finally {
                 setIsLoadingClientAllPacks(false);
               }
@@ -262,7 +262,7 @@ export default function MarketClient({
   return (
     <div className="min-h-screen pb-20">
       {/* Hero Section */}
-      <section className="relative py-12 md:py-20 overflow-hidden">
+      <section className="relative py-8 sm:py-12 md:py-20 overflow-hidden">
         <div className="absolute inset-0 z-0">
           <Image
             src="/images/market.jpeg"
@@ -276,7 +276,7 @@ export default function MarketClient({
         </div>
         <div className="container relative z-10">
           <div className="max-w-3xl mx-auto text-center space-y-6">
-            <h1 className="text-3xl md:text-4xl lg:text-5xl font-pixel tracking-tight animate-fade-in">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-pixel tracking-tight animate-fade-in">
               MARKETPLACE<br /> <span className="text-primary">TRANSLATION</span>
             </h1>
             <p className="text-lg text-muted-foreground animate-fade-in animate-delay-100">
@@ -301,7 +301,7 @@ export default function MarketClient({
               <ChevronRight className="h-5 w-5 text-primary" />
             </div>
 
-            <div className="overflow-hidden" ref={emblaRef}>
+            <div className="overflow-hidden rounded-xl" ref={emblaRef}>
               <div className="flex">
                 {featuredPacks.map((pack, index) => {
                   const studio = STUDIOS.find((s) => s.id === pack.studio);
@@ -313,18 +313,19 @@ export default function MarketClient({
                     <div
                       key={pack.id}
                       className={cn(
-                        "flex-[0_0_85%] min-w-0 px-2 md:flex-[0_0_55%] lg:flex-[0_0_50%]",
-                        "transition-all duration-500 ease-out",
+                        "flex-[0_0_92%] min-w-0 px-1.5 sm:flex-[0_0_85%] sm:px-2 md:flex-[0_0_55%] lg:flex-[0_0_50%]",
+                        "transition-all duration-500 ease-out motion-reduce:transition-none",
                         isActive
                           ? "scale-100 opacity-100"
-                          : "scale-[0.92] opacity-60",
+                          : "scale-[0.95] sm:scale-[0.92] opacity-50 sm:opacity-60",
                       )}
                     >
                       <Link href={`/market/${pack.id}`} className="block group">
                         <div
                           className={cn(
-                            "relative aspect-video overflow-hidden rounded-xl",
-                            "transition-all duration-500 ease-out",
+                            "relative overflow-hidden rounded-xl",
+                            "aspect-[16/10] sm:aspect-video",
+                            "transition-all duration-500 ease-out motion-reduce:transition-none",
                             "border border-transparent",
                             isActive
                               ? "shadow-[0_8px_40px_rgba(0,0,0,0.4)] border-primary/20"
@@ -336,21 +337,21 @@ export default function MarketClient({
                             src={pack.image || "/placeholder.svg"}
                             alt={pack.title}
                             fill
-                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                            className="object-cover transition-transform duration-500 motion-reduce:transition-none group-hover:scale-105"
                             loading="lazy"
-                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            sizes="(max-width: 768px) 92vw, (max-width: 1200px) 55vw, 50vw"
                           />
-                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-transparent" />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
 
                           {/* DLC badge with hover glow */}
                           {pack.isDLC && (
                             <div
                               className={cn(
-                                "absolute top-3 left-3 z-20 font-pixel text-xs sm:text-sm font-bold",
-                                "px-3 py-1.5 rounded-md backdrop-blur-sm",
+                                "absolute top-2 left-2 sm:top-3 sm:left-3 z-20 font-pixel text-[10px] sm:text-xs font-bold",
+                                "px-2 py-1 sm:px-3 sm:py-1.5 rounded-md backdrop-blur-sm",
                                 "bg-purple-600/90 text-white",
                                 "shadow-lg shadow-purple-900/30",
-                                "transition-all duration-500 ease-out",
+                                "transition-all duration-500 ease-out motion-reduce:transition-none motion-reduce:animate-none",
                                 "animate-dlc-glow",
                                 "group-hover:shadow-[0_0_20px_rgba(147,51,234,0.7),_0_0_40px_rgba(147,51,234,0.3)]",
                                 "group-hover:bg-purple-500/95 group-hover:scale-110",
@@ -364,10 +365,10 @@ export default function MarketClient({
                           {isNew ? (
                             <div
                               className={cn(
-                                "absolute top-3 right-3 z-20 font-pixel text-xs sm:text-sm font-bold",
-                                "px-3 py-1.5 rounded-md backdrop-blur-sm",
+                                "absolute top-2 right-2 sm:top-3 sm:right-3 z-20 font-pixel text-[10px] sm:text-xs font-bold",
+                                "px-2 py-1 sm:px-3 sm:py-1.5 rounded-md backdrop-blur-sm",
                                 "bg-red-500/90 text-white shadow-lg shadow-red-900/30",
-                                "transition-transform duration-300 group-hover:scale-110",
+                                "transition-transform duration-300 motion-reduce:transition-none group-hover:scale-110",
                               )}
                             >
                               NEW
@@ -376,8 +377,8 @@ export default function MarketClient({
                             isUpdated && (
                               <div
                                 className={cn(
-                                  "absolute top-3 right-3 z-20 font-pixel text-xs sm:text-sm font-bold",
-                                  "px-3 py-1.5 rounded-md backdrop-blur-sm",
+                                  "absolute top-2 right-2 sm:top-3 sm:right-3 z-20 font-pixel text-[10px] sm:text-xs font-bold",
+                                  "px-2 py-1 sm:px-3 sm:py-1.5 rounded-md backdrop-blur-sm",
                                   "bg-blue-500/90 text-white shadow-lg shadow-blue-900/30",
                                 )}
                               >
@@ -387,14 +388,14 @@ export default function MarketClient({
                           )}
 
                           {/* Bottom info overlay */}
-                          <div className="absolute bottom-0 inset-x-0 p-5">
-                            <h3 className="font-pixel text-lg md:text-xl text-white mb-1.5 line-clamp-1">{pack.title}</h3>
-                            <p className="text-sm text-white/70 line-clamp-2 mb-2">{pack.description}</p>
-                            <div className="flex items-center gap-4">
-                              <span className="text-xs text-white/50">{studioName}</span>
+                          <div className="absolute bottom-0 inset-x-0 p-3 sm:p-5">
+                            <h3 className="font-pixel text-sm sm:text-lg md:text-xl text-white mb-1 sm:mb-1.5 line-clamp-1">{pack.title}</h3>
+                            <p className="hidden sm:block text-sm text-white/70 line-clamp-2 mb-2">{pack.description}</p>
+                            <div className="flex items-center gap-3 sm:gap-4">
+                              <span className="text-[10px] sm:text-xs text-white/50 truncate max-w-[120px]">{studioName}</span>
                               <span
                                 className={cn(
-                                  "font-pixel text-xs font-bold rounded-md px-2 py-0.5",
+                                  "font-pixel text-[10px] sm:text-xs font-bold rounded-md px-1.5 sm:px-2 py-0.5",
                                   pack.price === 0
                                     ? "bg-primary/20 text-primary"
                                     : "bg-yellow-500/20 text-yellow-400",
@@ -413,16 +414,16 @@ export default function MarketClient({
             </div>
 
             {/* Carousel dot indicators */}
-            <div className="flex justify-center gap-2 mt-5">
+            <div className="flex justify-center gap-2 mt-4 sm:mt-5">
               {featuredPacks.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => emblaApi?.scrollTo(index)}
                   className={cn(
-                    "h-1.5 rounded-full transition-all duration-300",
+                    "h-2 sm:h-1.5 rounded-full transition-all duration-300",
                     index === selectedIndex
                       ? "w-8 bg-primary"
-                      : "w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50",
+                      : "w-2 sm:w-1.5 bg-muted-foreground/30 hover:bg-muted-foreground/50",
                   )}
                   aria-label={`Go to slide ${index + 1}`}
                 />
@@ -444,7 +445,7 @@ export default function MarketClient({
               </h2>
             </div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2 sm:gap-3">
               {tags.map((tag) => ( // 使用 props.tags
                 <TagCard key={tag} tag={tag} isSelected={selectedTag?.toLowerCase() === tag.toLowerCase()} />
               ))}
@@ -465,7 +466,7 @@ export default function MarketClient({
               </h2>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-2.5 sm:gap-4">
               {studios.map((studio) => ( // 使用 props.studios
                 <StudioCard key={studio.id} studio={studio} />
               ))}
@@ -490,8 +491,8 @@ export default function MarketClient({
                   viewAllHref={`/market/section/${section.id}`}
                 >
                   {section.packs.slice(0, 10).map((pack) => (
-                    <div key={pack.id} className="w-80">
-                      <TranslationPackCard pack={pack} size="large" />
+                    <div key={pack.id} className="w-44 sm:w-64 md:w-72 lg:w-80">
+                      <TranslationPackCard pack={pack} />
                     </div>
                   ))}
                 </HorizontalScrollSection>
@@ -511,8 +512,8 @@ export default function MarketClient({
               </h2>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {recentPacks.map((pack) => ( // 使用 props.recentPacks
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+              {recentPacks.map((pack) => (
                 <TranslationPackCard key={pack.id} pack={pack} />
               ))}
             </div>
@@ -531,15 +532,15 @@ export default function MarketClient({
 
           {/* 根据加载状态和是否存在搜索/标签，显示骨架屏或实际内容 */}
           {isLoadingClientAllPacks && !isSearching && !selectedTag ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
               {[...Array(INITIAL_VISIBLE_PACKS)].map((_, i) => (
-                <div key={i} className="minecraft-card animate-pulse h-64"></div>
+                <div key={i} className="rounded-lg sm:rounded-xl bg-card/50 animate-shimmer h-48 sm:h-64"></div>
               ))}
             </div>
           ) : (
             <>
               {filteredPacks.length > 0 ? (
-                <div ref={packListRef} className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                <div ref={packListRef} className="grid grid-cols-2 gap-2.5 sm:gap-4 md:grid-cols-3 lg:grid-cols-4 lg:gap-6">
                   {filteredPacks.slice(0, visiblePacks).map((pack) => (
                     <TranslationPackCard key={pack.id} pack={pack} />
                   ))}

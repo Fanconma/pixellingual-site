@@ -294,6 +294,50 @@
   animation: float 8s ease-in-out 2s infinite;
 }
 
+/* Staggered card entrance */
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.animate-card-enter {
+  animation: cardEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  opacity: 0;
+}
+
+/* Interactive hover pop */
+@keyframes hoverPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1.01); }
+}
+
+.animate-hover-pop:hover {
+  animation: hoverPop 0.3s ease-out;
+}
+
+/* Shimmer loading skeleton */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, transparent 25%, hsl(var(--muted)) 50%, transparent 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
+}
+
 /* DLC badge subtle pulsing glow */
 @keyframes dlcGlow {
   0%, 100% {
@@ -370,4 +414,79 @@
 
 .menu-item-animate-delay-5 {
   animation-delay: 0.25s;
+}
+
+/* ================================================
+   3-Level Motion System
+   ================================================
+   .motion-full    -> everything enabled (default)
+   .motion-reduced -> simplified transitions, no looping/decorative anims
+   .motion-off     -> nothing moves
+   ================================================ */
+
+/* --- REDUCED: keep simple transitions, kill loops & decorative --- */
+.motion-reduced .animate-float,
+.motion-reduced .animate-float-delayed,
+.motion-reduced .animate-dlc-glow,
+.motion-reduced .animate-pulse-slow,
+.motion-reduced .animate-pulse,
+.motion-reduced .animate-glitch {
+  animation: none !important;
+}
+
+/* Entrance animations still play but faster */
+.motion-reduced .animate-slide-up {
+  animation-duration: 0.25s !important;
+}
+.motion-reduced .animate-fade-in {
+  animation-duration: 0.2s !important;
+}
+
+/* Cap hover transition durations */
+.motion-reduced * {
+  transition-duration: 0.15s !important;
+}
+
+/* --- OFF: kill everything --- */
+.motion-off *,
+.motion-off *::before,
+.motion-off *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Make slide-up elements immediately visible when off */
+.motion-off .animate-slide-up,
+.motion-off .animate-fade-in {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Legacy class support (backward compat) */
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.001ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001ms !important;
+  scroll-behavior: auto !important;
+}
+
+/* Respect system-level prefers-reduced-motion as "reduced" baseline */
+@media (prefers-reduced-motion: reduce) {
+  .animate-float,
+  .animate-float-delayed,
+  .animate-dlc-glow,
+  .animate-pulse-slow,
+  .animate-glitch {
+    animation: none !important;
+  }
+  .animate-slide-up {
+    animation-duration: 0.25s !important;
+  }
+  .animate-fade-in {
+    animation-duration: 0.2s !important;
+  }
 }

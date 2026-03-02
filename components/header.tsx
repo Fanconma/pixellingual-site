@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils"
 import { usePathname } from "next/navigation"
 import SearchDialog from "@/components/search-dialog"
 import ThemeToggle from "@/components/theme-toggle"
+import MotionToggle from "@/components/motion-toggle"
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
@@ -44,7 +45,8 @@ export default function Header() {
           ))}
         </nav>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2 sm:gap-4">
+          <MotionToggle />
           <ThemeToggle />
           <SearchDialog />
 

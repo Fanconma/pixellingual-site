@@ -23,7 +23,7 @@ const TranslationPackCard = memo(function TranslationPackCard({
   const studioName = studio ? studio.name : "未知工作室"
 
   const badgeBaseClasses =
-    "absolute z-20 font-pixel text-[10px] sm:text-xs font-bold px-2.5 py-1 rounded-md backdrop-blur-sm"
+    "absolute z-20 font-pixel text-[10px] sm:text-xs font-bold px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-md backdrop-blur-sm"
 
   return (
     <Link
@@ -32,11 +32,11 @@ const TranslationPackCard = memo(function TranslationPackCard({
     >
       <div
         className={cn(
-          "relative flex h-full flex-col overflow-hidden rounded-xl",
+          "relative flex h-full flex-col overflow-hidden rounded-lg sm:rounded-xl",
           "border bg-card/70 backdrop-blur-sm",
           "transition-all duration-300 ease-out",
           "shadow-sm",
-          "group-hover:-translate-y-1.5",
+          "group-hover:-translate-y-1 sm:group-hover:-translate-y-1.5",
           "group-hover:shadow-[0_8px_30px_rgba(0,0,0,0.3),_0_0_20px_rgba(93,156,66,0.1)]",
           "group-hover:border-primary/30",
           pack.isFeatured
@@ -48,7 +48,7 @@ const TranslationPackCard = memo(function TranslationPackCard({
                 "group-hover:border-yellow-400/80",
               ]
             : "border-border/40",
-          size === "large" ? "w-80" : "w-full",
+          size === "large" ? "w-full" : "w-full",
         )}
       >
         {/* Featured top accent line */}
@@ -78,7 +78,7 @@ const TranslationPackCard = memo(function TranslationPackCard({
             <div
               className={cn(
                 badgeBaseClasses,
-                "top-2.5 left-2.5",
+                "top-1.5 left-1.5 sm:top-2.5 sm:left-2.5",
                 "bg-purple-600/90 text-white shadow-lg shadow-purple-900/30",
                 "transition-all duration-500 ease-out",
                 "group-hover:shadow-[0_0_16px_rgba(147,51,234,0.6),_0_0_32px_rgba(147,51,234,0.3)]",
@@ -95,7 +95,7 @@ const TranslationPackCard = memo(function TranslationPackCard({
             <div
               className={cn(
                 badgeBaseClasses,
-                "top-2.5 right-2.5",
+                "top-1.5 right-1.5 sm:top-2.5 sm:right-2.5",
                 "bg-red-500/90 text-white shadow-lg shadow-red-900/30",
               )}
             >
@@ -106,7 +106,7 @@ const TranslationPackCard = memo(function TranslationPackCard({
               <div
                 className={cn(
                   badgeBaseClasses,
-                  "top-2.5 right-2.5",
+                  "top-1.5 right-1.5 sm:top-2.5 sm:right-2.5",
                   "bg-blue-500/90 text-white shadow-lg shadow-blue-900/30",
                 )}
               >
@@ -117,8 +117,8 @@ const TranslationPackCard = memo(function TranslationPackCard({
 
           {/* Featured ribbon */}
           {pack.isFeatured && (
-            <div className="absolute bottom-2.5 left-2.5 flex items-center gap-1 rounded-md bg-yellow-500/90 px-2 py-0.5 font-pixel text-[10px] font-bold text-yellow-950 shadow-lg backdrop-blur-sm transition-shadow duration-300 group-hover:shadow-[0_0_12px_rgba(234,179,8,0.5)]">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-3 w-3" viewBox="0 0 20 20" fill="currentColor">
+            <div className="absolute bottom-1.5 left-1.5 sm:bottom-2.5 sm:left-2.5 flex items-center gap-1 rounded-md bg-yellow-500/90 px-1.5 sm:px-2 py-0.5 font-pixel text-[8px] sm:text-[10px] font-bold text-yellow-950 shadow-lg backdrop-blur-sm transition-shadow duration-300 group-hover:shadow-[0_0_12px_rgba(234,179,8,0.5)]">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-2.5 w-2.5 sm:h-3 sm:w-3" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
               </svg>
               FEATURED
@@ -127,22 +127,23 @@ const TranslationPackCard = memo(function TranslationPackCard({
         </div>
 
         {/* Info Panel */}
-        <div className="flex flex-grow flex-col justify-between gap-2 p-3.5">
-          <h3 className="font-pixel text-base leading-snug text-foreground line-clamp-2 transition-colors duration-300 group-hover:text-primary">
+        <div className="flex flex-grow flex-col justify-between gap-1.5 sm:gap-2 p-2.5 sm:p-3.5">
+          <h3 className="font-pixel text-xs sm:text-base leading-snug text-foreground line-clamp-2 transition-colors duration-300 group-hover:text-primary">
             {pack.title}
           </h3>
-          <div className="flex items-center justify-between gap-2">
+          <div className="flex items-center justify-between gap-1 sm:gap-2">
             <span
-              className="truncate font-pixel text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70"
+              className="hidden sm:inline truncate font-pixel text-xs text-muted-foreground transition-colors duration-300 group-hover:text-foreground/70"
               title={studioName}
             >
               {studioName}
             </span>
-            <div className="flex flex-shrink-0 items-center gap-1.5">
-              <StarRating rate={pack.rating} />
+            <div className="flex w-full sm:w-auto flex-shrink-0 items-center justify-between sm:justify-end gap-1 sm:gap-1.5">
+              <span className="hidden sm:inline-flex"><StarRating rate={pack.rating} /></span>
+              <span className="inline sm:hidden text-yellow-400 text-[10px]">{pack.rating.toFixed(1)} &#9733;</span>
               <span
                 className={cn(
-                  "font-pixel text-xs font-bold rounded-md px-2 py-0.5",
+                  "font-pixel text-[10px] sm:text-xs font-bold rounded-md px-1.5 sm:px-2 py-0.5",
                   pack.price === 0
                     ? "bg-primary/15 text-primary"
                     : "bg-yellow-500/15 text-yellow-400",
