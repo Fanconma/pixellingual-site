@@ -351,6 +351,92 @@
 .animate-dlc-glow {
   animation: dlcGlow 3s ease-in-out infinite;
 }
+
+/* ================================================
+   Event Theme System Styles
+   ================================================ */
+
+/* Theme button pulse animation */
+@keyframes themePulse {
+  0%, 100% {
+    box-shadow: 0 0 15px var(--event-glow-color, rgba(212, 175, 55, 0.3));
+  }
+  50% {
+    box-shadow: 0 0 25px var(--event-glow-color, rgba(212, 175, 55, 0.5)), 0 0 35px var(--event-glow-color, rgba(212, 175, 55, 0.2));
+  }
+}
+
+.animate-theme-pulse {
+  animation: themePulse 2s ease-in-out infinite;
+}
+
+/* Title shimmer effect */
+@keyframes titleShimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.animate-title-shimmer {
+  background: linear-gradient(
+    90deg,
+    currentColor 0%,
+    var(--event-glow-color, rgba(212, 175, 55, 1)) 50%,
+    currentColor 100%
+  );
+  background-size: 200% auto;
+  background-clip: text;
+  -webkit-background-clip: text;
+  animation: titleShimmer 3s linear infinite;
+}
+
+/* Gradient border animation */
+@keyframes gradientBorder {
+  0%, 100% {
+    border-color: var(--event-border-color, hsl(var(--primary)));
+  }
+  50% {
+    border-color: var(--event-glow-color, hsl(var(--accent)));
+  }
+}
+
+.animate-gradient-border {
+  animation: gradientBorder 3s ease-in-out infinite;
+}
+
+/* Event theme glow effect for cards */
+.event-card-glow {
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.event-card-glow:hover {
+  box-shadow: 0 0 20px var(--event-glow-color, rgba(93, 156, 66, 0.3));
+}
+
+/* Event theme border styles */
+.event-border-solid {
+  border: 2px solid var(--event-border-color, hsl(var(--border)));
+}
+
+.event-border-gradient {
+  border: 2px solid transparent;
+  background: linear-gradient(var(--background), var(--background)) padding-box,
+    linear-gradient(135deg, var(--event-border-color, hsl(var(--primary))), var(--event-glow-color, hsl(var(--accent)))) border-box;
+}
+
+.event-border-animated {
+  border: 2px solid var(--event-border-color, hsl(var(--primary)));
+  animation: gradientBorder 3s ease-in-out infinite;
+}
+
+.event-border-glow {
+  border: 2px solid var(--event-border-color, hsl(var(--primary)));
+  box-shadow: 0 0 10px var(--event-glow-color, rgba(93, 156, 66, 0.2)),
+    inset 0 0 10px var(--event-glow-color, rgba(93, 156, 66, 0.05));
+}
 /* 500错误页面的故障动画 */
 @keyframes glitch {
   0% {

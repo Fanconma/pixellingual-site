@@ -38,6 +38,15 @@ import StarRating from "@/components/star-rating";
 import { STUDIOS } from "@/data/translation-packs";
 import { useRouter } from "next/navigation";
 import { cn } from "@/lib/utils";
+import {
+  EventThemeProvider,
+  useEventTheme,
+  ThemedBadge,
+  ThemedBanner,
+  ThemedAccentBar,
+  FloatingDecorations,
+} from "@/components/event-theme-provider";
+import { getThemeForPack } from "@/lib/event-themes";
 
 // Format date
 const formatDate = (dateString: string | undefined | null) => {
@@ -55,7 +64,7 @@ const formatDate = (dateString: string | undefined | null) => {
   });
 };
 
-// Section header with accent bar
+// Section header with accent bar (theme-aware)
 function SectionHeader({
   children,
   className,
@@ -63,10 +72,24 @@ function SectionHeader({
   children: React.ReactNode;
   className?: string;
 }) {
+  const { theme, hasTheme } = useEventTheme();
+  
   return (
     <div className={cn("flex items-center gap-3 mb-6", className)}>
-      <div className="h-6 w-1 rounded-full bg-primary" />
-      <h2 className="text-2xl font-pixel text-foreground">{children}</h2>
+      <div 
+        className="h-6 w-1 rounded-full"
+        style={{
+          backgroundColor: hasTheme ? theme?.colors.primary : "hsl(var(--primary))",
+        }}
+      />
+      <h2 
+        className={cn(
+          "text-2xl font-pixel text-foreground",
+          hasTheme && theme?.decorations?.animations?.titleShimmer && "animate-title-shimmer"
+        )}
+      >
+        {children}
+      </h2>
     </div>
   );
 }
@@ -82,12 +105,32 @@ export default function TranslationPackDetailClient({
   initialStudioPacks,
   initialSimilarPacks,
 }: TranslationPackDetailClientProps) {
+  return (
+    <EventThemeProvider pack={initialPack}>
+      <TranslationPackDetailContent
+        initialPack={initialPack}
+        initialStudioPacks={initialStudioPacks}
+        initialSimilarPacks={initialSimilarPacks}
+      />
+    </EventThemeProvider>
+  );
+}
+
+// 内部组件，可以使用 useEventTheme
+function TranslationPackDetailContent({
+  initialPack,
+  initialStudioPacks,
+  initialSimilarPacks,
+}: TranslationPackDetailClientProps) {
   const router = useRouter();
   const [pack] = useState<TranslationPack>(initialPack);
   const [studioPacks] = useState<TranslationPack[]>(initialStudioPacks);
   const [similarPacks] = useState<TranslationPack[]>(initialSimilarPacks);
   const [isDisclaimerOpen, setIsDisclaimerOpen] = useState(false);
   const [currentScreenshot, setCurrentScreenshot] = useState(0);
+  
+  // 获取当前主题
+  const { theme, hasTheme, decorations } = useEventTheme();
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -155,9 +198,19 @@ export default function TranslationPackDetailClient({
 
   const studio = STUDIOS.find((s) => s.id === pack.studio);
   const screenshots = pack.screenshots || [];
+  
+  // 主题相关样式
+  const themeButtonClass = hasTheme && theme?.customClasses?.button;
+  const themeBorderStyle = decorations?.borderStyle;
+  const shouldPulse = decorations?.animations?.buttonPulse;
 
   return (
-    <div className="min-h-screen pb-20">
+    <div className="relative min-h-screen pb-20">
+      {/* 浮动装饰元素 */}
+      {hasTheme && <FloatingDecorations />}
+      
+      {/* 主题横幅 */}
+      <ThemedBanner />
       {/* Hero Section */}
       <section className="relative py-8">
         <div className="container">
@@ -190,7 +243,14 @@ export default function TranslationPackDetailClient({
                     </span>
                   </div>
                 )}
-                {pack.isFeatured && (
+                {/* 主题活动徽章（优先显示） */}
+                {hasTheme && decorations?.badge && (
+                  <div className="absolute right-3 top-3 z-10">
+                    <ThemedBadge useThemeBadgeText />
+                  </div>
+                )}
+                {/* Featured 徽章（仅在没有主题徽章时显示） */}
+                {pack.isFeatured && (!hasTheme || !decorations?.badge) && (
                   <div className="absolute right-3 top-3 z-10">
                     <span className="inline-flex items-center gap-1 rounded-md bg-yellow-500/90 px-2.5 py-1 font-pixel text-xs font-bold text-yellow-950 shadow-lg backdrop-blur-sm">
                       <Star className="h-3 w-3" />
@@ -219,7 +279,18 @@ export default function TranslationPackDetailClient({
               >
                 {pack.tags.map((tag) => (
                   <Link href={`/market/tag/${tag.toLowerCase()}`} key={tag}>
-                    <span className="inline-flex items-center gap-1 rounded-lg border border-primary/20 bg-primary/10 px-3 py-1 font-pixel text-xs text-primary transition-colors duration-200 hover:bg-primary/20">
+                    <span 
+                      className="inline-flex items-center gap-1 rounded-lg border px-3 py-1 font-pixel text-xs transition-colors duration-200"
+                      style={hasTheme ? {
+                        borderColor: `${theme?.colors.primary}33`,
+                        backgroundColor: `${theme?.colors.primary}1A`,
+                        color: theme?.colors.primary,
+                      } : {
+                        borderColor: 'hsl(var(--primary) / 0.2)',
+                        backgroundColor: 'hsl(var(--primary) / 0.1)',
+                        color: 'hsl(var(--primary))',
+                      }}
+                    >
                       <Tag className="h-3 w-3" />
                       {tag}
                     </span>
@@ -322,7 +393,15 @@ export default function TranslationPackDetailClient({
                 style={{ animationDelay: "0.25s" }}
               >
                 <Button
-                  className="group flex-1 justify-center gap-2 rounded-xl bg-primary px-4 sm:px-6 py-3 font-pixel text-sm sm:text-base text-primary-foreground shadow-lg transition-all duration-300 motion-reduce:transition-none hover:bg-primary/90 hover:shadow-[0_0_24px_rgba(93,156,66,0.3)]"
+                  className={cn(
+                    "group flex-1 justify-center gap-2 rounded-xl px-4 sm:px-6 py-3 font-pixel text-sm sm:text-base shadow-lg transition-all duration-300 motion-reduce:transition-none",
+                    themeButtonClass || "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_24px_rgba(93,156,66,0.3)]",
+                    shouldPulse && "animate-theme-pulse"
+                  )}
+                  style={hasTheme && !themeButtonClass ? {
+                    backgroundColor: theme?.colors.primary,
+                    color: theme?.colors.primaryForeground,
+                  } : undefined}
                   onClick={handleDownloadClick}
                 >
                   <Download className="h-4 w-4 transition-transform duration-300 motion-reduce:transition-none group-hover:-translate-y-0.5" />
@@ -636,7 +715,15 @@ export default function TranslationPackDetailClient({
 
                 {/* Download Button */}
                 <Button
-                  className="group w-full justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-pixel text-primary-foreground shadow-lg transition-all duration-300 hover:bg-primary/90 hover:shadow-[0_0_24px_rgba(93,156,66,0.3)]"
+                  className={cn(
+                    "group w-full justify-center gap-2 rounded-xl px-6 py-3 font-pixel shadow-lg transition-all duration-300",
+                    themeButtonClass || "bg-primary text-primary-foreground hover:bg-primary/90 hover:shadow-[0_0_24px_rgba(93,156,66,0.3)]",
+                    shouldPulse && "animate-theme-pulse"
+                  )}
+                  style={hasTheme && !themeButtonClass ? {
+                    backgroundColor: theme?.colors.primary,
+                    color: theme?.colors.primaryForeground,
+                  } : undefined}
                   onClick={handleDownloadClick}
                 >
                   <Download className="h-4 w-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
